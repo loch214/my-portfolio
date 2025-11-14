@@ -260,7 +260,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors group"
               >
                 <FileText size={20} />
-                <span>View Gallery</span>
+                <span>View my arts</span>
                 <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
