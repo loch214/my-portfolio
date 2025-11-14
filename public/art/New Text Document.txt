@@ -1,1 +1,1 @@
-rename the images(jpeg) as piece1, piece2 format and change the personalData.ts file as well
+rename the images(jpeg) as piece1, piece2 format and change the personalData.ts file as well. 3 examples are added already in code. (add correct extension type in the code - jpeg, png)
