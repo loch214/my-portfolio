@@ -1,4 +1,5 @@
 My Personal Portfolio
+
 This repository contains the source code for my personal portfolio website, which you can view live at: lochd-my-portfolio.vercel.app
 This project is a stunning, modern, and interactive personal website built with Next.js, React, TypeScript, Tailwind CSS, and Framer Motion. It was created to showcase my skills and passions, and has been deployed for free using a modern Git-based workflow.
 
