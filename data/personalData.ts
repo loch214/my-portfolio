@@ -41,6 +41,12 @@ export interface PersonalData {
   }[];
 }
 
+export interface ArtPiece {
+  id: number;
+  title: string;
+  imageUrl: string;
+}
+
 export const personalData: PersonalData = {
   name: "Lochana Kavindu Dahanayake",
   title: "Student | Developer | Musician",
@@ -106,4 +112,22 @@ export const personalData: PersonalData = {
     }
   ]
 };
+
+export const artData: ArtPiece[] = [
+  {
+    id: 1,
+    title: "Pencil Sketch on Paper",
+    imageUrl: "/art/piece1.jpeg"
+  },
+  {
+    id: 2,
+    title: "Digital Abstract Art",
+    imageUrl: "/art/piece2.png"
+  },
+  {
+    id: 3,
+    title: "Pastel Landscape",
+    imageUrl: "/art/piece3.jpeg"
+  }
+];
 

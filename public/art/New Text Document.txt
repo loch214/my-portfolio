@@ -1,0 +1,1 @@
+rename the images(jpeg) as piece1, piece2 format and change the personalData.ts file as well

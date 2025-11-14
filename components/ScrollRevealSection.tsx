@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { GraduationCap, Trophy, Music, Palette, FileText, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 import { PersonalData } from '@/data/personalData';
 
 interface ScrollRevealSectionProps {
@@ -253,6 +254,16 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
               ))}
             </div>
             <p className="text-lg md:text-xl text-gray-200 leading-relaxed font-light tracking-wide">{data.art.achievements}</p>
+            <div className="mt-6">
+              <Link
+                href="/gallery"
+                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors group"
+              >
+                <FileText size={20} />
+                <span>View Gallery</span>
+                <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </motion.div>
         </motion.div>
       </section>
