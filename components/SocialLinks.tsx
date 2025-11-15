@@ -62,7 +62,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
           <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
             Let&rsquo;s Connect
           </h2>
-          <p className="text-gray-400 text-lg mt-4">
+          <p className="text-gray-200 text-lg mt-4">
             Find me on these platforms
           </p>
         </motion.div>
@@ -82,7 +82,8 @@ export default function SocialLinks({ links }: SocialLinksProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 variants={itemVariants}
-                className="group relative"
+                aria-label={`Open ${link.platform}`}
+                className="group relative focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-500 rounded-2xl"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -92,7 +93,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
                       className="mx-auto mb-3 text-white group-hover:text-purple-400 transition-colors"
                       size={32}
                     />
-                    <p className="text-sm font-semibold text-gray-300 group-hover:text-white transition-colors">
+                    <p className="text-sm font-semibold text-gray-100 group-hover:text-white transition-colors">
                       {link.platform}
                     </p>
                   </div>

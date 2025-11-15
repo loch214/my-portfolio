@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { GraduationCap, Trophy, Music, Palette, FileText, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
@@ -14,6 +14,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
   const educationRef = useRef<HTMLDivElement>(null);
   const sportsRef = useRef<HTMLDivElement>(null);
   const musicRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const { scrollYProgress: educationProgress } = useScroll({
     target: educationRef,
@@ -45,9 +46,9 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
   return (
     <>
       {/* Education Section */}
-      <section ref={educationRef} className="min-h-[90vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 relative snap-start">
+      <section id="education" ref={educationRef} className="min-h-[90vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 relative snap-start">
         <motion.div
-          style={{ opacity: educationOpacity, y: educationY, scale: educationScale }}
+          style={shouldReduceMotion ? undefined : { opacity: educationOpacity, y: educationY, scale: educationScale }}
           className="max-w-6xl mx-auto w-full"
         >
           <div className="text-center mb-16">
@@ -64,8 +65,8 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
               <motion.div
                 key={index}
                 className="glass rounded-2xl p-6 md:p-8 hover:scale-[1.01] transition-transform"
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={shouldReduceMotion ? undefined : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
               >
@@ -86,7 +87,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                     )}
                   </div>
                 </div>
-                <p className="text-base md:text-lg text-gray-200 leading-relaxed mb-4 font-light tracking-wide">
+                <p className="text-base md:text-lg text-gray-100 leading-relaxed mb-4 font-light tracking-wide">
                   {edu.description}
                 </p>
                 {edu.resultsPdf && (
@@ -108,9 +109,9 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
       </section>
 
       {/* Sports Section */}
-      <section ref={sportsRef} className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-transparent via-[#0f0f1a] to-transparent snap-start">
+      <section id="sports" ref={sportsRef} className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-transparent via-[#0f0f1a] to-transparent snap-start">
         <motion.div
-          style={{ opacity: sportsOpacity, y: sportsY, scale: sportsScale }}
+          style={shouldReduceMotion ? undefined : { opacity: sportsOpacity, y: sportsY, scale: sportsScale }}
           className="max-w-6xl mx-auto w-full"
         >
           <div className="text-center mb-16">
@@ -127,8 +128,8 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
               <motion.div
                 key={index}
                 className="glass rounded-3xl p-8 hover:scale-[1.02] transition-transform group"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={shouldReduceMotion ? undefined : { opacity: 0, y: 50 }}
+                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
               >
@@ -148,7 +149,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                     </div>
                   </div>
                 </div>
-                <p className="text-lg md:text-xl text-gray-200 leading-relaxed font-light tracking-wide">
+                <p className="text-lg md:text-xl text-gray-100 leading-relaxed font-light tracking-wide">
                   {sport.achievements}
                 </p>
               </motion.div>
@@ -158,9 +159,9 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
       </section>
 
       {/* Music & Art Section */}
-      <section ref={musicRef} className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative snap-start">
+      <section id="music-art" ref={musicRef} className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative snap-start">
         <motion.div
-          style={{ opacity: musicOpacity, y: musicY, scale: musicScale }}
+          style={shouldReduceMotion ? undefined : { opacity: musicOpacity, y: musicY, scale: musicScale }}
           className="max-w-6xl mx-auto w-full"
         >
           <div className="text-center mb-16">
@@ -175,19 +176,19 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
           <div className="space-y-8 mb-12">
             <motion.div
               className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed mb-6 font-light tracking-wide">
+              <p className="text-lg md:text-xl text-gray-100 leading-relaxed mb-6 font-light tracking-wide">
                 Music is a constant companion and truly essential to my routine. Whether I am coding, studying, or cooking, it always plays in the background. Even though it may not work for everyone, I find it is the key to helping me focus more deeply and do my best work.
               </p>
             </motion.div>
 
             <motion.div
               className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
@@ -195,13 +196,15 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 <Music className="text-pink-400" size={28} />
                 Instruments
               </h3>
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed mb-6 font-light tracking-wide">{data.music.instruments}</p>
+              <p className="text-lg md:text-xl text-gray-100 leading-relaxed mb-6 font-light tracking-wide">
+                {data.music.instruments.join(', ')}
+              </p>
             </motion.div>
 
             <motion.div
               className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
@@ -209,13 +212,13 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 <Music className="text-pink-400" size={28} />
                 Vocals
               </h3>
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed mb-6 font-light tracking-wide">{data.music.singing}</p>
+              <p className="text-lg md:text-xl text-gray-100 leading-relaxed mb-6 font-light tracking-wide">{data.music.singing}</p>
             </motion.div>
 
             <motion.div
               className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
@@ -223,14 +226,14 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 <Music className="text-pink-400" size={28} />
                 Preferred Genres
               </h3>
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed font-light tracking-wide">{data.music.listening}</p>
+              <p className="text-lg md:text-xl text-gray-100 leading-relaxed font-light tracking-wide">{data.music.listening}</p>
             </motion.div>
           </div>
 
           <motion.div
             className="glass rounded-3xl p-8 md:p-12 hover:scale-[1.02] transition-transform"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
+            whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
@@ -242,10 +245,10 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
               {data.art.mediums.map((medium, index) => (
                 <motion.span
                   key={index}
-                  className="px-6 py-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-full text-lg text-gray-300 hover:text-white hover:scale-110 transition-all cursor-default"
-                  whileHover={{ scale: 1.1 }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  className="px-6 py-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-full text-lg text-gray-100 hover:text-white hover:scale-110 transition-all cursor-default"
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
+                  initial={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.8 }}
+                  whileInView={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
@@ -253,7 +256,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 </motion.span>
               ))}
             </div>
-            <p className="text-lg md:text-xl text-gray-200 leading-relaxed font-light tracking-wide">{data.art.achievements}</p>
+            <p className="text-lg md:text-xl text-gray-100 leading-relaxed font-light tracking-wide">{data.art.achievements}</p>
             <div className="mt-6">
               <Link
                 href="/gallery"

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { GraduationCap, Trophy, Music, X, ExternalLink, FileText } from 'lucide-react';
 import { PersonalData } from '@/data/personalData';
 
@@ -11,6 +11,7 @@ interface InteractiveCardsProps {
 
 export default function InteractiveCards({ data }: InteractiveCardsProps) {
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const cards = [
     {
@@ -20,7 +21,7 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
       color: 'from-purple-500 to-pink-500',
       content: (
         <div className="space-y-4">
-          <p className="text-lg text-gray-300 leading-relaxed">
+          <p className="text-lg text-gray-100 leading-relaxed">
             {data.introduction}
           </p>
         </div>
@@ -34,11 +35,11 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
       content: (
         <div className="space-y-6">
           {data.education.map((edu, index) => (
-            <motion.div
+              <motion.div
               key={index}
               className="glass rounded-xl p-6 hover:scale-[1.02] transition-transform"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={shouldReduceMotion ? undefined : { opacity: 0, y: 20 }}
+              animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
               <div className="flex items-start justify-between mb-3">
@@ -46,10 +47,10 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
                   <h3 className="text-2xl font-bold text-white mb-2">{edu.school}</h3>
                   <p className="text-xl text-purple-300 mb-1">{edu.degree}</p>
                   {edu.stream && (
-                    <p className="text-gray-400 text-sm mb-2">Stream: {edu.stream}</p>
+                    <p className="text-gray-200 text-sm mb-2">Stream: {edu.stream}</p>
                   )}
                   {edu.location && (
-                    <p className="text-gray-400 text-sm mb-2">📍 {edu.location}</p>
+                    <p className="text-gray-200 text-sm mb-2">📍 {edu.location}</p>
                   )}
                 </div>
                 <span className="text-sm text-gray-400 bg-gray-800 px-3 py-1 rounded-full">
@@ -57,7 +58,7 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
                 </span>
               </div>
               {edu.description && (
-                <p className="text-gray-300 leading-relaxed mb-4">{edu.description}</p>
+                <p className="text-gray-100 leading-relaxed mb-4">{edu.description}</p>
               )}
               {edu.resultsPdf && (
                 <a
@@ -84,11 +85,11 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
       content: (
         <div className="space-y-4">
           {data.sports.map((sport, index) => (
-            <motion.div
+              <motion.div
               key={index}
               className="glass rounded-xl p-6 hover:scale-[1.02] transition-transform group"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={shouldReduceMotion ? undefined : { opacity: 0, x: -20 }}
+              animate={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
               transition={{ delay: index * 0.15 }}
             >
               <div className="flex items-center gap-4 mb-3">
@@ -100,11 +101,11 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
                     {sport.name}
                   </h3>
                   {sport.duration && (
-                    <p className="text-sm text-gray-400">Duration: {sport.duration}</p>
+                    <p className="text-sm text-gray-200">Duration: {sport.duration}</p>
                   )}
                 </div>
               </div>
-              <p className="text-gray-300 leading-relaxed pl-16">{sport.achievements}</p>
+              <p className="text-gray-100 leading-relaxed pl-16">{sport.achievements}</p>
             </motion.div>
           ))}
         </div>
@@ -119,8 +120,8 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
         <div className="space-y-6">
           <motion.div
             className="glass rounded-xl p-6 hover:scale-[1.02] transition-transform"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? undefined : { opacity: 0, y: 20 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           >
             <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
               <Music className="text-pink-400" size={24} />
@@ -131,9 +132,9 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
                 <motion.span
                   key={index}
                   className="px-4 py-2 bg-gradient-to-r from-pink-500/20 to-rose-500/20 border border-pink-500/30 rounded-full text-gray-300 hover:text-white hover:scale-110 transition-all cursor-default"
-                  whileHover={{ scale: 1.1 }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
+                  initial={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.8 }}
+                  animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.1 }}
                 >
                   {instrument}
@@ -144,28 +145,28 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
 
           <motion.div
             className="glass rounded-xl p-6 hover:scale-[1.02] transition-transform"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? undefined : { opacity: 0, y: 20 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
             <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
               <Music className="text-pink-400" size={24} />
               Singing
             </h3>
-            <p className="text-gray-300 leading-relaxed">{data.music.singing}</p>
+            <p className="text-gray-100 leading-relaxed">{data.music.singing}</p>
           </motion.div>
 
           <motion.div
             className="glass rounded-xl p-6 hover:scale-[1.02] transition-transform"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? undefined : { opacity: 0, y: 20 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
             <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
               <Music className="text-pink-400" size={24} />
               Music I Listen To
             </h3>
-            <p className="text-gray-300 leading-relaxed">{data.music.listening}</p>
+            <p className="text-gray-100 leading-relaxed">{data.music.listening}</p>
           </motion.div>
         </div>
       )
@@ -177,8 +178,8 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
@@ -196,8 +197,8 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
             return (
               <motion.div
                 key={card.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={shouldReduceMotion ? undefined : { opacity: 0, y: 50 }}
+                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, type: 'spring', stiffness: 100 }}
                 className="group cursor-pointer"
@@ -217,7 +218,7 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
                       >
                         <motion.div
                           className={`p-4 bg-gradient-to-br ${card.color} rounded-xl`}
-                          whileHover={{ rotate: 360 }}
+                          whileHover={shouldReduceMotion ? undefined : { rotate: 360 }}
                           transition={{ duration: 0.6 }}
                         >
                           <Icon className="text-white" size={32} />
@@ -245,16 +246,16 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
             <>
               <motion.div
                 className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={shouldReduceMotion ? undefined : { opacity: 0 }}
+                animate={shouldReduceMotion ? undefined : { opacity: 1 }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0 }}
                 onClick={() => setSelectedCard(null)}
               />
               <motion.div
                 className="fixed inset-4 md:inset-20 z-50 overflow-y-auto"
-                initial={{ opacity: 0, scale: 0.9, y: 50 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 50 }}
+                initial={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.9, y: 50 }}
+                animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.9, y: 50 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               >
                 <div className="max-w-4xl mx-auto glass rounded-2xl p-8 md:p-12 relative">
