@@ -85,7 +85,7 @@ export const personalData: PersonalData = {
     }
   ],
   music: {
-    instruments: ["Organ", "Piano", "Guitar"],
+    instruments: ["Experienced with the organ and guitar. Also have a basic understanding of the piano and violin."],
     singing: "A passion for singing, with a comfortable range in low and mid notes. Current practice is focused on exploring higher pitches to continuously improve vocal technique.",
     listening: "A mix of both Sinhala and English music including soft indie, alternative pop, and pop."
   },
