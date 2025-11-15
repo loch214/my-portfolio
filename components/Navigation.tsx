@@ -4,12 +4,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
-const navItems = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Connect', href: '#connect' },
-];
-
 const sideMenuItems = [
   { name: 'Home', href: '#home' },
   { name: 'About Me', href: '#about' },
@@ -49,8 +43,10 @@ export default function Navigation() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass py-3' : 'py-6'
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+        isScrolled
+          ? 'glass border-white/15 shadow-2xl shadow-purple-500/10 py-3'
+          : 'bg-black/50 backdrop-blur border-white/10 py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,32 +60,15 @@ export default function Navigation() {
             Portfolio
           </motion.a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-500"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.1 }}
-              >
-                {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
-              </motion.a>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
+          {/* Menu Button */}
           <button
-            className="text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-500"
+            className="flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/70 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-500"
             onClick={() => setIsSideMenuOpen(true)}
             aria-label="Open menu"
             aria-expanded={isSideMenuOpen}
           >
-            <Menu size={24} />
+            <Menu size={20} aria-hidden />
+            <span>Menu</span>
           </button>
         </div>
       </div>
@@ -105,7 +84,7 @@ export default function Navigation() {
               onClick={() => setIsSideMenuOpen(false)}
             />
             <motion.aside
-              className="fixed top-0 right-0 h-full w-80 max-w-full glass z-50 flex flex-col"
+              className="fixed top-0 right-0 h-screen w-80 max-w-sm bg-[#070015]/95 backdrop-blur-2xl border-l border-white/15 shadow-[0_0_40px_rgba(120,40,255,0.4)] z-50 flex flex-col"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
