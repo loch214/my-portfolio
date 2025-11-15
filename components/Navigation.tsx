@@ -11,7 +11,6 @@ const sideMenuItems = [
   { name: 'Sports & Achievements', href: '#sports' },
   { name: 'Music & Art', href: '#music-art' },
   { name: 'Clubs & Societies', href: '#clubs' },
-  { name: 'Explore Cards', href: '#explore' },
   { name: 'Connect', href: '#connect' },
   { name: 'Gallery', href: '/gallery' },
 ];
