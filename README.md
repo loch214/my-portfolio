@@ -1,78 +1,42 @@
-# Modern Personal Website
+My Personal Portfolio
 
-A stunning, modern, and interactive personal website built with Next.js, React, TypeScript, Tailwind CSS, and Framer Motion.
+This repository contains the source code for my personal portfolio website, which you can view live at: lochd-my-portfolio.vercel.app
+This project is a stunning, modern, and interactive personal website built with Next.js, React, TypeScript, Tailwind CSS, and Framer Motion. It was created to showcase my skills and passions, and has been deployed for free using a modern Git-based workflow.
 
-## Features
+Tech Stack
+Framework: Next.js 14
+Language: TypeScript
+Styling: Tailwind CSS
+Animations: Framer Motion
+Icons: Lucide React
+Scroll Animations: React Intersection Observer
 
-- 🎨 **Modern Design**: Futuristic UI with glassmorphism effects and gradient animations
-- ✨ **Smooth Animations**: Powered by Framer Motion for fluid interactions
-- 📱 **Fully Responsive**: Works perfectly on all devices
-- 🚀 **Fast Performance**: Built with Next.js 14 for optimal speed
-- 🎯 **Interactive Elements**: Hover effects, scroll animations, and more
+Deployment: From Local to Live for Free
+This website was built locally and deployed to the web using a simple, modern, and completely free workflow.
+1.Code Storage: The entire project was pushed to this GitHub repository.
+2.Hosting Platform: Vercel was connected to the GitHub repository.
+3.Automatic Deployments: Vercel automatically detected that this is a Next.js project. It builds and deploys the site whenever new code is pushed to the main branch.
+This setup ensures that the website is always up-to-date with the latest changes in the code, with no manual upload process required.
 
-## Sections
 
-- **Hero Section**: Eye-catching introduction with animated background
-- **Academic Skills**: Showcase your academic expertise
-- **Education**: Display your educational background
-- **Sports**: Highlight your sports and activities
-- **Other Skills**: Showcase instruments, music, and other interests
-- **Social Links**: Connect via GitHub, LinkedIn, Twitter, Instagram, etc.
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ installed
-- npm or yarn package manager
-
-### Installation
-
-1. Install dependencies:
-```bash
+Getting Started (for developers)
+*Prerequisites
+Node.js 18+ installed
+npm, yarn, or pnpm package manager
+*Installation
+1.Clone the repository and install dependencies:
+git clone https://github.com/loch214/my-portfolio.git
+cd my-portfolio
 npm install
-```
 
-2. Customize your information:
-   - Edit `data/personalData.ts` with your personal details
-   - Update social links, skills, education, etc.
-
-3. Run the development server:
-```bash
+2.Run the development server:
 npm run dev
-```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+3.Open http://localhost:3000 or 3001 in your browser to see the result.
 
-### Build for Production
 
-```bash
-npm run build
-npm start
-```
-
-## Customization
-
-All your personal information is stored in `data/personalData.ts`. Simply edit this file to update:
-
-- Your name and title
-- Bio/description
-- Academic skills
-- Education details
-- Sports and activities
-- Other skills (instruments, music, etc.)
-- Social media links
-
-## Tech Stack
-
-- **Next.js 14**: React framework
-- **TypeScript**: Type safety
-- **Tailwind CSS**: Styling
-- **Framer Motion**: Animations
-- **Lucide React**: Icons
-- **React Intersection Observer**: Scroll animations
-
-## License
-
-This project is open source and available for personal use.
-
+Customization
+All personal information is stored in a central data file, making it easy to customize.
+Main Content: Edit data/personalData.ts to update your name, bio, education, sports, skills, and social media links.
+Art Gallery: To update the gallery, add your image files to the public/art/ directory. Then, edit the artData array in data/personalData.ts to include the correct filenames and titles for your pieces.
