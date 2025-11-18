@@ -36,10 +36,8 @@ npm run dev
 3.Open http://localhost:3000 or 3001 in your browser to see the result.
 
 
-https://lochd-my-portfolio.vercel.app/
-
-
 Customization
 All personal information is stored in a central data file, making it easy to customize.
 Main Content: Edit data/personalData.ts to update your name, bio, education, sports, skills, and social media links.
 Art Gallery: To update the gallery, add your image files to the public/art/ directory. Then, edit the artData array in data/personalData.ts to include the correct filenames and titles for your pieces.
+https://lochd-my-portfolio.vercel.app/
