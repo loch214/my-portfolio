@@ -17,10 +17,10 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
           <h1 className="text-4xl font-bold text-white mb-4">Project Not Found</h1>
           <p className="text-gray-300 mb-8">We couldn&rsquo;t find details for this project. It may have been moved or is not yet published.</p>
           <Link
-            href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-base font-semibold text-white transition hover:border-white hover:bg-white/10"
+            href="/#projects"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
           >
-            ← Back to Home
+            ← Back to Projects
           </Link>
         </div>
       </main>
@@ -32,10 +32,10 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="flex flex-col gap-4">
           <Link
-            href="/"
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-base font-semibold text-white transition hover:border-white hover:bg-white/10"
+            href="/#projects"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
           >
-            ← Back to Home
+            ← Back to Projects
           </Link>
           <h1 className="text-4xl md:text-6xl font-bold gradient-text">{project.title}</h1>
           <p className="text-lg text-gray-200 leading-relaxed max-w-4xl">{project.description}</p>
@@ -50,7 +50,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
           >
             View Source on GitHub →
           </a>

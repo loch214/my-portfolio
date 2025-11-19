@@ -169,8 +169,7 @@ export const projectsData: Project[] = [
     icon: FaChalkboardTeacher,
     githubUrl: "https://github.com/loch214/learn-mate-system",
     media: [
-      { type: 'video', url: 'https://youtube.com/embed/your-video-id', caption: 'Demonstration of the Learn Mate platform for different user roles.' },
-      { type: 'image', url: '/projects/learnmate-1.png', caption: 'The main dashboard for the Learn Mate system.' },
+      { type: 'video', url: 'https://www.youtube.com/embed/B6u5wYHMLtw', caption: 'Full walkthrough showing role-based flows inside Learn Mate.' },
     ]
   },
   {
@@ -193,8 +192,7 @@ export const projectsData: Project[] = [
     icon: FaHeartbeat,
     githubUrl: "https://github.com/loch214/AI-Diabetes-Prediction",
     media: [
-      { type: 'video', url: 'https://youtube.com/embed/your-video-id', caption: 'A walkthrough of the data analysis and model training process.' },
-      { type: 'image', url: '/projects/diabetes-1.png', caption: 'The confusion matrix showing the final model performance.' },
+      { type: 'video', url: 'https://www.youtube.com/embed/UjL3vI7j3Bk', caption: 'Google Colab run-through from dataset upload to live predictions.' },
     ]
   },
   {

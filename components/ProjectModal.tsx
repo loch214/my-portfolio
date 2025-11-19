@@ -69,17 +69,19 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-white hover:bg-white/20"
+              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
             >
               View Source Code
             </a>
-            <Link
-              href={`/projects/${project.id}`}
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/40 transition hover:opacity-90"
-              onClick={onClose}
-            >
-              View Case Study
-            </Link>
+            {project.id !== 6 && project.id !== 5 && (
+              <Link
+                href={`/projects/${project.id}`}
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/40 transition hover:opacity-90"
+                onClick={onClose}
+              >
+                View Case Study
+              </Link>
+            )}
           </div>
         </div>
       </motion.div>
