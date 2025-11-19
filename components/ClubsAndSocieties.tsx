@@ -33,9 +33,16 @@ export default function ClubsAndSocieties({ data }: ClubsAndSocietiesProps) {
               Clubs & Societies
             </h2>
           </div>
-          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Getting involved in student communities keeps me energized and improves how I learn and collaborate.
-          </p>
+          <motion.div
+            className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <p className="text-lg md:text-xl text-gray-100 leading-relaxed">
+              Getting involved in student communities keeps me energized and improves how I learn and collaborate.
+            </p>
+          </motion.div>
         </motion.div>
 
         {data.clubs.length > 0 ? (
