@@ -181,8 +181,8 @@ export const projectsData: Project[] = [
     icon: FaCar,
     githubUrl: "https://github.com/loch214/car-brand-detection-API",
     media: [
-      { type: 'video', url: 'https://youtube.com/embed/your-video-id', caption: 'Video demo showing the API identifying car brands in real-time.' },
-      { type: 'image', url: '/projects/car-api-1.png', caption: 'Example of a successful brand prediction from the API endpoint.' },
+      { type: 'video', url: 'https://www.youtube.com/embed/XdOVrvLiZUE', caption: 'Live demo showing the API identifying car brands in real-time.' },
+      { type: 'video', url: 'https://www.youtube.com/embed/-Wu_t6wKU9w', caption: 'Short video covering the model training workflow.' },
     ]
   },
   {
