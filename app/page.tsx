@@ -33,7 +33,6 @@ export default function Home() {
       <Hero data={personalData} />
       <AboutMe data={personalData} />
       <ScrollRevealSection data={personalData} />
-      <ClubsAndSocieties data={personalData} />
       <section id="projects" className="py-24 px-4 sm:px-6 lg:px-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">

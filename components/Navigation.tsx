@@ -10,7 +10,6 @@ const sideMenuItems = [
   { name: 'Education', href: '#education' },
   { name: 'Sports & Achievements', href: '#sports' },
   { name: 'Music & Art', href: '#music-art' },
-  { name: 'Clubs & Societies', href: '#clubs' },
   { name: 'Projects', href: '#projects' },
   { name: 'Connect', href: '#connect' },
   { name: 'Gallery', href: '/gallery' },
