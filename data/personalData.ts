@@ -182,7 +182,7 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/loch214/car-brand-detection-API",
     media: [
       { type: 'video', url: 'https://www.youtube.com/embed/XdOVrvLiZUE', caption: 'Live demo showing the API identifying car brands in real-time.' },
-      { type: 'video', url: 'https://www.youtube.com/embed/-Wu_t6wKU9w', caption: 'Short video covering the model training workflow.' },
+      { type: 'video', url: 'https://www.youtube.com/embed/-Wu_t6wKU9w', caption: 'Short video covering the 150-epoch model training workflow.' },
     ]
   },
   {
