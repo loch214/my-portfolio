@@ -38,7 +38,7 @@ export default function AboutMe({ data }: AboutMeProps) {
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <p className="text-lg md:text-xl text-gray-200 leading-relaxed text-center font-light tracking-wide">
+          <p className="text-lg md:text-xl luminous-text leading-relaxed text-center tracking-wide">
             {data.introduction}
           </p>
         </motion.div>

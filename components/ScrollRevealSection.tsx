@@ -87,7 +87,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                     )}
                   </div>
                 </div>
-                <p className="text-base md:text-lg text-gray-100 leading-relaxed mb-4 font-light tracking-wide">
+                <p className="text-base md:text-lg luminous-text leading-relaxed mb-4 font-light tracking-wide">
                   {edu.description}
                 </p>
                 {edu.resultsPdf && (
@@ -149,7 +149,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                     </div>
                   </div>
                 </div>
-                <p className="text-lg md:text-xl text-gray-100 leading-relaxed font-light tracking-wide">
+                <p className="text-lg md:text-xl luminous-text leading-relaxed font-light tracking-wide">
                   {sport.achievements}
                 </p>
               </motion.div>
@@ -180,7 +180,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
               whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-lg md:text-xl text-gray-100 leading-relaxed mb-6 font-light tracking-wide">
+              <p className="text-lg md:text-xl luminous-text leading-relaxed mb-6 font-light tracking-wide">
                 Music is a constant companion and truly essential to my routine. Whether I am coding, studying, or cooking, it always plays in the background. Even though it may not work for everyone, I find it is the key to helping me focus more deeply and do my best work.
               </p>
             </motion.div>
@@ -196,7 +196,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 <Music className="text-pink-400" size={28} />
                 Instruments
               </h3>
-              <p className="text-lg md:text-xl text-gray-100 leading-relaxed mb-6 font-light tracking-wide">
+              <p className="text-lg md:text-xl luminous-text leading-relaxed mb-6 font-light tracking-wide">
                 {data.music.instruments.join(', ')}
               </p>
             </motion.div>
@@ -212,7 +212,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 <Music className="text-pink-400" size={28} />
                 Vocals
               </h3>
-              <p className="text-lg md:text-xl text-gray-100 leading-relaxed mb-6 font-light tracking-wide">{data.music.singing}</p>
+              <p className="text-lg md:text-xl luminous-text leading-relaxed mb-6 font-light tracking-wide">{data.music.singing}</p>
             </motion.div>
 
             <motion.div
@@ -226,7 +226,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 <Music className="text-pink-400" size={28} />
                 Preferred Genres
               </h3>
-              <p className="text-lg md:text-xl text-gray-100 leading-relaxed font-light tracking-wide">{data.music.listening}</p>
+              <p className="text-lg md:text-xl luminous-text leading-relaxed font-light tracking-wide">{data.music.listening}</p>
             </motion.div>
           </div>
 
@@ -256,7 +256,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 </motion.span>
               ))}
             </div>
-            <p className="text-lg md:text-xl text-gray-100 leading-relaxed font-light tracking-wide">{data.art.achievements}</p>
+            <p className="text-lg md:text-xl luminous-text leading-relaxed font-light tracking-wide">{data.art.achievements}</p>
             <div className="mt-6">
               <Link
                 href="/gallery"

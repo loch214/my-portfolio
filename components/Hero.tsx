@@ -1,7 +1,9 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, Sparkles } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
+import { FaUserGraduate } from 'react-icons/fa';
+import { BsMusicNoteBeamed } from 'react-icons/bs';
 import { PersonalData } from '@/data/personalData';
 
 interface HeroProps {
@@ -42,14 +44,17 @@ export default function Hero({ data }: HeroProps) {
           <motion.div
             {...fadeIn(0.3)}
           >
-            <h2 className="text-2xl md:text-4xl text-gray-100 mb-6 flex items-center justify-center gap-3">
-              <Sparkles className="text-purple-400" size={28} />
-              {data.title}
-            </h2>
+            <div className="flex items-center justify-center gap-3 md:gap-4 mb-6 py-1">
+              <FaUserGraduate className="text-purple-400" size={32} />
+              <h2 className="text-2xl md:text-3xl font-bold gradient-text">
+                Student | Developer | Melophile
+              </h2>
+              <BsMusicNoteBeamed className="text-pink-400" size={32} />
+            </div>
           </motion.div>
 
           <motion.p
-            className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="text-xl md:text-2xl luminous-text max-w-2xl mx-auto mb-12 leading-relaxed"
             {...fadeIn(0.5)}
           >
             {data.bio}

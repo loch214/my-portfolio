@@ -46,7 +46,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-lg text-gray-100 leading-relaxed">
+              <p className="text-lg luminous-text leading-relaxed">
                 A curated mix of full-stack apps, AI experiments, and this portfolio. Click any card to learn more,
                 explore the source, or jump straight into a live or recorded demo.
               </p>

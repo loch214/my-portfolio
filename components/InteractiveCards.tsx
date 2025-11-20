@@ -21,7 +21,7 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
       color: 'from-purple-500 to-pink-500',
       content: (
         <div className="space-y-4">
-          <p className="text-lg text-gray-100 leading-relaxed">
+          <p className="text-lg luminous-text leading-relaxed">
             {data.introduction}
           </p>
         </div>
@@ -58,7 +58,7 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
                 </span>
               </div>
               {edu.description && (
-                <p className="text-gray-100 leading-relaxed mb-4">{edu.description}</p>
+                <p className="luminous-text leading-relaxed mb-4">{edu.description}</p>
               )}
               {edu.resultsPdf && (
                 <a
@@ -105,7 +105,7 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
                   )}
                 </div>
               </div>
-              <p className="text-gray-100 leading-relaxed pl-16">{sport.achievements}</p>
+              <p className="luminous-text leading-relaxed pl-16">{sport.achievements}</p>
             </motion.div>
           ))}
         </div>
@@ -153,7 +153,7 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
               <Music className="text-pink-400" size={24} />
               Singing
             </h3>
-            <p className="text-gray-100 leading-relaxed">{data.music.singing}</p>
+            <p className="luminous-text leading-relaxed">{data.music.singing}</p>
           </motion.div>
 
           <motion.div
@@ -166,7 +166,7 @@ export default function InteractiveCards({ data }: InteractiveCardsProps) {
               <Music className="text-pink-400" size={24} />
               Music I Listen To
             </h3>
-            <p className="text-gray-100 leading-relaxed">{data.music.listening}</p>
+            <p className="luminous-text leading-relaxed">{data.music.listening}</p>
           </motion.div>
         </div>
       )

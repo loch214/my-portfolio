@@ -39,7 +39,7 @@ export default function ClubsAndSocieties({ data }: ClubsAndSocietiesProps) {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            <p className="text-lg md:text-xl text-gray-100 leading-relaxed">
+            <p className="text-lg md:text-xl luminous-text leading-relaxed">
               Getting involved in student communities keeps me energized and improves how I learn and collaborate.
             </p>
           </motion.div>
