@@ -1,15 +1,31 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBriefcase } from 'react-icons/fa';
 import Hero from '@/components/Hero';
 import AboutMe from '@/components/AboutMe';
-import ScrollRevealSection from '@/components/ScrollRevealSection';
 import SocialLinks from '@/components/SocialLinks';
-import ClubsAndSocieties from '@/components/ClubsAndSocieties';
-import ProjectModal from '@/components/ProjectModal';
 import { personalData, projectsData, type Project } from '@/data/personalData';
+
+const ScrollRevealSection = dynamic<typeof import('@/components/ScrollRevealSection')['default']>(
+  () => import('@/components/ScrollRevealSection'),
+  {
+  loading: () => (
+    <section className="py-32 text-center text-gray-400">
+      Bringing sections to life...
+    </section>
+  )
+  }
+);
+
+const ProjectModal = dynamic<typeof import('@/components/ProjectModal')['default']>(
+  () => import('@/components/ProjectModal'),
+  {
+    ssr: false
+  }
+);
 
 const gridVariants = {
   hidden: {},
