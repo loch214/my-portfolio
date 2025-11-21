@@ -153,7 +153,7 @@ export const projectsData: Project[] = [
   {
     id: 1,
     title: "Chapterly E-commerce Bookstore",
-    description: "This was my first major dive into full-stack development using Java & Spring Boot, and it was a huge learning curve. The goal was to build a complete online bookstore from scratch. While the final app has key features like user accounts, a shopping cart, and order history, the real story was in the struggle of architecting the database and backend services for the first time. It taught me invaluable, hard-won lessons about managing complexity and the importance of a well-designed system before writing a single line of code.",
+    description: "Chapterly Bookstore was my first real shot at building a full-stack app on my own. It’s basically an online bookstore where you can browse, add items to a cart, and check out. Since I was still learning and didn't know much about databases, I didn't use a real one—I just saved data in memory or files. That made it pretty limited, but it helped me understand how to connect the frontend to the backend and manage user actions. It was a simple project, but it showed me why real databases are important and encouraged me to learn more about web development.",
     tags: ["Java", "Spring Boot", "Thymeleaf", "MySQL", "Maven"],
     icon: FaBook,
     githubUrl: "https://github.com/loch214/Chapterly-Bookstore",
@@ -175,7 +175,7 @@ export const projectsData: Project[] = [
   {
     id: 3,
     title: "Car Brand Detection API",
-    description: "This was an experiment to see if I could build and deploy a real-time AI service entirely on my own. The biggest challenge by far was training a YOLOv5 model on my personal laptop. With a limited dataset and hardware, the model's accuracy is not high enough for a production environment. However, the real success here was not the model's performance, but the process of deploying it as a live FastAPI server. This project taught me that building a model is one thing, but turning it into a stable, usable API is a whole different and equally important skill.",
+    description: "This was an experiment to see if I could build and deploy a real-time AI service entirely on my own. The biggest challenge by far was training a YOLOv5 model on my personal laptop. With a limited dataset and hardware, the model's accuracy is not high enough for a production environment. However, i did engineering the complete pipeline: training the model, diagnosing its weaknesses, and deploying it as a stable REST API using FastAPI.",
     tags: ["Python", "FastAPI", "YOLOv5", "PyTorch", "Computer Vision"],
     icon: FaCar,
     githubUrl: "https://github.com/loch214/car-brand-detection-API",
