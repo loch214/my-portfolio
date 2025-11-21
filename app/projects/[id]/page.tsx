@@ -37,7 +37,9 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
           >
             ← Back to Projects
           </Link>
-          <h1 className="text-4xl md:text-6xl font-bold gradient-text">{project.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-blue-500 to-purple-400 bg-clip-text text-transparent">
+            {project.title}
+          </h1>
           <p className="text-lg text-gray-200 leading-relaxed max-w-4xl">{project.description}</p>
           <div className="flex flex-wrap gap-3">
             {project.tags.map((tag) => (
