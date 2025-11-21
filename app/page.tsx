@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { IconType } from 'react-icons';
 import { FaBriefcase } from 'react-icons/fa';
 import Hero from '@/components/Hero';
 import AboutMe from '@/components/AboutMe';
@@ -41,6 +42,40 @@ const cardVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
+interface ProjectCardProps {
+  title: string;
+  tags: string[];
+  icon: IconType;
+  onClick: () => void;
+}
+
+const ProjectCard = ({ title, tags, icon: Icon, onClick }: ProjectCardProps) => (
+  <motion.button
+    onClick={onClick}
+    className="group flex min-h-[220px] flex-col items-center rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/3 to-white/5 p-6 text-center shadow-[0_15px_40px_rgba(80,0,120,0.25)] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-500"
+    variants={cardVariants}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.98 }}
+  >
+    <div className="flex flex-1 flex-col items-center justify-between gap-6">
+      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-purple-200">
+        <Icon size={48} className="text-purple-100" aria-hidden />
+      </div>
+      <h3 className="text-lg font-semibold text-white">{title}</h3>
+      <div className="flex flex-wrap justify-center gap-2">
+        {tags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-purple-100"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  </motion.button>
+);
+
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -76,36 +111,15 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            {projectsData.map((project) => {
-              const ProjectIcon = project.icon;
-              return (
-                <motion.button
-                  key={project.id}
-                  onClick={() => setSelectedProject(project)}
-                  className="group flex min-h-[220px] flex-col items-center rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/3 to-white/5 p-6 text-center shadow-[0_15px_40px_rgba(80,0,120,0.25)] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-500"
-                  variants={cardVariants}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex flex-1 flex-col items-center justify-between gap-6">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-purple-200">
-                      <ProjectIcon className="h-10 w-10" aria-hidden />
-                    </div>
-                    <h3 className="text-lg font-semibold text-white">{project.title}</h3>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-purple-100"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.button>
-              );
-            })}
+            {projectsData.map((project) => (
+              <ProjectCard
+                key={project.id}
+                title={project.title}
+                tags={project.tags}
+                icon={project.icon}
+                onClick={() => setSelectedProject(project)}
+              />
+            ))}
           </motion.div>
         </div>
       </section>
