@@ -164,7 +164,7 @@ export const projectsData: Project[] = [
   {
     id: 2,
     title: "Learn Mate System",
-    description: "As a software engineering project, this was less about flashy features and more about building a robust, secure backend. The main challenge was designing a clean role-based access system to provide different experiences for students, teachers, and admins. It was a tough but rewarding exercise in thinking through application security and data privacy. The final system works, but building it gave me a deep appreciation for the hidden complexity behind even the simplest-looking management platforms.",
+    description: "This was my project for my Software Engineering class. It's a simple management platform with separate dashboards for students, teachers, and admins. The main technical part was building the role-based access system to make sure everyone could only see what they were supposed to. It was a good look into how much backend work is needed to keep a multi-user site organized and secure.",
     tags: ["Java", "Spring Boot", "Thymeleaf", "MySQL"],
     icon: FaChalkboardTeacher,
     githubUrl: "https://github.com/loch214/learn-mate-system",
