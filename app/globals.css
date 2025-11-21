@@ -79,22 +79,9 @@ body {
   }
   
   .luminous-text {
-    color: #eef2ff;
-    text-shadow:
-      0 4px 18px rgba(102, 186, 255, 0.25),
-      0 0 4px rgba(255, 255, 255, 0.25);
+    color: #e5e7eb;
     letter-spacing: 0.01em;
     font-weight: 500;
-  }
-  
-  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
-    .luminous-text {
-      background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.95), rgba(198, 222, 255, 0.85));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-    }
   }
   
   .section-divider {
