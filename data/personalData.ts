@@ -187,7 +187,7 @@ export const projectsData: Project[] = [
   {
     id: 4,
     title: "AI Diabetes Prediction",
-    description: "This project was a foundational exercise in the classic machine learning pipeline. While the final Random Forest model achieved a promising 90% accuracy, the most important work happened before any model was trained. I spent most of my time on the unglamorous but critical tasks of data cleaning, preprocessing, and methodical hyperparameter tuning with GridSearchCV. It was a powerful lesson in how a high accuracy score isn't a magic bullet, but the direct result of a rigorous and patient approach to data quality.",
+    description: "This project was my introduction to the classic machine learning pipeline during our AIML module in second-year first semester. The Random Forest model eventually reached about 90% accuracy, but that result only came after careful data cleaning, preprocessing, and step-by-step hyperparameter tuning with GridSearchCV. It reminded me that strong metrics come from steady, detail-focused work on the dataset long before the modeling stage.",
     tags: ["Python", "Machine Learning", "Scikit-learn", "Random Forest"],
     icon: FaHeartbeat,
     githubUrl: "https://github.com/loch214/AI-Diabetes-Prediction",
