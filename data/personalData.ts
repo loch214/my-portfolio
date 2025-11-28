@@ -1,5 +1,5 @@
 import type { IconType } from 'react-icons';
-import { FaBook, FaCar, FaHeartbeat, FaUser, FaMusic, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaBook, FaCar, FaHeartbeat, FaUser, FaMusic, FaChalkboardTeacher, FaSearch } from 'react-icons/fa';
 export interface PersonalData {
   name: string;
   title: string;
@@ -217,6 +217,15 @@ export const projectsData: Project[] = [
     media: [
       { type: 'image', url: '/projects/portfolio-1.png', caption: 'The main landing page of the portfolio.' },
     ]
+  },
+  {
+    id: 7,
+    title: "Lens Lock Metadata Tool",
+    description: "Lens-Lock is a digital privacy tool that scans images for hidden metadata like GPS coordinates and device details. Users can visualize the location on a map and download a sanitized \"safe\" version with the data removed. Built with Java Spring Boot, React, and Tailwind CSS.",
+    tags: ["Java", "Spring Boot", "React", "Tailwind CSS", "Privacy"],
+    icon: FaSearch,
+    githubUrl: "https://github.com/loch214/lens-lock-metadata-tool",
+    media: []
   }
 ];
 
