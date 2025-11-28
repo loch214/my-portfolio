@@ -153,7 +153,7 @@ export const projectsData: Project[] = [
   {
     id: 1,
     title: "Chapterly E-commerce Bookstore",
-    description: "Chapterly Bookstore was my first real shot at building a full-stack app on my own. It’s basically an online bookstore where you can browse, add items to a cart, and check out. Since I was still learning and didn't know much about databases, I didn't use a real one—I just saved data in memory or files. That made it pretty limited, but it helped me understand how to connect the frontend to the backend and manage user actions. It was a simple project, but it showed me why real databases are important and encouraged me to learn more about web development.",
+    description: "Chapterly Bookstore was my first real shot at building a full-stack app on my own. It’s basically an online bookstore where you can browse, add items to a cart, and check out. Since I was still learning and didn't know much about databases, I didn't use a real one—I just saved data in memory or files. That made it pretty limited, but it helped me understand how to connect the frontend to the backend and manage user actions.",
     tags: ["Java", "Spring Boot", "Thymeleaf", "MySQL", "Maven"],
     icon: FaBook,
     githubUrl: "https://github.com/loch214/Chapterly-Bookstore",
@@ -164,7 +164,7 @@ export const projectsData: Project[] = [
   {
     id: 2,
     title: "Learn Mate System",
-    description: "This was my project for my Software Engineering class. It's a simple management platform with separate dashboards for students, teachers, and admins. The main technical part was building the role-based access system to make sure everyone could only see what they were supposed to. It was a good look into how much backend work is needed to keep a multi-user site organized and secure.",
+    description: "This is the project I built for the Year 2 Semester 1 SE2030 module. It's a simple management platform with separate dashboards for students, teachers, and admins. The main focus was on role-based access and actions, so each type of user only sees and does what they are allowed to inside the system.",
     tags: ["Java", "Spring Boot", "Thymeleaf", "MySQL"],
     icon: FaChalkboardTeacher,
     githubUrl: "https://github.com/loch214/learn-mate-system",
@@ -187,7 +187,7 @@ export const projectsData: Project[] = [
   {
     id: 4,
     title: "AI Diabetes Prediction",
-    description: "This project was my introduction to the classic machine learning pipeline during our AIML module in second-year first semester. The Random Forest model eventually reached about 90% accuracy, but that only happened after loads of data cleaning, preprocessing, and careful hyperparameter tuning with GridSearchCV. Most of the effort went into getting the dataset in good shape before the model even ran.",
+    description: "I built this during our second-year AIML module as a first try at a full machine learning pipeline. I used a Random Forest model and got around 90% accuracy, but that only came after a lot of data cleaning, preprocessing, and tuning with GridSearchCV. Most of the work was actually on getting the dataset into a usable state before training.",
     tags: ["Python", "Machine Learning", "Scikit-learn", "Random Forest"],
     icon: FaHeartbeat,
     githubUrl: "https://github.com/loch214/AI-Diabetes-Prediction",
@@ -210,7 +210,7 @@ export const projectsData: Project[] = [
   {
     id: 6,
     title: "Personal Portfolio Website",
-    description: "This portfolio is a project in itself, with the goal of building a product that met my own standards for design and performance. The main challenge was self-directing the entire process, from initial design concepts to implementing fluid animations with Framer Motion that felt just right. Setting up the CI/CD pipeline with Vercel was also key, making the process of shipping updates seamless. It was a great exercise in product ownership—taking an idea and polishing it until it reached a high standard of quality, both in its code and its user experience.",
+    description: "This portfolio started as a side project to learn Next.js, TypeScript, Tailwind CSS, and Framer Motion properly. I designed the layout myself and kept iterating on the animations and sections until it felt smooth and easy to read. I also set it up on Vercel so I can push changes from GitHub and see them live without any extra steps.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     icon: FaUser,
     githubUrl: "https://github.com/loch214/my-portfolio",
