@@ -1,5 +1,5 @@
 import type { IconType } from 'react-icons';
-import { FaBook, FaCar, FaHeartbeat, FaUser, FaMusic, FaChalkboardTeacher, FaSearch } from 'react-icons/fa';
+import { FaBook, FaCar, FaHeartbeat, FaUser, FaMusic, FaChalkboardTeacher, FaSearch, FaShieldAlt, FaEnvelopeOpenText } from 'react-icons/fa';
 export interface PersonalData {
   name: string;
   title: string;
@@ -223,7 +223,7 @@ export const projectsData: Project[] = [
     title: "Lens Lock Metadata Tool",
     description: "Lens-Lock is a digital privacy tool that scans images for hidden metadata like GPS coordinates and device details. Users can visualize the location on a map and download a sanitized \"safe\" version with the data removed. Built with Java Spring Boot, React, and Tailwind CSS.",
     tags: ["Java", "Spring Boot", "React", "Tailwind CSS", "Privacy"],
-    icon: FaSearch,
+    icon: FaShieldAlt,
     githubUrl: "https://github.com/loch214/lens-lock-metadata-tool",
     media: []
   },
@@ -232,7 +232,7 @@ export const projectsData: Project[] = [
     title: "Phish-Hawk",
     description: "This tool analyzes suspicious emails to spot phishing attempts. A user can upload an email file (.eml, .pdf) or paste its raw text. The application then scans for common red flags. It checks for technical issues like faked sender addresses and misleading links that point to different domains than the sender's. It also uses Apache PDFBox to read and analyze the text inside PDF attachments. The backend is built with Java and Spring Boot, serving a REST API. The frontend is a simple static page using HTML, CSS, and vanilla JavaScript to interact with the API. The main limitation is its reliance on a fixed keyword list, which can incorrectly flag legitimate emails (false positives). The next step is to replace this keyword-based logic with a trained AI model that can understand the context of the email for more accurate threat detection.",
     tags: ["Java", "Spring Boot", "HTML", "CSS", "JavaScript", "Apache PDFBox", "Security"],
-    icon: FaSearch,
+    icon: FaEnvelopeOpenText,
     githubUrl: "https://github.com/loch214/Phish-Hawk",
     media: []
   }
