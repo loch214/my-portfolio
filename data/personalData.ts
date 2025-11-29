@@ -234,7 +234,9 @@ export const projectsData: Project[] = [
     tags: ["Java", "Spring Boot", "HTML", "CSS", "JavaScript", "Apache PDFBox", "Security"],
     icon: FaEnvelopeOpenText,
     githubUrl: "https://github.com/loch214/Phish-Hawk",
-    media: []
+    media: [
+      { type: 'video', url: 'https://www.youtube.com/embed/7S0rk_1c0Nc', caption: 'Demo showing how Phish-Hawk flags phishing emails.' }
+    ]
   }
 ];
 
