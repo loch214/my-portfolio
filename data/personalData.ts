@@ -238,7 +238,9 @@ export const projectsData: Project[] = [
     icon: FaEnvelopeOpenText,
     githubUrl: "https://github.com/loch214/phish-hawk-v2.git",
     additionalGithubUrls: ["https://github.com/loch214/phish-hawk-AI"],
-    media: []
+    media: [
+      { type: 'video', url: 'https://www.youtube.com/embed/9tcisGeDmOY', caption: 'YouTube demo for Phish-Hawk V2' }
+    ]
   },
   {
     id: 7,
