@@ -62,6 +62,7 @@ export interface Project {
   tags: string[];
   icon: IconType;
   githubUrl: string;
+  additionalGithubUrls?: string[];
   media: ProjectMedia[];
 }
 
@@ -219,17 +220,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 7,
-    title: "Lens Lock Metadata Tool",
-    description: "Lens-Lock is a digital privacy tool that scans images for hidden metadata like GPS coordinates and device details. Users can visualize the location on a map and download a sanitized \"safe\" version with the data removed. Built with Java Spring Boot, React, and Tailwind CSS.",
-    tags: ["Java", "Spring Boot", "React", "Tailwind CSS", "Privacy"],
-    icon: FaShieldAlt,
-    githubUrl: "https://github.com/loch214/lens-lock-metadata-tool",
-    media: []
-  },
-  {
     id: 8,
-    title: "Phish-Hawk",
+    title: "Phish-Hawk V1",
     description: "This tool analyzes suspicious emails to spot phishing attempts. A user can upload an email file (.eml, .pdf) or paste its raw text. The application then scans for common red flags. It checks for technical issues like faked sender addresses and misleading links that point to different domains than the sender's. It also uses Apache PDFBox to read and analyze the text inside PDF attachments. The backend is built with Java and Spring Boot, serving a REST API. The frontend is a simple static page using HTML, CSS, and vanilla JavaScript to interact with the API. The main limitation is its reliance on a fixed keyword list, which can incorrectly flag legitimate emails (false positives). The next step is to replace this keyword-based logic with a trained AI model that can understand the context of the email for more accurate threat detection.",
     tags: ["Java", "Spring Boot", "HTML", "CSS", "JavaScript", "Apache PDFBox", "Security"],
     icon: FaEnvelopeOpenText,
@@ -237,6 +229,25 @@ export const projectsData: Project[] = [
     media: [
       { type: 'video', url: 'https://www.youtube.com/embed/7S0rk_1c0Nc', caption: 'Demo showing how Phish-Hawk flags phishing emails.' }
     ]
+  },
+  {
+    id: 9,
+    title: "Phish-Hawk V2",
+    description: "This project is the next version of Phish-Hawk, upgrading its core logic from a simple keyword-checker to a smart AI model. While users still upload files or paste text just like in V1, the analysis is now far more intelligent.\nThe biggest change was replacing the old, rigid keyword system that caused false positives. I built a custom deep learning model in Python using PyTorch, training it on over 190,000 real emails. This new \"brain\" can now understand the context of an email, making it much better at spotting real phishing patterns while ignoring legitimate messages.\nTo make this work, I re-architected the project into two parts: the main Java/Spring Boot application and a separate Python microservice (using FastAPI) that serves the AI model. The Java app calls the Python service to get an analysis, showing how different technologies can work together in a modern application. The result is a more accurate and powerful Phish-Hawk that fixes the main limitation of the original version.",
+    tags: ["Java", "Spring Boot", "Python", "FastAPI", "PyTorch", "Microservices", "AI", "Security"],
+    icon: FaEnvelopeOpenText,
+    githubUrl: "https://github.com/loch214/phish-hawk-v2.git",
+    additionalGithubUrls: ["https://github.com/loch214/phish-hawk-AI"],
+    media: []
+  },
+  {
+    id: 7,
+    title: "Lens Lock Metadata Tool",
+    description: "Lens-Lock is a digital privacy tool that scans images for hidden metadata like GPS coordinates and device details. Users can visualize the location on a map and download a sanitized \"safe\" version with the data removed. Built with Java Spring Boot, React, and Tailwind CSS.",
+    tags: ["Java", "Spring Boot", "React", "Tailwind CSS", "Privacy"],
+    icon: FaShieldAlt,
+    githubUrl: "https://github.com/loch214/lens-lock-metadata-tool",
+    media: []
   }
 ];
 
