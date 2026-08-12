@@ -11,35 +11,31 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        paper: "#241B36",
+        surface: "#33284D",
+        ink: "#F5E8D6",
+        "ink-soft": "#D8C9D6",
+        muted: "#A897B8",
+        line: "rgba(245, 232, 214, 0.14)",
+        accent: "#E8875B",
+        "accent-soft": "rgba(232, 135, 91, 0.14)",
+      },
+      fontFamily: {
+        display: ["var(--font-display)", "serif"],
+        mono: ["var(--font-mono)", "monospace"],
+        sans: ["var(--font-body)", "sans-serif"],
       },
       animation: {
-        'gradient': 'gradient 8s linear infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
+        rise: "rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
       keyframes: {
-        gradient: {
-          '0%, 100%': {
-            'background-size': '200% 200%',
-            'background-position': 'left center'
-          },
-          '50%': {
-            'background-size': '200% 200%',
-            'background-position': 'right center'
-          }
+        rise: {
+          "0%": { opacity: "0", transform: "translateY(14px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
-        },
-        glow: {
-          '0%': { boxShadow: '0 0 5px rgba(59, 130, 246, 0.5), 0 0 10px rgba(59, 130, 246, 0.3)' },
-          '100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.5)' },
-        }
-      }
+      },
     },
   },
   plugins: [],
 };
 export default config;
-

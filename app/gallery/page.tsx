@@ -4,24 +4,24 @@ import { artData } from '@/data/personalData';
 
 export default function GalleryPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#050505] via-[#0a0a1a] to-[#050505] pt-28 pb-16 px-4 sm:px-6 lg:px-10">
+    <main className="min-h-screen bg-paper pt-28 pb-16 px-4 sm:px-6 lg:px-10">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-12 flex items-center justify-between flex-wrap gap-4">
+        <div className="mb-14 flex items-end justify-between flex-wrap gap-6">
           <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-purple-400">Collection</p>
-            <h1 className="text-4xl md:text-5xl font-bold gradient-text">Art Gallery</h1>
+            <span className="eyebrow">Gallery</span>
+            <h1 className="font-display text-4xl md:text-5xl text-ink mt-3">Pencil &amp; pastel</h1>
           </div>
           <Link
-            href="/#music-art"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
+            href="/#hobbies"
+            className="inline-flex items-center gap-2 border border-line px-5 py-2.5 font-mono text-sm text-ink transition hover:border-accent hover:text-accent"
           >
-            ← Back to Art Section
+            ← Back
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {artData.map((piece) => (
-            <div key={piece.id} className="glass rounded-3xl overflow-hidden group">
+            <div key={piece.id} className="card overflow-hidden group">
               <div className="relative w-full h-72">
                 <Image
                   src={piece.imageUrl}
@@ -31,9 +31,9 @@ export default function GalleryPage() {
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 />
               </div>
-              <div className="p-6">
-                <p className="text-sm text-gray-400 mb-1">#{String(piece.id).padStart(2, '0')}</p>
-                <h2 className="text-xl font-semibold text-white">{piece.title}</h2>
+              <div className="p-5 border-t border-line">
+                <p className="font-mono text-xs text-accent mb-1">{String(piece.id).padStart(2, '0')}</p>
+                <h2 className="font-display text-xl text-ink">{piece.title}</h2>
               </div>
             </div>
           ))}

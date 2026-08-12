@@ -2,12 +2,15 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { User } from 'lucide-react';
-import { PersonalData } from '@/data/personalData';
+import { PersonalData, projectsData } from '@/data/personalData';
 
 interface AboutMeProps {
   data: PersonalData;
 }
+
+const technologies = Array.from(
+  new Set(projectsData.flatMap((project) => project.tags))
+).sort((a, b) => a.localeCompare(b));
 
 export default function AboutMe({ data }: AboutMeProps) {
   const [ref, inView] = useInView({
@@ -16,34 +19,46 @@ export default function AboutMe({ data }: AboutMeProps) {
   });
 
   return (
-    <section id="about" className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative snap-start">
-      <div className="max-w-5xl mx-auto" ref={ref}>
+    <section id="about" className="snap-section min-h-screen flex items-center py-24 px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-3xl mx-auto w-full" ref={ref}>
         <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 50 }}
+          className="flex items-center gap-3 mb-10"
+          initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <User className="text-purple-400" size={40} />
-            <h2 className="text-4xl md:text-6xl font-bold gradient-text">
-              About Me
-            </h2>
-          </div>
+          <span className="font-mono text-xs text-muted">01</span>
+          <span className="eyebrow">About</span>
+          <span className="hairline flex-1" />
         </motion.div>
 
-        <motion.div
-          className="glass rounded-3xl p-8 md:p-12"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ delay: 0.2, duration: 0.8 }}
+        <motion.p
+          className="font-display italic text-xl md:text-2xl text-ink leading-relaxed mb-14"
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.1, duration: 0.6 }}
         >
-          <p className="text-lg md:text-xl luminous-text leading-relaxed text-center tracking-wide">
-            {data.introduction}
-          </p>
+          {data.introduction}
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <p className="eyebrow mb-4">Working with</p>
+          <div className="flex flex-wrap gap-2.5">
+            {technologies.map((tech) => (
+              <span
+                key={tech}
+                className="border border-line bg-surface px-3.5 py-1.5 font-mono text-sm text-ink-soft"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
   );
 }
-

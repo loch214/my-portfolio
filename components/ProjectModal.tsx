@@ -17,8 +17,8 @@ const overlayVariants = {
 };
 
 const modalVariants = {
-  hidden: { opacity: 0, scale: 0.9, y: 20 },
-  visible: { opacity: 1, scale: 1, y: 0 },
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const formatRepoLabel = (url: string, fallback: string) => {
@@ -49,11 +49,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   const repoLinks = [
     {
-      label: formatRepoLabel(project.githubUrl, 'Main Repository'),
+      label: formatRepoLabel(project.githubUrl, 'Main repository'),
       url: project.githubUrl,
     },
     ...(project.additionalGithubUrls?.map((url, index) => ({
-      label: formatRepoLabel(url, `Additional Repository ${index + 1}`),
+      label: formatRepoLabel(url, `Additional repository ${index + 1}`),
       url,
     })) ?? []),
   ];
@@ -95,7 +95,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-md px-4"
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
       initial="hidden"
       animate="visible"
       exit="hidden"
@@ -104,7 +104,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
       aria-label="Project details overlay"
     >
       <motion.div
-        className="relative w-full max-w-4xl rounded-3xl bg-[#0a0615] p-6 sm:p-10 text-white shadow-[0_20px_80px_rgba(120,40,255,.3)]"
+        className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto border border-line bg-surface p-6 sm:p-10 text-ink"
         variants={modalVariants}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
@@ -116,23 +116,23 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             setRepoMenuOpen(false);
             onClose();
           }}
-          className="absolute right-5 top-5 rounded-full border border-white/20 p-2 text-white/80 transition hover:border-white/60 hover:text-white"
+          className="absolute right-5 top-5 border border-line p-2 text-muted transition hover:border-accent hover:text-accent"
           aria-label="Close project details"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
         <div className="space-y-6">
           <div>
-            <h2 className="text-3xl font-semibold text-white">{project.title}</h2>
-            <p className="mt-4 text-gray-200 leading-relaxed">{project.description}</p>
+            <h2 className="text-3xl font-display text-ink pr-10">{project.title}</h2>
+            <p className="mt-4 body-text whitespace-pre-line">{project.description}</p>
           </div>
 
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-200"
+                className="border border-line px-3 py-1 font-mono text-xs text-muted"
               >
                 {tag}
               </span>
@@ -148,11 +148,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     event.preventDefault();
                     setRepoMenuOpen((prev) => !prev);
                   }}
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
+                  className="inline-flex items-center justify-center border border-accent px-5 py-2.5 font-mono text-sm text-accent transition hover:bg-accent-soft"
                   aria-haspopup="menu"
                   aria-expanded={isRepoMenuOpen}
                 >
-                  View Source Code
+                  View source
                   <ChevronDown
                     size={16}
                     className={`ml-2 transition-transform ${isRepoMenuOpen ? 'rotate-180' : ''}`}
@@ -161,7 +161,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
                 {isRepoMenuOpen && (
                   <div
-                    className="absolute left-0 z-10 mt-2 w-60 rounded-2xl border border-white/10 bg-[#130a2a] p-2 shadow-xl shadow-purple-900/30"
+                    className="absolute left-0 z-10 mt-2 w-60 border border-line bg-surface p-2 shadow-lg shadow-ink/5"
                     role="menu"
                   >
                     {repoLinks.map((link) => (
@@ -170,7 +170,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         href={link.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="block rounded-xl px-3 py-2 text-sm text-gray-100 transition hover:bg-white/10"
+                        className="block px-3 py-2 font-mono text-sm text-ink-soft transition hover:bg-accent-soft hover:text-accent"
                         role="menuitem"
                         onClick={() => setRepoMenuOpen(false)}
                       >
@@ -185,21 +185,21 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
+                className="inline-flex items-center justify-center border border-accent px-5 py-2.5 font-mono text-sm text-accent transition hover:bg-accent-soft"
               >
-                View Source Code
+                View source
               </a>
             )}
             {project.id !== 6 && project.id !== 5 && (
               <Link
                 href={`/projects/${project.id}`}
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/40 transition hover:opacity-90"
+                className="inline-flex items-center justify-center border border-line px-5 py-2.5 font-mono text-sm text-ink transition hover:border-accent hover:text-accent"
                 onClick={() => {
                   setRepoMenuOpen(false);
                   onClose();
                 }}
               >
-                View Case Study
+                Case study
               </Link>
             )}
           </div>

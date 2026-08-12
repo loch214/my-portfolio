@@ -32,17 +32,16 @@ export default function SocialLinks({ links }: SocialLinksProps) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.08,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.5, rotate: -180 },
+    hidden: { opacity: 0, y: 12 },
     visible: {
       opacity: 1,
-      scale: 1,
-      rotate: 0,
+      y: 0,
       transition: {
         type: 'spring',
         stiffness: 200,
@@ -51,24 +50,25 @@ export default function SocialLinks({ links }: SocialLinksProps) {
   };
 
   return (
-    <section id="connect" className="py-20 px-4 sm:px-6 lg:px-8 relative">
-      <div className="max-w-7xl mx-auto" ref={ref}>
+    <section id="connect" className="snap-section min-h-screen flex flex-col justify-center py-24 px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-3xl mx-auto w-full" ref={ref}>
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          className="flex items-center gap-3 mb-12"
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
-            Let&rsquo;s Connect
-          </h2>
-          <p className="text-gray-200 text-lg mt-4">
-            Find me on these platforms
-          </p>
+          <span className="font-mono text-xs text-muted">06</span>
+          <span className="eyebrow">Contact</span>
+          <span className="hairline flex-1" />
         </motion.div>
 
+        <p className="body-text mb-10 max-w-xl">
+          The fastest way to reach me is GitHub or LinkedIn &mdash; I check both more often than email.
+        </p>
+
         <motion.div
-          className="flex flex-wrap justify-center gap-6"
+          className="flex flex-wrap gap-4"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -83,41 +83,29 @@ export default function SocialLinks({ links }: SocialLinksProps) {
                 rel="noopener noreferrer"
                 variants={itemVariants}
                 aria-label={`Open ${link.platform}`}
-                className="group relative focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-500 rounded-2xl"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
+                className="group flex items-center gap-3 border border-line bg-surface px-6 py-4 min-w-[160px] transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
               >
-                <div className="gradient-border">
-                  <div className="gradient-border-content p-6 min-w-[120px] text-center">
-                    <Icon
-                      className="mx-auto mb-3 text-white group-hover:text-purple-400 transition-colors"
-                      size={32}
-                    />
-                    <p className="text-sm font-semibold text-gray-100 group-hover:text-white transition-colors">
-                      {link.platform}
-                    </p>
-                  </div>
-                </div>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity blur-xl"
-                  initial={false}
+                <Icon
+                  className="text-muted group-hover:text-accent transition-colors"
+                  size={20}
                 />
+                <span className="font-mono text-sm text-ink-soft group-hover:text-ink transition-colors">
+                  {link.platform}
+                </span>
               </motion.a>
             );
           })}
         </motion.div>
 
-        {/* Footer */}
         <motion.div
-          className="mt-20 text-center text-gray-500 text-sm"
+          className="mt-24 font-mono text-xs text-muted"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.4 }}
         >
-          <p>© {new Date().getFullYear()} All rights reserved</p>
+          <p>&copy; {new Date().getFullYear()} Lochana Dahanayake</p>
         </motion.div>
       </div>
     </section>
   );
 }
-

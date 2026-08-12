@@ -68,9 +68,9 @@ export interface Project {
 
 export const personalData: PersonalData = {
   name: "Lochana Kavindu Dahanayake",
-  title: "Student | Developer | Musician",
-  bio: "Passionate about technology, music, and sports. Always like learning and exploring new skills.",
-  introduction: "I'm driven by my passions for technology, music, and sports. I find that the focus and creativity from music and the discipline from sports are a natural fit for my work as a developer. Balancing these areas helps me stay motivated and approach challenges from different perspectives.",
+  title: "Student | Developer | Tinkerer",
+  bio: "Exploring software engineering, building practical solutions, and continuously improving through every project.",
+  introduction: "Technology, music, and sport all pull from the same part of my brain. Music taught me to focus on one thing for a long time; sport taught me to keep showing up even when it's not going well. Both turned out to be useful for writing software, which is mostly patience and repetition dressed up as engineering.",
   education: [
     {
       school: "D.S. Senanayake College",

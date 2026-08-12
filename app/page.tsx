@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { IconType } from 'react-icons';
-import { FaBriefcase } from 'react-icons/fa';
 import Hero from '@/components/Hero';
 import AboutMe from '@/components/AboutMe';
 import ScrollRevealSection from '@/components/ScrollRevealSection';
@@ -15,13 +14,13 @@ const gridVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.08,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -35,21 +34,19 @@ interface ProjectCardProps {
 const ProjectCard = ({ title, tags, icon: Icon, onClick }: ProjectCardProps) => (
   <motion.button
     onClick={onClick}
-    className="group flex min-h-[220px] flex-col items-center rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/3 to-white/5 p-6 text-center shadow-[0_15px_40px_rgba(80,0,120,0.25)] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-500"
+    className="group card flex min-h-[200px] flex-col justify-between p-6 text-left transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
     variants={cardVariants}
-    whileHover={{ scale: 1.05 }}
+    whileHover={{ y: -4 }}
     whileTap={{ scale: 0.98 }}
   >
-    <div className="flex flex-1 flex-col items-center justify-between gap-6">
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-purple-200">
-        <Icon size={48} className="text-purple-100" aria-hidden />
-      </div>
-      <h3 className="text-lg font-semibold text-white">{title}</h3>
-      <div className="flex flex-wrap justify-center gap-2">
+    <Icon size={26} className="text-accent" aria-hidden />
+    <div>
+      <h3 className="text-lg font-display text-ink mb-3">{title}</h3>
+      <div className="flex flex-wrap gap-2">
         {tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-purple-100"
+            className="font-mono text-xs text-muted"
           >
             {tag}
           </span>
@@ -63,32 +60,25 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#1a0a1a] to-[#0a0a1a]">
+    <main className="min-h-screen bg-paper">
       <Hero data={personalData} />
       <AboutMe data={personalData} />
       <ScrollRevealSection data={personalData} />
-      <section id="projects" className="py-24 px-4 sm:px-6 lg:px-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <FaBriefcase className="text-indigo-400" size={46} />
-              <h2 className="text-4xl md:text-6xl font-bold gradient-text">My Work & Projects</h2>
+      <section id="projects" className="snap-section min-h-screen flex items-center py-24 px-4 sm:px-6 lg:px-10">
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="mb-14">
+            <div className="flex items-center gap-3 mb-8">
+              <span className="font-mono text-xs text-muted">05</span>
+              <span className="eyebrow">Projects</span>
+              <span className="hairline flex-1" />
             </div>
-            <motion.div
-              className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform max-w-4xl mx-auto mt-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <p className="text-lg luminous-text leading-relaxed">
-                A curated mix of full-stack apps, AI experiments, and this portfolio. Click any card to learn more,
-                explore the source, or jump straight into a live or recorded demo.
-              </p>
-            </motion.div>
+            <p className="body-text max-w-2xl">
+              Full-stack apps, a few AI experiments that did not always go to plan, and this site. Open a card for the story behind each one, plus source code or a demo.
+            </p>
           </div>
 
           <motion.div
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
             variants={gridVariants}
             initial="hidden"
             whileInView="visible"
@@ -115,4 +105,3 @@ export default function Home() {
     </main>
   );
 }
-

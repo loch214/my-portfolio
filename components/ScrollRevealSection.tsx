@@ -1,8 +1,7 @@
 'use client';
 
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
-import { useRef } from 'react';
-import { GraduationCap, Trophy, Music, Palette, FileText, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { FileText, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { PersonalData } from '@/data/personalData';
 
@@ -10,267 +9,201 @@ interface ScrollRevealSectionProps {
   data: PersonalData;
 }
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) {
-  const educationRef = useRef<HTMLDivElement>(null);
-  const sportsRef = useRef<HTMLDivElement>(null);
-  const musicRef = useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-
-  const { scrollYProgress: educationProgress } = useScroll({
-    target: educationRef,
-    offset: ["start end", "end start"]
-  });
-
-  const { scrollYProgress: sportsProgress } = useScroll({
-    target: sportsRef,
-    offset: ["start end", "end start"]
-  });
-
-  const { scrollYProgress: musicProgress } = useScroll({
-    target: musicRef,
-    offset: ["start end", "end start"]
-  });
-
-  const educationOpacity = useTransform(educationProgress, [0, 0.2, 0.5, 0.8, 1], [0, 0, 1, 1, 0]);
-  const educationY = useTransform(educationProgress, [0, 0.2, 0.5, 0.8, 1], [150, 100, 0, -50, -150]);
-  const educationScale = useTransform(educationProgress, [0, 0.2, 0.5, 0.8, 1], [0.8, 0.9, 1, 0.95, 0.8]);
-
-  const sportsOpacity = useTransform(sportsProgress, [0, 0.2, 0.5, 0.8, 1], [0, 0, 1, 1, 0]);
-  const sportsY = useTransform(sportsProgress, [0, 0.2, 0.5, 0.8, 1], [150, 100, 0, -50, -150]);
-  const sportsScale = useTransform(sportsProgress, [0, 0.2, 0.5, 0.8, 1], [0.8, 0.9, 1, 0.95, 0.8]);
-
-  const musicOpacity = useTransform(musicProgress, [0, 0.1, 0.3, 0.7, 1], [0.6, 0.9, 1, 0.95, 0.7]);
-  const musicY = useTransform(musicProgress, [0, 0.1, 0.3, 0.7, 1], [60, 20, 0, -15, -40]);
-  const musicScale = useTransform(musicProgress, [0, 0.1, 0.3, 0.7, 1], [0.97, 0.995, 1, 0.995, 0.97]);
-
   return (
     <>
       {/* Education Section */}
-      <section id="education" ref={educationRef} className="min-h-[90vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 relative snap-start">
-        <motion.div
-          style={shouldReduceMotion ? undefined : { opacity: educationOpacity, y: educationY, scale: educationScale }}
-          className="max-w-6xl mx-auto w-full"
-        >
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <GraduationCap className="text-blue-400" size={48} />
-              <h2 className="text-4xl md:text-6xl font-bold gradient-text">
-                Education
-              </h2>
-            </div>
+      <section id="education" className="snap-section min-h-screen flex items-center py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-3xl mx-auto w-full">
+          <div className="flex items-center gap-3 mb-12">
+            <span className="font-mono text-xs text-muted">02</span>
+            <span className="eyebrow">Education</span>
+            <span className="hairline flex-1" />
           </div>
 
-          <div className="space-y-8">
-            {data.education.map((edu, index) => (
-              <motion.div
-                key={index}
-                className="glass rounded-2xl p-6 md:p-8 hover:scale-[1.01] transition-transform"
-                initial={shouldReduceMotion ? undefined : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-              >
-                <div className="mb-6">
-                  <div className="flex-1">
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                      {edu.school}
-                    </h3>
-                    <p className="text-xl text-blue-300 mb-1">
-                      {edu.degree}
-                      <span className="text-base text-gray-400 ml-3">({edu.period})</span>
+          <div className="relative pl-10">
+            <span className="absolute left-[7px] top-2 bottom-2 w-px bg-line" aria-hidden="true" />
+            <div className="space-y-14">
+              {data.education.map((edu, index) => (
+                <motion.div
+                  key={index}
+                  className="relative"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={fadeUp}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <span className="rail-node absolute -left-10 top-1.5 h-3 w-3 rounded-full bg-accent" aria-hidden="true" />
+                  <p className="font-mono text-xs text-accent mb-2">{edu.period}</p>
+                  <h3 className="font-display text-2xl md:text-3xl text-ink mb-1">
+                    {edu.school}
+                  </h3>
+                  <p className="text-ink-soft text-lg mb-3">
+                    {edu.degree}
+                  </p>
+                  {(edu.stream || edu.location) && (
+                    <p className="text-sm text-muted mb-3">
+                      {[edu.stream, edu.location].filter(Boolean).join(' · ')}
                     </p>
-                    {edu.stream && (
-                      <p className="text-gray-400 text-base mb-1">Stream: {edu.stream}</p>
-                    )}
-                    {edu.location && (
-                      <p className="text-gray-400 text-base mb-3">📍 {edu.location}</p>
-                    )}
-                  </div>
-                </div>
-                <p className="text-base md:text-lg luminous-text leading-relaxed mb-4 font-light tracking-wide">
-                  {edu.description}
-                </p>
-                {edu.resultsPdf && (
-                  <a
-                    href={edu.resultsPdf}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors group"
-                  >
-                    <FileText size={20} />
-                    <span>View Academic Results</span>
-                    <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
-                  </a>
-                )}
-              </motion.div>
-            ))}
+                  )}
+                  <p className="body-text mb-4">
+                    {edu.description}
+                  </p>
+                  {edu.resultsPdf && (
+                    <a
+                      href={edu.resultsPdf}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 font-mono text-sm text-accent hover:text-ink transition-colors group"
+                    >
+                      <FileText size={16} />
+                      <span>Academic results</span>
+                      <ExternalLink size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </a>
+                  )}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Sports Section */}
-      <section id="sports" ref={sportsRef} className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-transparent via-[#0f0f1a] to-transparent snap-start">
-        <motion.div
-          style={shouldReduceMotion ? undefined : { opacity: sportsOpacity, y: sportsY, scale: sportsScale }}
-          className="max-w-6xl mx-auto w-full"
-        >
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <Trophy className="text-green-400" size={48} />
-              <h2 className="text-5xl md:text-7xl font-bold gradient-text">
-                Sports & Achievements
-              </h2>
-            </div>
+      <section id="sports" className="snap-section min-h-screen flex items-center py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-3xl mx-auto w-full">
+          <div className="flex items-center gap-3 mb-12">
+            <span className="font-mono text-xs text-muted">03</span>
+            <span className="eyebrow">Sports</span>
+            <span className="hairline flex-1" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {data.sports.map((sport, index) => (
               <motion.div
                 key={index}
-                className="glass rounded-3xl p-8 hover:scale-[1.02] transition-transform group"
-                initial={shouldReduceMotion ? undefined : { opacity: 0, y: 50 }}
-                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
+                className="card p-8"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={fadeUp}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className={`p-4 bg-gradient-to-br ${sport.name === 'Swimming' ? 'from-blue-500/20 to-cyan-500/20' : 'from-green-500/20 to-emerald-500/20'} rounded-xl`}>
-                    <Trophy className="text-white" size={32} />
-                  </div>
-                  <div>
-                    <h3 className="text-3xl font-bold text-white group-hover:gradient-text transition-all mb-2">
-                      {sport.name}
-                    </h3>
-                    <div className="flex flex-col gap-1">
-                      <p className="text-gray-400">Duration: {sport.duration}</p>
-                      {sport.years && (
-                        <p className="text-gray-400">Years: {sport.years}</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-lg md:text-xl luminous-text leading-relaxed font-light tracking-wide">
+                <p className="font-mono text-xs text-accent mb-3">
+                  {sport.years ?? sport.duration}
+                </p>
+                <h3 className="font-display text-2xl text-ink mb-1">
+                  {sport.name}
+                </h3>
+                <p className="text-sm text-muted mb-4">{sport.duration} of training</p>
+                <p className="body-text">
                   {sport.achievements}
                 </p>
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Music & Art Section */}
-      <section id="music-art" ref={musicRef} className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative snap-start">
-        <motion.div
-          style={shouldReduceMotion ? undefined : { opacity: musicOpacity, y: musicY, scale: musicScale }}
-          className="max-w-6xl mx-auto w-full"
-        >
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <Music className="text-pink-400" size={48} />
-              <h2 className="text-5xl md:text-7xl font-bold gradient-text">
-                Music & Art
-              </h2>
-            </div>
+      {/* Hobbies Section */}
+      <section id="hobbies" className="snap-section min-h-screen flex items-center py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-3xl mx-auto w-full">
+          <div className="flex items-center gap-3 mb-12">
+            <span className="font-mono text-xs text-muted">04</span>
+            <span className="eyebrow">Hobbies</span>
+            <span className="hairline flex-1" />
           </div>
 
-          <div className="space-y-8 mb-12">
+          <div className="divide-y divide-line border-t border-b border-line mb-12">
             <motion.div
-              className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform"
-              initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
-              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              className="py-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
             >
-              <p className="text-lg md:text-xl luminous-text leading-relaxed mb-6 font-light tracking-wide">
-                Music is a constant companion and truly essential to my routine. Whether I am coding, studying, or cooking, it always plays in the background. Even though it may not work for everyone, I find it is the key to helping me focus more deeply and do my best work.
+              <p className="body-text">
+                Music runs in the background of most things I do &mdash; coding, studying, cooking. It is not for everyone, but for me it is what keeps my focus steady.
               </p>
             </motion.div>
 
             <motion.div
-              className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform"
-              initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
-              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              className="py-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeUp}
+              transition={{ duration: 0.6, delay: 0.05 }}
             >
-              <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                <Music className="text-pink-400" size={28} />
-                Instruments
-              </h3>
-              <p className="text-lg md:text-xl luminous-text leading-relaxed mb-6 font-light tracking-wide">
+              <p className="eyebrow mb-2">Instruments</p>
+              <p className="body-text">
                 {data.music.instruments.join(', ')}
               </p>
             </motion.div>
 
             <motion.div
-              className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform"
-              initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
-              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              className="py-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeUp}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                <Music className="text-pink-400" size={28} />
-                Vocals
-              </h3>
-              <p className="text-lg md:text-xl luminous-text leading-relaxed mb-6 font-light tracking-wide">{data.music.singing}</p>
+              <p className="eyebrow mb-2">Vocals</p>
+              <p className="body-text">{data.music.singing}</p>
             </motion.div>
 
             <motion.div
-              className="glass rounded-3xl p-8 md:p-10 hover:scale-[1.02] transition-transform"
-              initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
-              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              className="py-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeUp}
+              transition={{ duration: 0.6, delay: 0.15 }}
             >
-              <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                <Music className="text-pink-400" size={28} />
-                Preferred Genres
-              </h3>
-              <p className="text-lg md:text-xl luminous-text leading-relaxed font-light tracking-wide">{data.music.listening}</p>
+              <p className="eyebrow mb-2">On repeat</p>
+              <p className="body-text">{data.music.listening}</p>
             </motion.div>
           </div>
 
           <motion.div
-            className="glass rounded-3xl p-8 md:p-12 hover:scale-[1.02] transition-transform"
-            initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
-            whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-              <Palette className="text-purple-400" size={28} />
-              Art
-            </h3>
-            <div className="flex flex-wrap gap-4 mb-6">
+            <p className="eyebrow mb-3">Art</p>
+            <div className="flex flex-wrap gap-3 mb-5">
               {data.art.mediums.map((medium, index) => (
-                <motion.span
+                <span
                   key={index}
-                  className="px-6 py-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-full text-lg text-gray-100 hover:text-white hover:scale-110 transition-all cursor-default"
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
-                  initial={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.8 }}
-                  whileInView={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                  className="px-4 py-1.5 border border-line bg-surface text-sm text-ink-soft font-mono"
                 >
                   {medium}
-                </motion.span>
+                </span>
               ))}
             </div>
-            <p className="text-lg md:text-xl luminous-text leading-relaxed font-light tracking-wide">{data.art.achievements}</p>
+            <p className="body-text">{data.art.achievements}</p>
             <div className="mt-6">
               <Link
                 href="/gallery"
-                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors group"
+                className="inline-flex items-center gap-2 font-mono text-sm text-accent hover:text-ink transition-colors group"
               >
-                <FileText size={20} />
-                <span>View my arts</span>
-                <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
+                <FileText size={16} />
+                <span>See the gallery</span>
+                <ExternalLink size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
       </section>
     </>
   );
 }
-

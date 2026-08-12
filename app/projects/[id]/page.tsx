@@ -12,15 +12,15 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
 
   if (!project) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-[#050505] via-[#0a0a1a] to-[#050505] flex items-center justify-center px-4">
+      <main className="min-h-screen bg-paper flex items-center justify-center px-4">
         <div className="max-w-xl text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Project Not Found</h1>
-          <p className="text-gray-300 mb-8">We couldn&rsquo;t find details for this project. It may have been moved or is not yet published.</p>
+          <h1 className="font-display text-4xl text-ink mb-4">Project not found</h1>
+          <p className="body-text mb-8">This one may have been renamed or hasn&rsquo;t been published yet.</p>
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
+            className="inline-flex items-center gap-2 border border-accent px-6 py-3 font-mono text-sm text-accent transition hover:bg-accent-soft"
           >
-            ← Back to Projects
+            ← Back to projects
           </Link>
         </div>
       </main>
@@ -28,22 +28,24 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#050505] via-[#0f061d] to-[#050505] py-24 px-4 sm:px-6 lg:px-12">
-      <div className="max-w-6xl mx-auto space-y-12">
-        <div className="flex flex-col gap-4">
+    <main className="min-h-screen bg-paper py-24 px-4 sm:px-6 lg:px-12">
+      <div className="max-w-4xl mx-auto space-y-12">
+        <div className="flex flex-col gap-6">
           <Link
             href="/#projects"
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
+            className="inline-flex w-fit items-center gap-2 border border-line px-5 py-2.5 font-mono text-sm text-ink transition hover:border-accent hover:text-accent"
           >
-            ← Back to Projects
+            ← Back to projects
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-blue-500 to-purple-400 bg-clip-text text-transparent">
-            {project.title}
-          </h1>
-          <p className="text-lg text-gray-200 leading-relaxed max-w-4xl">{project.description}</p>
-          <div className="flex flex-wrap gap-3">
+          <div>
+            <h1 className="font-display text-4xl md:text-5xl text-ink mb-4">
+              {project.title}
+            </h1>
+            <p className="body-text max-w-3xl whitespace-pre-line">{project.description}</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
-              <span key={tag} className="rounded-full border border-white/15 px-4 py-1 text-sm font-semibold uppercase tracking-wide text-purple-100">
+              <span key={tag} className="border border-line px-3 py-1 font-mono text-xs text-muted">
                 {tag}
               </span>
             ))}
@@ -52,17 +54,17 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-700/40 transition hover:opacity-90"
+            className="inline-flex w-fit items-center gap-2 border border-accent px-6 py-3 font-mono text-sm text-accent transition hover:bg-accent-soft"
           >
-            View Source on GitHub →
+            View source on GitHub →
           </a>
         </div>
 
         <div className="space-y-10">
           {project.media.map((item, index) => (
-            <div key={`${item.url}-${index}`} className="glass rounded-3xl overflow-hidden">
+            <div key={`${item.url}-${index}`} className="card overflow-hidden">
               {item.type === 'image' ? (
-                <div className="relative w-full overflow-hidden bg-black">
+                <div className="relative w-full overflow-hidden bg-black/20">
                   <Image
                     src={item.url}
                     alt={item.caption}
@@ -72,7 +74,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
                   />
                 </div>
               ) : (
-                <div className="relative w-full overflow-hidden bg-black aspect-video">
+                <div className="relative w-full overflow-hidden bg-black/20 aspect-video">
                   <iframe
                     src={item.url}
                     title={item.caption}
@@ -82,7 +84,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
                   />
                 </div>
               )}
-              <p className="px-6 py-4 text-sm text-gray-300 border-t border-white/10">{item.caption}</p>
+              <p className="px-6 py-4 text-sm text-muted border-t border-line font-mono">{item.caption}</p>
             </div>
           ))}
         </div>

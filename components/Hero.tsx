@@ -2,8 +2,6 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import { FaUserGraduate } from 'react-icons/fa';
-import { BsMusicNoteBeamed } from 'react-icons/bs';
 import { PersonalData } from '@/data/personalData';
 
 interface HeroProps {
@@ -12,79 +10,65 @@ interface HeroProps {
 
 export default function Hero({ data }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
-  const floatClass = shouldReduceMotion ? '' : 'animate-float';
   const fadeIn = (delay: number) =>
     shouldReduceMotion
       ? {}
       : {
-          initial: { opacity: 0, y: 30 },
+          initial: { opacity: 0, y: 20 },
           animate: { opacity: 1, y: 0 },
-          transition: { delay, duration: 0.8 }
+          transition: { delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }
         };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 ${floatClass}`} />
-        <div className={`absolute top-1/3 right-1/4 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 ${floatClass}`} style={{ animationDelay: shouldReduceMotion ? undefined : '2s' }} />
-        <div className={`absolute bottom-1/4 left-1/3 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 ${floatClass}`} style={{ animationDelay: shouldReduceMotion ? undefined : '4s' }} />
+    <section id="home" className="snap-section min-h-screen flex items-center relative overflow-hidden pt-24">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <motion.div {...fadeIn(0)} className="flex items-center gap-3 mb-8">
+          <span className="h-px w-8 bg-accent" />
+          <span className="eyebrow">Student · Developer · Tinkerer</span>
+        </motion.div>
+
+        <motion.h2
+          {...fadeIn(0.08)}
+          className="font-display text-xl sm:text-2xl text-ink-soft mb-3"
+        >
+          {data.name}
+        </motion.h2>
+
+        <motion.h1
+          {...fadeIn(0.16)}
+          className="font-display italic text-4xl sm:text-5xl md:text-6xl leading-[1.15] text-ink mb-8 max-w-3xl text-balance"
+        >
+          Learning. Building. Improving.
+        </motion.h1>
+
+        <motion.p
+          {...fadeIn(0.3)}
+          className="body-text text-lg md:text-xl max-w-xl mb-10"
+        >
+          {data.bio}
+        </motion.p>
+
+        <motion.div {...fadeIn(0.42)}>
+          <a
+            href="#about"
+            className="group inline-flex items-center gap-3 border border-line px-6 py-3 font-mono text-sm text-ink transition hover:border-accent hover:text-accent"
+          >
+            scroll to read more
+            <ArrowDown size={16} className="group-hover:translate-y-1 transition-transform" />
+          </a>
+        </motion.div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center">
-          <motion.div
-            {...fadeIn(0.1)}
-          >
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">
-              <span className="gradient-text">{data.name}</span>
-            </h1>
-          </motion.div>
-
-          <motion.div
-            {...fadeIn(0.3)}
-          >
-            <div className="flex items-center justify-center gap-3 md:gap-4 mb-6 py-1">
-              <FaUserGraduate className="text-purple-400" size={32} />
-              <h2 className="text-2xl md:text-3xl font-bold gradient-text">
-                Student | Developer | Melophile
-              </h2>
-              <BsMusicNoteBeamed className="text-pink-400" size={32} />
-            </div>
-          </motion.div>
-
-          <motion.p
-            className="text-xl md:text-2xl luminous-text max-w-2xl mx-auto mb-12 leading-relaxed"
-            {...fadeIn(0.5)}
-          >
-            {data.bio}
-          </motion.p>
-
-          <motion.div
-            {...fadeIn(0.7)}
-            className="flex justify-center"
-          >
-            <motion.a
-              href="#about"
-              className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold text-white overflow-hidden"
-              whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
-              whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                Explore My Journey
-                <ArrowDown className="group-hover:translate-y-1 transition-transform" size={20} />
-              </span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600"
-                initial={shouldReduceMotion ? undefined : { x: '-100%' }}
-                whileHover={shouldReduceMotion ? undefined : { x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.a>
-          </motion.div>
-        </div>
+      <div
+        className="pointer-events-none absolute right-[6%] top-1/2 hidden -translate-y-1/2 flex-col gap-3 md:flex"
+        aria-hidden="true"
+      >
+        <span className="h-px w-40 bg-line" />
+        <span className="h-px w-28 bg-line" />
+        <span className="h-px w-52 bg-line" />
+        <span className="h-px w-16 bg-accent/60" />
+        <span className="h-px w-36 bg-line" />
       </div>
     </section>
   );
 }
-
