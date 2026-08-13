@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { PersonalData } from '@/data/personalData';
+import { HeroScene } from '@/components/illustrations';
 
 interface HeroProps {
   data: PersonalData;
@@ -20,54 +21,70 @@ export default function Hero({ data }: HeroProps) {
         };
 
   return (
-    <section id="home" className="snap-section min-h-screen flex items-center relative overflow-hidden pt-24">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <motion.div {...fadeIn(0)} className="flex items-center gap-3 mb-8">
-          <span className="h-px w-8 bg-accent" />
-          <span className="eyebrow">Student · Developer · Tinkerer</span>
-        </motion.div>
+    <section
+      id="home"
+      className="snap-section min-h-screen flex items-center relative overflow-hidden pt-28 pb-16"
+    >
+      <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-10">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div>
+            <motion.div {...fadeIn(0)} className="mb-6 flex items-center gap-3">
+              <span className="h-1.5 w-10 rounded-full bg-accent" />
+              <span className="kicker">Student · Developer · Tinkerer</span>
+            </motion.div>
 
-        <motion.h2
-          {...fadeIn(0.08)}
-          className="font-display text-xl sm:text-2xl text-ink-soft mb-3"
-        >
-          {data.name}
-        </motion.h2>
+            <motion.p
+              {...fadeIn(0.08)}
+              className="mb-3 font-heading text-lg text-ink-soft sm:text-xl"
+            >
+              {data.name}
+            </motion.p>
 
-        <motion.h1
-          {...fadeIn(0.16)}
-          className="font-display italic text-4xl sm:text-5xl md:text-6xl leading-[1.15] text-ink mb-8 max-w-3xl text-balance"
-        >
-          Learning. Building. Improving.
-        </motion.h1>
+            <motion.h1
+              {...fadeIn(0.16)}
+              className="mb-6 font-heading text-[2.5rem] leading-[1.1] text-ink sm:text-5xl lg:text-[3.5rem]"
+            >
+              Learning.<br />Building.<br />
+              <span className="text-accent-700">Improving.</span>
+            </motion.h1>
 
-        <motion.p
-          {...fadeIn(0.3)}
-          className="body-text text-lg md:text-xl max-w-xl mb-10"
-        >
-          {data.bio}
-        </motion.p>
+            <motion.p
+              {...fadeIn(0.3)}
+              className="body-text mb-8 max-w-lg text-base"
+            >
+              {data.bio}
+            </motion.p>
 
-        <motion.div {...fadeIn(0.42)}>
-          <a
-            href="#about"
-            className="group inline-flex items-center gap-3 border border-line px-6 py-3 font-mono text-sm text-ink transition hover:border-accent hover:text-accent"
+            <motion.div {...fadeIn(0.42)} className="flex flex-wrap items-center gap-3">
+              <a
+                href="#about"
+                className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-heading text-sm text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
+              >
+                Explore the work
+                <ArrowDown size={17} strokeWidth={2.75} className="transition-transform group-hover:translate-y-0.5" />
+              </a>
+              <a
+                href="#connect"
+                className="inline-flex items-center gap-2 rounded-full border border-line px-7 py-3.5 font-heading text-sm text-ink transition-colors hover:bg-neutral-300/50"
+              >
+                Get in touch
+              </a>
+            </motion.div>
+          </div>
+
+          <motion.div
+            className="relative mx-auto w-full max-w-md lg:max-w-none"
+            initial={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.94 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            scroll to read more
-            <ArrowDown size={16} className="group-hover:translate-y-1 transition-transform" />
-          </a>
-        </motion.div>
-      </div>
-
-      <div
-        className="pointer-events-none absolute right-[6%] top-1/2 hidden -translate-y-1/2 flex-col gap-3 md:flex"
-        aria-hidden="true"
-      >
-        <span className="h-px w-40 bg-line" />
-        <span className="h-px w-28 bg-line" />
-        <span className="h-px w-52 bg-line" />
-        <span className="h-px w-16 bg-accent/60" />
-        <span className="h-px w-36 bg-line" />
+            <div
+              className="pointer-events-none absolute -right-6 -top-8 h-28 w-28 rounded-full bg-sage-300/60 blur-[2px]"
+              aria-hidden="true"
+            />
+            <HeroScene className="anim-float-slow relative w-full" />
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 
+/* Every value below resolves to an Organic token in app/globals.css.
+   Nothing here hard-codes a color, radius or shadow the tokens already carry. */
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,30 +11,71 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        paper: "#241B36",
-        surface: "#33284D",
-        ink: "#F5E8D6",
-        "ink-soft": "#D8C9D6",
-        muted: "#A897B8",
-        line: "rgba(245, 232, 214, 0.14)",
-        accent: "#E8875B",
-        "accent-soft": "rgba(232, 135, 91, 0.14)",
+        bg: "var(--color-bg)",
+        surface: "var(--color-surface)",
+        ink: "var(--color-text)",
+        "ink-soft": "var(--color-neutral-700)",
+        muted: "var(--color-neutral-600)",
+        line: "var(--color-divider)",
+
+        accent: {
+          DEFAULT: "var(--color-accent)",
+          100: "var(--color-accent-100)",
+          200: "var(--color-accent-200)",
+          300: "var(--color-accent-300)",
+          400: "var(--color-accent-400)",
+          500: "var(--color-accent-500)",
+          600: "var(--color-accent-600)",
+          700: "var(--color-accent-700)",
+          800: "var(--color-accent-800)",
+          900: "var(--color-accent-900)",
+        },
+        sage: {
+          DEFAULT: "var(--color-accent-2)",
+          100: "var(--color-accent-2-100)",
+          200: "var(--color-accent-2-200)",
+          300: "var(--color-accent-2-300)",
+          400: "var(--color-accent-2-400)",
+          500: "var(--color-accent-2-500)",
+          600: "var(--color-accent-2-600)",
+          700: "var(--color-accent-2-700)",
+          800: "var(--color-accent-2-800)",
+          900: "var(--color-accent-2-900)",
+        },
+        neutral: {
+          100: "var(--color-neutral-100)",
+          200: "var(--color-neutral-200)",
+          300: "var(--color-neutral-300)",
+          400: "var(--color-neutral-400)",
+          500: "var(--color-neutral-500)",
+          600: "var(--color-neutral-600)",
+          700: "var(--color-neutral-700)",
+          800: "var(--color-neutral-800)",
+          900: "var(--color-neutral-900)",
+        },
       },
       fontFamily: {
-        display: ["var(--font-display)", "serif"],
-        mono: ["var(--font-mono)", "monospace"],
-        sans: ["var(--font-body)", "sans-serif"],
+        heading: ["var(--font-heading)", "system-ui", "sans-serif"],
+        body: ["var(--font-body)", "system-ui", "sans-serif"],
       },
-      animation: {
-        rise: "rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both",
+      borderRadius: {
+        sm: "var(--radius-sm)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)",
+        card: "calc(var(--radius-lg) * 1.15)",
       },
-      keyframes: {
-        rise: {
-          "0%": { opacity: "0", transform: "translateY(14px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
+      boxShadow: {
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
+      },
+      spacing: {
+        s1: "var(--space-1)",
+        s2: "var(--space-2)",
+        s3: "var(--space-3)",
+        s4: "var(--space-4)",
+        s6: "var(--space-6)",
+        s8: "var(--space-8)",
       },
     },
   },

@@ -17,8 +17,8 @@ const overlayVariants = {
 };
 
 const modalVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 20, scale: 0.97 },
+  visible: { opacity: 1, y: 0, scale: 1 },
 };
 
 const formatRepoLabel = (url: string, fallback: string) => {
@@ -95,7 +95,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+      className="fixed inset-0 z-[60] grid place-items-center bg-neutral-900/50 px-4 backdrop-blur-sm"
       initial="hidden"
       animate="visible"
       exit="hidden"
@@ -104,8 +104,9 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
       aria-label="Project details overlay"
     >
       <motion.div
-        className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto border border-line bg-surface p-6 sm:p-10 text-ink"
+        className="card elev-lg relative max-h-[85vh] w-full max-w-2xl overflow-y-auto p-7 sm:p-10"
         variants={modalVariants}
+        transition={{ type: 'spring', stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -116,30 +117,30 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             setRepoMenuOpen(false);
             onClose();
           }}
-          className="absolute right-5 top-5 border border-line p-2 text-muted transition hover:border-accent hover:text-accent"
+          className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 text-ink-soft transition-colors hover:bg-accent hover:text-bg"
           aria-label="Close project details"
         >
-          <X size={18} />
+          <X size={18} strokeWidth={2.75} />
         </button>
 
         <div className="space-y-6">
           <div>
-            <h2 className="text-3xl font-display text-ink pr-10">{project.title}</h2>
-            <p className="mt-4 body-text whitespace-pre-line">{project.description}</p>
+            <h2 className="pr-12 font-heading text-2xl text-ink">{project.title}</h2>
+            <p className="body-text mt-3 whitespace-pre-line text-sm">{project.description}</p>
           </div>
 
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="border border-line px-3 py-1 font-mono text-xs text-muted"
+                className="rounded-full bg-neutral-200 px-3 py-1 text-xs font-semibold text-neutral-800"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-3 pt-2">
+          <div className="flex flex-wrap gap-3 pt-1">
             {hasMultipleRepos ? (
               <div className="relative" ref={repoMenuRef}>
                 <button
@@ -148,20 +149,21 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     event.preventDefault();
                     setRepoMenuOpen((prev) => !prev);
                   }}
-                  className="inline-flex items-center justify-center border border-accent px-5 py-2.5 font-mono text-sm text-accent transition hover:bg-accent-soft"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
                   aria-haspopup="menu"
                   aria-expanded={isRepoMenuOpen}
                 >
                   View source
                   <ChevronDown
                     size={16}
-                    className={`ml-2 transition-transform ${isRepoMenuOpen ? 'rotate-180' : ''}`}
+                    strokeWidth={2.75}
+                    className={`transition-transform ${isRepoMenuOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
 
                 {isRepoMenuOpen && (
                   <div
-                    className="absolute left-0 z-10 mt-2 w-60 border border-line bg-surface p-2 shadow-lg shadow-ink/5"
+                    className="elev-md absolute left-0 z-10 mt-2 w-64 rounded-lg bg-bg p-2"
                     role="menu"
                   >
                     {repoLinks.map((link) => (
@@ -170,7 +172,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         href={link.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="block px-3 py-2 font-mono text-sm text-ink-soft transition hover:bg-accent-soft hover:text-accent"
+                        className="block rounded-full px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-accent hover:text-bg"
                         role="menuitem"
                         onClick={() => setRepoMenuOpen(false)}
                       >
@@ -185,7 +187,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center border border-accent px-5 py-2.5 font-mono text-sm text-accent transition hover:bg-accent-soft"
+                className="inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
               >
                 View source
               </a>
@@ -193,7 +195,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {project.id !== 6 && project.id !== 5 && (
               <Link
                 href={`/projects/${project.id}`}
-                className="inline-flex items-center justify-center border border-line px-5 py-2.5 font-mono text-sm text-ink transition hover:border-accent hover:text-accent"
+                className="inline-flex items-center rounded-full border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-neutral-300/60"
                 onClick={() => {
                   setRepoMenuOpen(false);
                   onClose();

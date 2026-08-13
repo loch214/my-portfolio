@@ -8,13 +8,15 @@ import AboutMe from '@/components/AboutMe';
 import ScrollRevealSection from '@/components/ScrollRevealSection';
 import SocialLinks from '@/components/SocialLinks';
 import ProjectModal from '@/components/ProjectModal';
+import SectionHeading from '@/components/SectionHeading';
+import { ProjectsScene } from '@/components/illustrations';
 import { personalData, projectsData, type Project } from '@/data/personalData';
 
 const gridVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08,
+      staggerChildren: 0.07,
     },
   },
 };
@@ -34,24 +36,29 @@ interface ProjectCardProps {
 const ProjectCard = ({ title, tags, icon: Icon, onClick }: ProjectCardProps) => (
   <motion.button
     onClick={onClick}
-    className="group card flex min-h-[200px] flex-col justify-between p-6 text-left transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+    className="card elev-sm group flex min-h-[200px] flex-col items-start p-6 text-left transition-shadow hover:shadow-md"
     variants={cardVariants}
-    whileHover={{ y: -4 }}
-    whileTap={{ scale: 0.98 }}
+    whileHover={{ y: -5 }}
+    whileTap={{ scale: 0.985 }}
   >
-    <Icon size={26} className="text-accent" aria-hidden />
-    <div>
-      <h3 className="text-lg font-display text-ink mb-3">{title}</h3>
-      <div className="flex flex-wrap gap-2">
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            className="font-mono text-xs text-muted"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
+    <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-accent-200 text-accent-700 transition-colors group-hover:bg-accent group-hover:text-bg">
+      <Icon size={20} aria-hidden />
+    </span>
+    <h3 className="mb-3 font-heading text-xl leading-tight text-ink">{title}</h3>
+    <div className="mt-auto flex flex-wrap gap-1.5">
+      {tags.slice(0, 4).map((tag) => (
+        <span
+          key={tag}
+          className="rounded-full bg-neutral-200 px-2.5 py-1 text-xs font-semibold text-neutral-800"
+        >
+          {tag}
+        </span>
+      ))}
+      {tags.length > 4 && (
+        <span className="rounded-full px-1.5 py-1 text-xs font-semibold text-muted">
+          +{tags.length - 4}
+        </span>
+      )}
     </div>
   </motion.button>
 );
@@ -60,29 +67,42 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <main className="min-h-screen bg-paper">
+    <main className="min-h-screen bg-bg">
       <Hero data={personalData} />
       <AboutMe data={personalData} />
       <ScrollRevealSection data={personalData} />
-      <section id="projects" className="snap-section min-h-screen flex items-center py-24 px-4 sm:px-6 lg:px-10">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="mb-14">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="font-mono text-xs text-muted">05</span>
-              <span className="eyebrow">Projects</span>
-              <span className="hairline flex-1" />
+
+      <section
+        id="projects"
+        className="snap-section relative flex min-h-screen items-center px-6 py-20 sm:px-8 lg:px-10"
+      >
+        <div className="mx-auto w-full max-w-6xl">
+          <div className="mb-8 grid items-center gap-8 lg:grid-cols-[1.3fr_0.7fr]">
+            <div>
+              <SectionHeading index="05" kicker="Projects" title="Things I've built" tone="sage" />
+              <p className="body-text max-w-xl text-base">
+                Full-stack apps, a few AI experiments that did not always go to plan, and this site.
+                Open a card for the story behind each one, plus source code or a demo.
+              </p>
             </div>
-            <p className="body-text max-w-2xl">
-              Full-stack apps, a few AI experiments that did not always go to plan, and this site. Open a card for the story behind each one, plus source code or a demo.
-            </p>
+
+            <motion.div
+              className="mx-auto hidden w-full max-w-[200px] lg:block lg:justify-self-end"
+              initial={{ opacity: 0, scale: 0.94 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <ProjectsScene className="anim-float w-full" />
+            </motion.div>
           </div>
 
           <motion.div
-            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
             variants={gridVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
           >
             {projectsData.map((project) => (
               <ProjectCard
@@ -96,7 +116,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
       <SocialLinks links={personalData.socialLinks} />
+
       <AnimatePresence>
         {selectedProject && (
           <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />

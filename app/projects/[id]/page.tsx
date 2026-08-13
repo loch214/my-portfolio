@@ -12,13 +12,15 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
 
   if (!project) {
     return (
-      <main className="min-h-screen bg-paper flex items-center justify-center px-4">
+      <main className="grid min-h-screen place-items-center bg-bg px-6">
         <div className="max-w-xl text-center">
-          <h1 className="font-display text-4xl text-ink mb-4">Project not found</h1>
-          <p className="body-text mb-8">This one may have been renamed or hasn&rsquo;t been published yet.</p>
+          <h1 className="mb-4 font-heading text-[2rem] text-ink">Project not found</h1>
+          <p className="body-text mb-8 text-base">
+            This one may have been renamed or hasn&rsquo;t been published yet.
+          </p>
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 border border-accent px-6 py-3 font-mono text-sm text-accent transition hover:bg-accent-soft"
+            className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
           >
             ← Back to projects
           </Link>
@@ -28,24 +30,25 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
   }
 
   return (
-    <main className="min-h-screen bg-paper py-24 px-4 sm:px-6 lg:px-12">
-      <div className="max-w-4xl mx-auto space-y-12">
+    <main className="min-h-screen bg-bg px-6 py-28 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-4xl space-y-12">
         <div className="flex flex-col gap-6">
           <Link
             href="/#projects"
-            className="inline-flex w-fit items-center gap-2 border border-line px-5 py-2.5 font-mono text-sm text-ink transition hover:border-accent hover:text-accent"
+            className="inline-flex w-fit items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-neutral-300/60"
           >
             ← Back to projects
           </Link>
           <div>
-            <h1 className="font-display text-4xl md:text-5xl text-ink mb-4">
-              {project.title}
-            </h1>
-            <p className="body-text max-w-3xl whitespace-pre-line">{project.description}</p>
+            <h1 className="mb-3 font-heading text-[2rem] text-ink sm:text-4xl">{project.title}</h1>
+            <p className="body-text max-w-3xl whitespace-pre-line text-base">{project.description}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
-              <span key={tag} className="border border-line px-3 py-1 font-mono text-xs text-muted">
+              <span
+                key={tag}
+                className="rounded-full bg-neutral-200 px-3 py-1 text-xs font-semibold text-neutral-800"
+              >
                 {tag}
               </span>
             ))}
@@ -54,17 +57,17 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex w-fit items-center gap-2 border border-accent px-6 py-3 font-mono text-sm text-accent transition hover:bg-accent-soft"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
           >
             View source on GitHub →
           </a>
         </div>
 
-        <div className="space-y-10">
+        <div className="space-y-8">
           {project.media.map((item, index) => (
-            <div key={`${item.url}-${index}`} className="card overflow-hidden">
+            <figure key={`${item.url}-${index}`} className="card elev-sm overflow-hidden">
               {item.type === 'image' ? (
-                <div className="relative w-full overflow-hidden bg-black/20">
+                <div className="washed relative w-full overflow-hidden">
                   <Image
                     src={item.url}
                     alt={item.caption}
@@ -74,7 +77,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
                   />
                 </div>
               ) : (
-                <div className="relative w-full overflow-hidden bg-black/20 aspect-video">
+                <div className="relative aspect-video w-full overflow-hidden bg-neutral-900">
                   <iframe
                     src={item.url}
                     title={item.caption}
@@ -84,8 +87,8 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
                   />
                 </div>
               )}
-              <p className="px-6 py-4 text-sm text-muted border-t border-line font-mono">{item.caption}</p>
-            </div>
+              <figcaption className="px-6 py-4 text-sm text-ink-soft">{item.caption}</figcaption>
+            </figure>
           ))}
         </div>
       </div>

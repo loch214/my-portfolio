@@ -1,26 +1,22 @@
 import type { Metadata } from "next";
-import { Lora, IBM_Plex_Mono, Inter } from "next/font/google";
+import { Caprasimo, Figtree } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import MotionProvider from "@/components/MotionProvider";
 import SectionNav from "@/components/SectionNav";
 import "./globals.css";
 
-const lora = Lora({
+const caprasimo = Caprasimo({
   subsets: ["latin"],
-  variable: "--font-display",
-  style: ["normal", "italic"],
-  weight: ["400", "500", "600"],
+  variable: "--font-heading",
+  weight: ["400"],
+  display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
-});
-
-const inter = Inter({
+const figtree = Figtree({
   subsets: ["latin"],
   variable: "--font-body",
+  weight: ["400", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -34,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${lora.variable} ${plexMono.variable} ${inter.variable}`}>
+    <html lang="en" className={`${caprasimo.variable} ${figtree.variable}`}>
       <body>
         <MotionProvider>
           <SectionNav />

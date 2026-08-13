@@ -1,9 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FileText, ExternalLink } from 'lucide-react';
+import { FileText, ExternalLink, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { PersonalData } from '@/data/personalData';
+import SectionHeading from '@/components/SectionHeading';
+import { EducationScene, SportsScene, HobbiesScene } from '@/components/illustrations';
 
 interface ScrollRevealSectionProps {
   data: PersonalData;
@@ -14,194 +16,205 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
+const viewport = { once: true, amount: 0.25 } as const;
+
 export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) {
   return (
     <>
-      {/* Education Section */}
-      <section id="education" className="snap-section min-h-screen flex items-center py-24 px-4 sm:px-6 lg:px-8 relative">
-        <div className="max-w-3xl mx-auto w-full">
-          <div className="flex items-center gap-3 mb-12">
-            <span className="font-mono text-xs text-muted">02</span>
-            <span className="eyebrow">Education</span>
-            <span className="hairline flex-1" />
-          </div>
+      {/* Education */}
+      <section
+        id="education"
+        className="snap-section relative flex min-h-screen items-center px-6 py-20 sm:px-8 lg:px-10"
+      >
+        <div className="mx-auto w-full max-w-5xl">
+          <SectionHeading index="02" kicker="Education" title="Where I've studied" />
 
-          <div className="relative pl-10">
-            <span className="absolute left-[7px] top-2 bottom-2 w-px bg-line" aria-hidden="true" />
-            <div className="space-y-14">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-12">
+            <div className="space-y-4">
               {data.education.map((edu, index) => (
-                <motion.div
+                <motion.article
                   key={index}
-                  className="relative"
+                  className="card elev-sm p-6 transition-shadow hover:shadow-md"
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
+                  viewport={viewport}
                   variants={fadeUp}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <span className="rail-node absolute -left-10 top-1.5 h-3 w-3 rounded-full bg-accent" aria-hidden="true" />
-                  <p className="font-mono text-xs text-accent mb-2">{edu.period}</p>
-                  <h3 className="font-display text-2xl md:text-3xl text-ink mb-1">
-                    {edu.school}
-                  </h3>
-                  <p className="text-ink-soft text-lg mb-3">
-                    {edu.degree}
-                  </p>
+                  <span className="inline-flex rounded-full bg-accent-200 px-3 py-1 text-xs font-bold text-accent-800">
+                    {edu.period}
+                  </span>
+                  <h3 className="mt-2.5 font-heading text-xl text-ink">{edu.school}</h3>
+                  <p className="mt-1 text-[15px] font-semibold text-ink">{edu.degree}</p>
                   {(edu.stream || edu.location) && (
-                    <p className="text-sm text-muted mb-3">
+                    <p className="mt-0.5 text-sm text-muted">
                       {[edu.stream, edu.location].filter(Boolean).join(' · ')}
                     </p>
                   )}
-                  <p className="body-text mb-4">
-                    {edu.description}
-                  </p>
+                  <p className="body-text mt-2.5 text-sm">{edu.description}</p>
                   {edu.resultsPdf && (
                     <a
                       href={edu.resultsPdf}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 font-mono text-sm text-accent hover:text-ink transition-colors group"
+                      className="group mt-3.5 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
                     >
-                      <FileText size={16} />
-                      <span>Academic results</span>
-                      <ExternalLink size={14} className="group-hover:translate-x-1 transition-transform" />
+                      <FileText size={16} strokeWidth={2.75} />
+                      Academic results
+                      <ExternalLink
+                        size={14}
+                        strokeWidth={2.75}
+                        className="transition-transform group-hover:translate-x-0.5"
+                      />
                     </a>
                   )}
-                </motion.div>
+                </motion.article>
+              ))}
+            </div>
+
+            <motion.div
+              className="mx-auto w-full max-w-[240px] lg:max-w-[300px] lg:justify-self-end"
+              initial={{ opacity: 0, scale: 0.94 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={viewport}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <EducationScene className="anim-float w-full" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sports */}
+      <section
+        id="sports"
+        className="snap-section relative flex min-h-screen items-center px-6 py-20 sm:px-8 lg:px-10"
+      >
+        <div className="mx-auto w-full max-w-5xl">
+          <SectionHeading index="03" kicker="Sports" title="On the field" tone="sage" />
+
+          <div className="grid items-center gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+            <motion.div
+              className="order-2 mx-auto w-full max-w-[240px] lg:order-1 lg:max-w-[300px]"
+              initial={{ opacity: 0, scale: 0.94 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={viewport}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <SportsScene className="anim-float w-full" />
+            </motion.div>
+
+            <div className="order-1 grid gap-4 sm:grid-cols-2 lg:order-2">
+              {data.sports.map((sport, index) => (
+                <motion.article
+                  key={index}
+                  className="card elev-sm p-6 transition-shadow hover:shadow-md"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewport}
+                  variants={fadeUp}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <span className="inline-flex rounded-full bg-sage-200 px-3 py-1 text-xs font-bold text-sage-800">
+                    {sport.years ?? sport.duration}
+                  </span>
+                  <h3 className="mt-2.5 font-heading text-xl text-ink">{sport.name}</h3>
+                  <p className="mt-0.5 text-sm text-muted">{sport.duration} of training</p>
+                  <p className="body-text mt-2.5 text-sm">{sport.achievements}</p>
+                </motion.article>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Sports Section */}
-      <section id="sports" className="snap-section min-h-screen flex items-center py-24 px-4 sm:px-6 lg:px-8 relative">
-        <div className="max-w-3xl mx-auto w-full">
-          <div className="flex items-center gap-3 mb-12">
-            <span className="font-mono text-xs text-muted">03</span>
-            <span className="eyebrow">Sports</span>
-            <span className="hairline flex-1" />
-          </div>
+      {/* Hobbies */}
+      <section
+        id="hobbies"
+        className="snap-section relative flex min-h-screen items-center px-6 py-20 sm:px-8 lg:px-10"
+      >
+        <div className="mx-auto w-full max-w-5xl">
+          <SectionHeading index="04" kicker="Hobbies" title="Away from the screen" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {data.sports.map((sport, index) => (
-              <motion.div
-                key={index}
-                className="card p-8"
+          <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-12">
+            <div>
+              <motion.p
+                className="body-text mb-5 max-w-xl text-base"
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={viewport}
                 variants={fadeUp}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6 }}
               >
-                <p className="font-mono text-xs text-accent mb-3">
-                  {sport.years ?? sport.duration}
-                </p>
-                <h3 className="font-display text-2xl text-ink mb-1">
-                  {sport.name}
-                </h3>
-                <p className="text-sm text-muted mb-4">{sport.duration} of training</p>
-                <p className="body-text">
-                  {sport.achievements}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                Music runs in the background of most things I do &mdash; coding, studying, cooking.
+                It is not for everyone, but for me it is what keeps my focus steady.
+              </motion.p>
 
-      {/* Hobbies Section */}
-      <section id="hobbies" className="snap-section min-h-screen flex items-center py-24 px-4 sm:px-6 lg:px-8 relative">
-        <div className="max-w-3xl mx-auto w-full">
-          <div className="flex items-center gap-3 mb-12">
-            <span className="font-mono text-xs text-muted">04</span>
-            <span className="eyebrow">Hobbies</span>
-            <span className="hairline flex-1" />
-          </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  { label: 'Instruments', value: data.music.instruments.join(', ') },
+                  { label: 'Vocals', value: data.music.singing },
+                  { label: 'On repeat', value: data.music.listening },
+                ].map((item, index) => (
+                  <motion.div
+                    key={item.label}
+                    className="card p-5"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={viewport}
+                    variants={fadeUp}
+                    transition={{ duration: 0.6, delay: index * 0.08 }}
+                  >
+                    <p className="kicker mb-1.5">{item.label}</p>
+                    <p className="body-text text-sm">{item.value}</p>
+                  </motion.div>
+                ))}
 
-          <div className="divide-y divide-line border-t border-b border-line mb-12">
-            <motion.div
-              className="py-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={fadeUp}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="body-text">
-                Music runs in the background of most things I do &mdash; coding, studying, cooking. It is not for everyone, but for me it is what keeps my focus steady.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="py-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={fadeUp}
-              transition={{ duration: 0.6, delay: 0.05 }}
-            >
-              <p className="eyebrow mb-2">Instruments</p>
-              <p className="body-text">
-                {data.music.instruments.join(', ')}
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="py-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={fadeUp}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <p className="eyebrow mb-2">Vocals</p>
-              <p className="body-text">{data.music.singing}</p>
-            </motion.div>
-
-            <motion.div
-              className="py-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={fadeUp}
-              transition={{ duration: 0.6, delay: 0.15 }}
-            >
-              <p className="eyebrow mb-2">On repeat</p>
-              <p className="body-text">{data.music.listening}</p>
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={fadeUp}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <p className="eyebrow mb-3">Art</p>
-            <div className="flex flex-wrap gap-3 mb-5">
-              {data.art.mediums.map((medium, index) => (
-                <span
-                  key={index}
-                  className="px-4 py-1.5 border border-line bg-surface text-sm text-ink-soft font-mono"
+                <motion.div
+                  className="card p-5"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewport}
+                  variants={fadeUp}
+                  transition={{ duration: 0.6, delay: 0.24 }}
                 >
-                  {medium}
-                </span>
-              ))}
+                  <p className="kicker kicker-sage mb-1.5">Art</p>
+                  <div className="mb-2 flex flex-wrap gap-1.5">
+                    {data.art.mediums.map((medium) => (
+                      <span
+                        key={medium}
+                        className="rounded-full bg-sage-200 px-3 py-1 text-xs font-semibold text-sage-800"
+                      >
+                        {medium}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="body-text text-sm">{data.art.achievements}</p>
+                  <Link
+                    href="/gallery"
+                    className="group mt-3 inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-neutral-300/50"
+                  >
+                    See the gallery
+                    <ArrowUpRight
+                      size={15}
+                      strokeWidth={2.75}
+                      className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  </Link>
+                </motion.div>
+              </div>
             </div>
-            <p className="body-text">{data.art.achievements}</p>
-            <div className="mt-6">
-              <Link
-                href="/gallery"
-                className="inline-flex items-center gap-2 font-mono text-sm text-accent hover:text-ink transition-colors group"
-              >
-                <FileText size={16} />
-                <span>See the gallery</span>
-                <ExternalLink size={14} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </motion.div>
+
+            <motion.div
+              className="mx-auto w-full max-w-[240px] lg:max-w-[300px] lg:justify-self-end"
+              initial={{ opacity: 0, scale: 0.94 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={viewport}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <HobbiesScene className="anim-float w-full" />
+            </motion.div>
+          </div>
         </div>
       </section>
     </>

@@ -18,7 +18,7 @@ export default function SectionNav() {
   return (
     <nav
       aria-label="Section navigation"
-      className="fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-end gap-4 lg:flex"
+      className="fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-end gap-3.5 lg:flex"
     >
       {sections.map((section) => {
         const isActive = active === section.id;
@@ -28,20 +28,20 @@ export default function SectionNav() {
             href={`#${section.id}`}
             aria-label={`Go to ${section.label}`}
             aria-current={isActive ? 'true' : undefined}
-            className="group flex items-center gap-3"
+            className="group flex items-center gap-2.5 rounded-full"
           >
             <span
-              className={`font-mono text-[11px] tracking-wide transition-opacity ${
-                isActive ? 'text-accent opacity-100' : 'text-muted opacity-0 group-hover:opacity-100'
+              className={`rounded-full bg-surface px-2.5 py-1 text-[11px] font-bold text-ink-soft transition-opacity ${
+                isActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
               }`}
             >
               {section.label}
             </span>
             <span
-              className={`h-2 w-2 rounded-full border transition-all ${
+              className={`block rounded-full transition-all ${
                 isActive
-                  ? 'border-accent bg-accent scale-125'
-                  : 'border-line bg-transparent group-hover:border-accent'
+                  ? 'h-2.5 w-7 bg-accent'
+                  : 'h-2.5 w-2.5 bg-neutral-400 group-hover:bg-accent-400'
               }`}
             />
           </a>

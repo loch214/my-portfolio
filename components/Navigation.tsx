@@ -44,29 +44,27 @@ export default function Navigation() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
-        isScrolled
-          ? 'bg-paper/95 border-line backdrop-blur py-3'
-          : 'bg-paper/80 border-transparent backdrop-blur py-5'
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-bg/90 py-3 shadow-sm backdrop-blur' : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-6 sm:px-8 lg:px-10">
         <div className="flex items-center justify-between">
           <a
             href="#home"
-            className="font-mono text-sm tracking-widest text-ink hover:text-accent transition-colors"
+            className="rounded-full font-heading text-lg text-ink transition-colors hover:text-accent-700"
           >
-            LD<span className="text-accent">.</span>
+            Lochana<span className="text-accent">.</span>
           </a>
 
           <button
-            className="flex items-center gap-2 rounded-sm border border-line px-4 py-2 text-sm font-mono text-ink transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+            className="inline-flex items-center gap-2 rounded-full bg-surface px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-accent hover:text-bg"
             onClick={() => setIsSideMenuOpen(true)}
             aria-label="Open menu"
             aria-expanded={isSideMenuOpen}
           >
-            <Menu size={16} aria-hidden />
-            <span>menu</span>
+            <Menu size={17} strokeWidth={2.75} aria-hidden />
+            <span>Menu</span>
           </button>
         </div>
       </div>
@@ -75,50 +73,55 @@ export default function Navigation() {
         {isSideMenuOpen && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              className="fixed inset-0 z-40 bg-neutral-900/50 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsSideMenuOpen(false)}
             />
             <motion.aside
-              className="fixed top-0 right-0 h-screen w-80 max-w-sm bg-surface border-l border-line z-50 flex flex-col"
+              className="fixed right-0 top-0 z-50 flex h-screen w-80 max-w-[85vw] flex-col rounded-l-card bg-surface shadow-lg"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 32 }}
               role="dialog"
               aria-modal="true"
               aria-label="Site navigation"
             >
-              <div className="flex items-center justify-between p-6 border-b border-line">
-                <span className="eyebrow">Navigate</span>
+              <div className="flex items-center justify-between px-7 pb-4 pt-7">
+                <span className="kicker">Navigate</span>
                 <button
                   onClick={() => setIsSideMenuOpen(false)}
-                  className="text-muted hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent rounded-sm p-2"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-accent hover:text-bg"
                   aria-label="Close menu"
                 >
-                  <X size={20} />
+                  <X size={18} strokeWidth={2.75} />
                 </button>
               </div>
-              <nav className="flex-1 overflow-y-auto p-6 space-y-1">
+
+              <nav className="flex-1 overflow-y-auto px-5 pb-7">
                 {sideMenuItems.map((item, index) => {
                   const isActive = item.id !== null && item.id === activeSection;
                   return (
                     <a
                       key={item.name}
                       href={item.href}
-                      className={`flex items-center gap-3 rounded-sm px-4 py-3 text-base transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${
-                        isActive ? 'text-accent bg-accent-soft' : 'text-ink-soft hover:text-ink hover:bg-accent-soft'
+                      className={`mb-1 flex items-center gap-3 rounded-full px-4 py-3 transition-colors ${
+                        isActive
+                          ? 'bg-accent text-bg'
+                          : 'text-ink hover:bg-neutral-300/60'
                       }`}
                       onClick={() => setIsSideMenuOpen(false)}
                       aria-label={`Go to ${item.name}`}
                       aria-current={isActive ? 'true' : undefined}
                     >
-                      <span className={`font-mono text-xs ${isActive ? 'text-accent' : 'text-muted'}`}>
+                      <span
+                        className={`text-xs font-bold ${isActive ? 'text-bg/70' : 'text-muted'}`}
+                      >
                         {String(index + 1).padStart(2, '0')}
                       </span>
-                      {item.name}
+                      <span className="font-heading text-base">{item.name}</span>
                     </a>
                   );
                 })}
