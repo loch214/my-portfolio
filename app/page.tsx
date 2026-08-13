@@ -49,13 +49,13 @@ const ProjectCard = ({ title, tags, icon: Icon, onClick }: ProjectCardProps) => 
       {tags.slice(0, 4).map((tag) => (
         <span
           key={tag}
-          className="rounded-full bg-neutral-200 px-2.5 py-1 text-xs font-semibold text-neutral-800"
+          className="rounded-full bg-neutral-200 px-2.5 py-1 text-[13px] font-semibold text-neutral-800"
         >
           {tag}
         </span>
       ))}
       {tags.length > 4 && (
-        <span className="rounded-full px-1.5 py-1 text-xs font-semibold text-muted">
+        <span className="rounded-full px-1.5 py-1 text-[13px] font-semibold text-ink-soft">
           +{tags.length - 4}
         </span>
       )}
@@ -80,7 +80,7 @@ export default function Home() {
           <div className="mb-8 grid items-center gap-8 lg:grid-cols-[1.3fr_0.7fr]">
             <div>
               <SectionHeading index="05" kicker="Projects" title="Things I've built" tone="sage" />
-              <p className="body-text max-w-xl text-base">
+              <p className="body-text max-w-xl text-[17px]">
                 Full-stack apps, a few AI experiments that did not always go to plan, and this site.
                 Open a card for the story behind each one, plus source code or a demo.
               </p>

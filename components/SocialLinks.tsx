@@ -61,7 +61,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 
         <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
           <div>
-            <p className="body-text mb-7 max-w-lg text-base">
+            <p className="body-text mb-7 max-w-lg text-[17px]">
               The fastest way to reach me is GitHub or LinkedIn &mdash; I check both more often than
               email.
             </p>
@@ -85,14 +85,14 @@ export default function SocialLinks({ links }: SocialLinksProps) {
                     className="group inline-flex items-center gap-2.5 rounded-full bg-surface px-6 py-3.5 font-semibold text-ink transition-colors hover:bg-accent hover:text-bg"
                   >
                     <Icon size={19} strokeWidth={2.75} />
-                    <span className="text-sm">{link.platform}</span>
+                    <span className="text-[15px]">{link.platform}</span>
                   </motion.a>
                 );
               })}
             </motion.div>
 
             <motion.p
-              className="mt-12 text-sm text-muted"
+              className="mt-12 text-[15px] text-ink-soft"
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 0.4 }}

@@ -13,7 +13,7 @@ export default function GalleryPage() {
           </div>
           <Link
             href="/#hobbies"
-            className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-neutral-300/60"
+            className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:bg-neutral-300/60"
           >
             ← Back
           </Link>

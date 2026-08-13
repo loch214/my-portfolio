@@ -41,23 +41,23 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                   variants={fadeUp}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <span className="inline-flex rounded-full bg-accent-200 px-3 py-1 text-xs font-bold text-accent-800">
+                  <span className="inline-flex rounded-full bg-accent-200 px-3 py-1 text-[13px] font-bold text-accent-800">
                     {edu.period}
                   </span>
                   <h3 className="mt-2.5 font-heading text-xl text-ink">{edu.school}</h3>
-                  <p className="mt-1 text-[15px] font-semibold text-ink">{edu.degree}</p>
+                  <p className="mt-1 text-base font-semibold text-ink">{edu.degree}</p>
                   {(edu.stream || edu.location) && (
-                    <p className="mt-0.5 text-sm text-muted">
+                    <p className="mt-0.5 text-[15px] text-ink-soft">
                       {[edu.stream, edu.location].filter(Boolean).join(' · ')}
                     </p>
                   )}
-                  <p className="body-text mt-2.5 text-sm">{edu.description}</p>
+                  <p className="body-text mt-2.5 text-[15px]">{edu.description}</p>
                   {edu.resultsPdf && (
                     <a
                       href={edu.resultsPdf}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group mt-3.5 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
+                      className="group mt-3.5 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[15px] font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
                     >
                       <FileText size={16} strokeWidth={2.75} />
                       Academic results
@@ -115,12 +115,12 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                   variants={fadeUp}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <span className="inline-flex rounded-full bg-sage-200 px-3 py-1 text-xs font-bold text-sage-800">
+                  <span className="inline-flex rounded-full bg-sage-200 px-3 py-1 text-[13px] font-bold text-sage-800">
                     {sport.years ?? sport.duration}
                   </span>
                   <h3 className="mt-2.5 font-heading text-xl text-ink">{sport.name}</h3>
-                  <p className="mt-0.5 text-sm text-muted">{sport.duration} of training</p>
-                  <p className="body-text mt-2.5 text-sm">{sport.achievements}</p>
+                  <p className="mt-0.5 text-[15px] text-ink-soft">{sport.duration} of training</p>
+                  <p className="body-text mt-2.5 text-[15px]">{sport.achievements}</p>
                 </motion.article>
               ))}
             </div>
@@ -139,22 +139,29 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
           <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-12">
             <div>
               <motion.p
-                className="body-text mb-5 max-w-xl text-base"
+                className="body-text mb-5 max-w-xl text-[17px]"
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewport}
                 variants={fadeUp}
                 transition={{ duration: 0.6 }}
               >
-                Music runs in the background of most things I do &mdash; coding, studying, cooking.
-                It is not for everyone, but for me it is what keeps my focus steady.
+                Outside of coursework I draw, build small things for the fun of it, and keep
+                wandering into parts of tech that have nothing to do with my degree.
               </motion.p>
 
               <div className="grid gap-3 sm:grid-cols-2">
                 {[
-                  { label: 'Instruments', value: data.music.instruments.join(', ') },
-                  { label: 'Vocals', value: data.music.singing },
-                  { label: 'On repeat', value: data.music.listening },
+                  {
+                    label: 'Building for fun',
+                    value:
+                      'Most of my free time goes into building small tools of my own. Some turn out genuinely useful, others are just silly ideas I wanted to see working. I usually start coding without much of a plan and work the rest out as I go.',
+                  },
+                  {
+                    label: 'Exploring tech',
+                    value:
+                      'Software engineering is my main focus, but I make time for other areas as well. Recently that has meant small AI and cyber security projects, built to understand how they work rather than to specialise in them.',
+                  },
                 ].map((item, index) => (
                   <motion.div
                     key={item.label}
@@ -166,33 +173,33 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                     transition={{ duration: 0.6, delay: index * 0.08 }}
                   >
                     <p className="kicker mb-1.5">{item.label}</p>
-                    <p className="body-text text-sm">{item.value}</p>
+                    <p className="body-text text-[15px]">{item.value}</p>
                   </motion.div>
                 ))}
 
                 <motion.div
-                  className="card p-5"
+                  className="card p-5 sm:col-span-2"
                   initial="hidden"
                   whileInView="visible"
                   viewport={viewport}
                   variants={fadeUp}
-                  transition={{ duration: 0.6, delay: 0.24 }}
+                  transition={{ duration: 0.6, delay: 0.16 }}
                 >
                   <p className="kicker kicker-sage mb-1.5">Art</p>
                   <div className="mb-2 flex flex-wrap gap-1.5">
                     {data.art.mediums.map((medium) => (
                       <span
                         key={medium}
-                        className="rounded-full bg-sage-200 px-3 py-1 text-xs font-semibold text-sage-800"
+                        className="rounded-full bg-sage-200 px-3 py-1 text-[13px] font-semibold text-sage-800"
                       >
                         {medium}
                       </span>
                     ))}
                   </div>
-                  <p className="body-text text-sm">{data.art.achievements}</p>
+                  <p className="body-text text-[15px]">{data.art.achievements}</p>
                   <Link
                     href="/gallery"
-                    className="group mt-3 inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-neutral-300/50"
+                    className="group mt-3 inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-[15px] font-semibold text-ink transition-colors hover:bg-neutral-300/50"
                   >
                     See the gallery
                     <ArrowUpRight

@@ -20,11 +20,6 @@ export interface PersonalData {
     duration: string;
     years?: string;
   }[];
-  music: {
-    instruments: string[];
-    singing: string;
-    listening: string;
-  };
   art: {
     mediums: string[];
     achievements: string;
@@ -103,11 +98,6 @@ export const personalData: PersonalData = {
       years: "2014 - 2019"
     }
   ],
-  music: {
-    instruments: ["Experienced with the organ and guitar. Also have a basic understanding of the piano and violin."],
-    singing: "A passion for singing, with a comfortable range in low and mid notes. Current practice is focused on exploring higher pitches to continuously improve vocal technique.",
-    listening: "A mix of both Sinhala and English music including soft indie, alternative pop, and pop."
-  },
   art: {
     mediums: ["Pencil Arts", "Pastels"],
     achievements: "My passion for art, expressed through working with pencil and pastels, has led to winning titles in several art competitions throughout my school career."

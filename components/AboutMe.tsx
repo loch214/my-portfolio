@@ -31,7 +31,7 @@ export default function AboutMe({ data }: AboutMeProps) {
         <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
           <div>
             <motion.p
-              className="body-text mb-7 max-w-xl text-base"
+              className="body-text mb-7 max-w-xl text-[17px]"
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1, duration: 0.6 }}
@@ -49,7 +49,7 @@ export default function AboutMe({ data }: AboutMeProps) {
                 {technologies.map((tech, index) => (
                   <span
                     key={tech}
-                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                    className={`rounded-full px-3 py-1 text-[13px] font-semibold ${
                       index % 3 === 0
                         ? 'bg-accent-100 text-accent-800'
                         : index % 3 === 1

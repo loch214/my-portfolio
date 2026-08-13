@@ -130,14 +130,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         <div className="space-y-6">
           <div>
             <h2 className="pr-12 font-heading text-2xl text-ink">{project.title}</h2>
-            <p className="body-text mt-3 whitespace-pre-line text-sm">{project.description}</p>
+            <p className="body-text mt-3 whitespace-pre-line text-[15px]">{project.description}</p>
           </div>
 
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-neutral-200 px-3 py-1 text-xs font-semibold text-neutral-800"
+                className="rounded-full bg-neutral-200 px-3 py-1 text-[13px] font-semibold text-neutral-800"
               >
                 {tag}
               </span>
@@ -153,7 +153,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     event.preventDefault();
                     setRepoMenuOpen((prev) => !prev);
                   }}
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-[15px] font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
                   aria-haspopup="menu"
                   aria-expanded={isRepoMenuOpen}
                 >
@@ -176,7 +176,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         href={link.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="block rounded-full px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-accent hover:text-bg"
+                        className="block rounded-full px-4 py-2.5 text-[15px] font-semibold text-ink transition-colors hover:bg-accent hover:text-bg"
                         role="menuitem"
                         onClick={() => setRepoMenuOpen(false)}
                       >
@@ -191,7 +191,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
+                className="inline-flex items-center rounded-full bg-accent px-6 py-3 text-[15px] font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
               >
                 View source
               </a>
@@ -199,7 +199,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {project.id !== 6 && project.id !== 5 && (
               <Link
                 href={`/projects/${project.id}`}
-                className="inline-flex items-center rounded-full border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-neutral-300/60"
+                className="inline-flex items-center rounded-full border border-line px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:bg-neutral-300/60"
                 onClick={() => {
                   setRepoMenuOpen(false);
                   onClose();

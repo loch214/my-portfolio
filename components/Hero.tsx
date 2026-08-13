@@ -50,7 +50,7 @@ export default function Hero({ data }: HeroProps) {
 
             <motion.p
               {...fadeIn(0.3)}
-              className="body-text mb-8 max-w-lg text-base"
+              className="body-text mb-8 max-w-lg text-[17px]"
             >
               {data.bio}
             </motion.p>

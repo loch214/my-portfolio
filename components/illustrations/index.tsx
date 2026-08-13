@@ -175,37 +175,50 @@ export function SportsScene({ className }: IllustrationProps) {
   );
 }
 
-/* Hobbies — a guitar, notes and a paint palette. */
+/* Hobbies — tinkering and art: an idea bulb beside a paint palette. */
 export function HobbiesScene({ className }: IllustrationProps) {
   return (
-    <svg viewBox="0 0 320 320" className={className} role="img" aria-label="An illustrated guitar, music notes and paint palette">
+    <svg viewBox="0 0 320 320" className={className} role="img" aria-label="An illustrated lightbulb and paint palette">
       <path d={BLOB} fill="var(--color-accent-200)" />
-      <rect
-        x="150"
-        y="66"
-        width="15"
-        height="104"
-        rx="7.5"
-        fill="var(--color-accent-800)"
-      />
-      <rect x="142" y="56" width="31" height="20" rx="9" fill="var(--color-accent-700)" />
-      <circle cx="157" cy="196" r="52" fill="var(--color-accent-600)" />
-      <circle cx="157" cy="176" r="34" fill="var(--color-accent-500)" />
-      <circle cx="157" cy="186" r="15" fill="var(--color-accent-900)" />
-      <g stroke="var(--color-accent-800)" strokeWidth="4" strokeLinecap="round">
-        <path d="M242 92v56" />
-        <path d="M278 84v56" />
+
+      {/* idea rays */}
+      <g
+        fill="none"
+        stroke="var(--color-accent-400)"
+        strokeWidth="6"
+        strokeLinecap="round"
+      >
+        <path d="M190 78V62" />
+        <path d="M244 116l14-9" />
+        <path d="M136 116l-14-9" />
       </g>
-      <circle cx="234" cy="150" r="13" fill="var(--color-accent-800)" />
-      <circle cx="270" cy="142" r="13" fill="var(--color-accent-800)" />
-      <path d="M242 92l36-8v14l-36 8z" fill="var(--color-accent-800)" />
+
+      {/* bulb */}
+      <circle cx="190" cy="146" r="47" fill="var(--color-accent-500)" />
+      <circle cx="190" cy="146" r="32" fill="var(--color-accent-300)" />
       <path
-        d="M74 236a38 38 0 1 1 38-38c0 10-14 6-14 18 0 10 12 6 12 16 0 6-16 10-36 4z"
+        d="M177 152c5-13 8-13 13 0 5 13 8 13 13 0"
+        fill="none"
+        stroke="var(--color-accent-800)"
+        strokeWidth="5"
+        strokeLinecap="round"
+      />
+      <rect x="171" y="188" width="38" height="15" rx="7.5" fill="var(--color-accent-800)" />
+      <rect x="176" y="205" width="28" height="13" rx="6.5" fill="var(--color-accent-900)" />
+
+      {/* sparks of curiosity */}
+      <circle cx="262" cy="86" r="10" fill="var(--color-accent-400)" />
+      <circle cx="288" cy="132" r="6" fill="var(--color-accent-2-500)" />
+      <circle cx="240" cy="56" r="5" fill="var(--color-accent-2-600)" />
+
+      {/* palette */}
+      <path
+        d="M74 246a38 38 0 1 1 38-38c0 10-14 6-14 18 0 10 12 6 12 16 0 6-16 10-36 4z"
         fill="var(--color-accent-2-600)"
       />
-      <circle cx="60" cy="182" r="7" fill="var(--color-accent-400)" />
-      <circle cx="84" cy="172" r="7" fill="var(--color-accent-100)" />
-      <circle cx="52" cy="208" r="7" fill="var(--color-accent-2-200)" />
+      <circle cx="60" cy="192" r="7" fill="var(--color-accent-400)" />
+      <circle cx="84" cy="182" r="7" fill="var(--color-accent-100)" />
+      <circle cx="52" cy="218" r="7" fill="var(--color-accent-2-200)" />
     </svg>
   );
 }

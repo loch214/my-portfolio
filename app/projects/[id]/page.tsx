@@ -20,7 +20,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
           </p>
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
+            className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-[15px] font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
           >
             ← Back to projects
           </Link>
@@ -35,7 +35,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
         <div className="flex flex-col gap-6">
           <Link
             href="/#projects"
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-neutral-300/60"
+            className="inline-flex w-fit items-center gap-2 rounded-full border border-line px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:bg-neutral-300/60"
           >
             ← Back to projects
           </Link>
@@ -47,7 +47,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-neutral-200 px-3 py-1 text-xs font-semibold text-neutral-800"
+                className="rounded-full bg-neutral-200 px-3 py-1 text-[13px] font-semibold text-neutral-800"
               >
                 {tag}
               </span>
@@ -57,7 +57,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-[15px] font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
           >
             View source on GitHub →
           </a>
@@ -87,7 +87,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
                   />
                 </div>
               )}
-              <figcaption className="px-6 py-4 text-sm text-ink-soft">{item.caption}</figcaption>
+              <figcaption className="px-6 py-4 text-[15px] text-ink-soft">{item.caption}</figcaption>
             </figure>
           ))}
         </div>
