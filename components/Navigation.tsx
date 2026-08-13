@@ -61,7 +61,7 @@ export default function Navigation() {
           </a>
 
           <button
-            className="inline-flex items-center gap-2 rounded-full bg-surface px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-accent hover:text-bg"
+            className="inline-flex items-center gap-2 rounded-full bg-surface px-5 py-2.5 text-[15px] font-semibold text-ink transition-colors hover:bg-accent hover:text-bg lg:-mr-10 xl:-mr-16"
             onClick={() => setIsSideMenuOpen(true)}
             aria-label="Open menu"
             aria-expanded={isSideMenuOpen}

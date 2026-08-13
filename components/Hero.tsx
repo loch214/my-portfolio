@@ -28,34 +28,32 @@ export default function Hero({ data }: HeroProps) {
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-10">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <div>
-            <motion.div {...fadeIn(0)} className="mb-6 flex items-center gap-3">
-              <span className="h-1.5 w-10 rounded-full bg-accent" />
-              <span className="kicker">Student · Developer · Tinkerer</span>
-            </motion.div>
-
             <motion.p
-              {...fadeIn(0.08)}
-              className="mb-3 font-heading text-lg text-ink-soft sm:text-xl"
+              {...fadeIn(0)}
+              className="mb-4 font-heading text-2xl text-ink-soft sm:text-3xl"
             >
               {data.name}
             </motion.p>
 
             <motion.h1
-              {...fadeIn(0.16)}
-              className="mb-6 font-heading text-[2.5rem] leading-[1.1] text-ink sm:text-5xl lg:text-[3.5rem]"
+              {...fadeIn(0.1)}
+              className="mb-6 font-heading text-[2.5rem] leading-[1.1] sm:text-5xl lg:text-[3.5rem]"
             >
-              Learning.<br />Building.<br />
-              <span className="text-accent-700">Improving.</span>
+              <span className="text-ink">Learning.</span>
+              <br />
+              <span className="text-accent-700">Building.</span>
+              <br />
+              <span className="text-sage-700">Improving.</span>
             </motion.h1>
 
             <motion.p
-              {...fadeIn(0.3)}
+              {...fadeIn(0.24)}
               className="body-text mb-8 max-w-lg text-[17px]"
             >
               {data.bio}
             </motion.p>
 
-            <motion.div {...fadeIn(0.42)} className="flex flex-wrap items-center gap-3">
+            <motion.div {...fadeIn(0.36)} className="flex flex-wrap items-center gap-3">
               <a
                 href="#about"
                 className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-heading text-sm text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"

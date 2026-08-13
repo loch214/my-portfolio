@@ -8,10 +8,10 @@ interface IllustrationProps {
 const BLOB =
   'M160 16c64 0 144 40 144 120 0 84-64 168-144 168S16 220 16 136 96 16 160 16z';
 
-/* Hero — a peaceful scene in a soft circular frame. */
+/* Hero — a developer at the desk, framed in a soft circle. */
 export function HeroScene({ className }: IllustrationProps) {
   return (
-    <svg viewBox="0 0 440 440" className={className} role="img" aria-label="An illustrated landscape at sunrise">
+    <svg viewBox="0 0 440 440" className={className} role="img" aria-label="An illustrated developer working at a laptop">
       <defs>
         <clipPath id="hero-clip">
           <circle cx="220" cy="220" r="190" />
@@ -19,34 +19,58 @@ export function HeroScene({ className }: IllustrationProps) {
       </defs>
       <circle cx="220" cy="220" r="190" fill="var(--color-accent-100)" />
       <g clipPath="url(#hero-clip)">
-        <circle cx="300" cy="145" r="50" fill="var(--color-accent-400)" />
-        <path
-          d="M-20 300C60 250 150 285 240 265S400 235 460 268V440H-20Z"
-          fill="var(--color-accent-2-300)"
-        />
-        <path
-          d="M-20 340C80 295 170 330 260 312S420 292 460 318V440H-20Z"
-          fill="var(--color-accent-2-500)"
-        />
-        <rect x="118" y="248" width="13" height="76" rx="6.5" fill="var(--color-accent-800)" />
-        <circle cx="124" cy="238" r="38" fill="var(--color-accent-2-600)" />
-        <circle cx="95" cy="258" r="25" fill="var(--color-accent-2-700)" />
-        <circle cx="153" cy="258" r="23" fill="var(--color-accent-2-700)" />
-        <path
-          d="M-20 386C90 351 200 379 300 367S430 353 460 373V440H-20Z"
-          fill="var(--color-accent-500)"
-        />
+        {/* ambient shapes */}
+        <circle cx="326" cy="116" r="46" fill="var(--color-accent-200)" />
+        <circle cx="96" cy="226" r="9" fill="var(--color-accent-2-500)" />
         <g
-          stroke="var(--color-accent-800)"
-          strokeWidth="4"
-          strokeLinecap="round"
           fill="none"
-          opacity="0.75"
+          stroke="var(--color-accent-400)"
+          strokeWidth="7"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <path d="M112 146c8-9 16-9 23 0" />
-          <path d="M135 146c8-9 16-9 23 0" />
-          <path d="M158 112c7-8 14-8 20 0" />
+          <path d="M116 136l-18 18 18 18" />
+          <path d="M342 194l18 18-18 18" />
         </g>
+
+        {/* floor */}
+        <rect x="-20" y="334" width="480" height="130" fill="var(--color-accent-200)" />
+
+        {/* figure */}
+        <rect x="208" y="200" width="24" height="34" rx="11" fill="var(--color-accent-300)" />
+        <circle cx="220" cy="172" r="41" fill="var(--color-accent-300)" />
+        <path
+          d="M181 170a39 39 0 0 1 78 0c-9-12-23-19-39-19s-30 7-39 19z"
+          fill="var(--color-accent-900)"
+        />
+        <path d="M140 320c0-56 36-92 80-92s80 36 80 92z" fill="var(--color-accent-2-600)" />
+
+        {/* laptop */}
+        <rect x="162" y="252" width="116" height="58" rx="7" fill="var(--color-neutral-900)" />
+        <rect x="169" y="259" width="102" height="44" rx="3" fill="var(--color-accent-200)" />
+        <g stroke="var(--color-accent-600)" strokeWidth="5" strokeLinecap="round">
+          <path d="M179 271h30" />
+          <path d="M179 281h52" />
+          <path d="M179 291h22" />
+        </g>
+
+        {/* desk */}
+        <rect x="52" y="318" width="336" height="17" rx="8.5" fill="var(--color-accent-700)" />
+        <rect x="150" y="306" width="140" height="13" rx="6.5" fill="var(--color-neutral-800)" />
+
+        {/* mug */}
+        <rect x="78" y="288" width="36" height="30" rx="9" fill="var(--color-accent-500)" />
+        <path
+          d="M114 296h8a10 10 0 0 1 0 20h-8"
+          fill="none"
+          stroke="var(--color-accent-500)"
+          strokeWidth="7"
+        />
+
+        {/* plant */}
+        <path d="M312 318h46l-7-36h-32z" fill="var(--color-accent-600)" />
+        <path d="M335 282c0-28 12-44 31-51-4 25-13 39-31 51z" fill="var(--color-accent-2-600)" />
+        <path d="M335 282c0-26-11-42-29-48 4 23 11 36 29 48z" fill="var(--color-accent-2-700)" />
       </g>
       <circle
         cx="220"
