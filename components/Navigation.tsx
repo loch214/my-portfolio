@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useActiveSection } from '@/hooks/useActiveSection';
+import { useScrollLock } from '@/hooks/useScrollLock';
 
 const sideMenuItems = [
   { name: 'Home', href: '#home', id: 'home' },
@@ -20,6 +21,8 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const activeSection = useActiveSection();
+
+  useScrollLock(isSideMenuOpen);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,7 +103,7 @@ export default function Navigation() {
                 </button>
               </div>
 
-              <nav className="flex-1 overflow-y-auto px-5 pb-7">
+              <nav className="flex-1 overflow-y-auto overscroll-contain px-5 pb-7">
                 {sideMenuItems.map((item, index) => {
                   const isActive = item.id !== null && item.id === activeSection;
                   return (

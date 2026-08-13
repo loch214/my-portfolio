@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ChevronDown, X } from 'lucide-react';
 import type { Project } from '@/data/personalData';
+import { useScrollLock } from '@/hooks/useScrollLock';
 
 interface ProjectModalProps {
   project: Project;
@@ -46,6 +47,8 @@ const formatRepoLabel = (url: string, fallback: string) => {
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [isRepoMenuOpen, setRepoMenuOpen] = useState(false);
   const repoMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useScrollLock(true);
 
   const repoLinks = [
     {
@@ -102,9 +105,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
       variants={overlayVariants}
       onClick={handleOverlayClick}
       aria-label="Project details overlay"
+      data-native-scroll
     >
       <motion.div
-        className="card elev-lg relative max-h-[85vh] w-full max-w-2xl overflow-y-auto p-7 sm:p-10"
+        className="card elev-lg relative max-h-[85vh] w-full max-w-2xl overflow-y-auto overscroll-contain p-7 sm:p-10"
         variants={modalVariants}
         transition={{ type: 'spring', stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}

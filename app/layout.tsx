@@ -3,6 +3,7 @@ import { Caprasimo, Figtree } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import MotionProvider from "@/components/MotionProvider";
 import SectionNav from "@/components/SectionNav";
+import SmoothSectionScroll from "@/components/SmoothSectionScroll";
 import "./globals.css";
 
 const caprasimo = Caprasimo({
@@ -33,6 +34,7 @@ export default function RootLayout({
     <html lang="en" className={`${caprasimo.variable} ${figtree.variable}`}>
       <body>
         <MotionProvider>
+          <SmoothSectionScroll />
           <SectionNav />
           <Navigation />
           {children}
