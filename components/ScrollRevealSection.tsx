@@ -26,7 +26,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
         className="snap-section relative flex min-h-screen items-center px-6 py-20 sm:px-8 lg:px-10"
       >
         <div className="mx-auto w-full max-w-5xl">
-          <SectionHeading index="02" total="07" title="Where I've studied" />
+          <SectionHeading title="Where I've studied" />
 
           <div className="space-y-4">
             {data.education.map((edu, index) => (
@@ -39,23 +39,23 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 variants={fadeUp}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <h3 className="font-heading text-2xl text-neutral-100 sm:text-[1.75rem]">{edu.school}</h3>
-                  <span className="font-mono text-[13px] text-accent">{edu.period}</span>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h3 className="t-h3 text-neutral-100">{edu.school}</h3>
+                  <span className="t-data text-accent">{edu.period}</span>
                 </div>
-                <p className="mt-1.5 text-base font-semibold text-neutral-200">{edu.degree}</p>
+                <p className="body-text mt-1.5 text-neutral-100">{edu.degree}</p>
                 {(edu.stream || edu.location) && (
-                  <p className="mt-0.5 font-mono text-[13px] text-neutral-400">
+                  <p className="t-meta mt-0.5">
                     {[edu.stream, edu.location].filter(Boolean).join(' · ')}
                   </p>
                 )}
-                <p className="body-text mt-3 max-w-3xl text-[15px]">{edu.description}</p>
+                <p className="body-text mt-4">{edu.description}</p>
                 {edu.resultsPdf && (
                   <a
                     href={edu.resultsPdf}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group mt-4 inline-flex items-center gap-2 rounded-md border border-line px-5 py-2.5 font-mono text-[12px] uppercase tracking-[0.06em] text-neutral-100 transition-colors hover:border-accent hover:text-accent"
+                    className="t-btn group mt-5 inline-flex items-center gap-2 rounded-md border border-line px-5 py-3 text-neutral-100 transition-colors hover:border-accent hover:text-accent"
                   >
                     <FileText size={15} strokeWidth={2.5} />
                     Academic results
@@ -78,7 +78,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
         className="snap-section relative flex min-h-screen items-center px-6 py-20 sm:px-8 lg:px-10"
       >
         <div className="mx-auto w-full max-w-5xl">
-          <SectionHeading index="03" total="07" title="On the field" />
+          <SectionHeading title="On the field" />
 
           <div className="grid gap-4 sm:grid-cols-2">
             {data.sports.map((sport, index) => (
@@ -91,10 +91,10 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 variants={fadeUp}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <span className="font-mono text-[13px] text-accent">{sport.years ?? sport.duration}</span>
-                <h3 className="mt-2 font-heading text-2xl text-neutral-100">{sport.name}</h3>
-                <p className="mt-0.5 font-mono text-[12px] text-neutral-400">{sport.duration} of training</p>
-                <p className="body-text mt-3 text-[15px]">{sport.achievements}</p>
+                <span className="t-data text-accent">{sport.years ?? sport.duration}</span>
+                <h3 className="t-h3 mt-2 text-neutral-100">{sport.name}</h3>
+                <p className="t-meta mt-1">{sport.duration} of training</p>
+                <p className="body-text mt-3">{sport.achievements}</p>
               </motion.article>
             ))}
           </div>
@@ -107,10 +107,10 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
         className="snap-section relative flex min-h-screen items-center px-6 py-20 sm:px-8 lg:px-10"
       >
         <div className="mx-auto w-full max-w-5xl">
-          <SectionHeading index="04" total="07" title="Away from the screen" />
+          <SectionHeading title="Away from the screen" />
 
           <motion.p
-            className="body-text mb-6 max-w-2xl text-[17px]"
+            className="t-lead mb-6"
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
@@ -143,8 +143,8 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 variants={fadeUp}
                 transition={{ duration: 0.6, delay: index * 0.08 }}
               >
-                <p className="kicker mb-2">{item.label}</p>
-                <p className="body-text text-[15px]">{item.value}</p>
+                <p className="t-h4 mb-2 text-neutral-100">{item.label}</p>
+                <p className="body-text">{item.value}</p>
               </motion.div>
             ))}
 
@@ -156,21 +156,21 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
               variants={fadeUp}
               transition={{ duration: 0.6, delay: 0.16 }}
             >
-              <p className="kicker mb-2">Art</p>
+              <p className="t-h4 mb-2 text-neutral-100">Art</p>
               <div className="mb-3 flex flex-wrap gap-2">
                 {data.art.mediums.map((medium) => (
                   <span
                     key={medium}
-                    className="rounded-sm border border-line px-2.5 py-1 font-mono text-[12px] text-neutral-300"
+                    className="t-meta rounded-sm border border-line px-2.5 py-1 text-neutral-300"
                   >
                     {medium}
                   </span>
                 ))}
               </div>
-              <p className="body-text text-[15px]">{data.art.achievements}</p>
+              <p className="body-text">{data.art.achievements}</p>
               <Link
                 href="/gallery"
-                className="group mt-4 inline-flex items-center gap-1.5 rounded-md border border-line px-4 py-2 font-mono text-[12px] uppercase tracking-[0.06em] text-neutral-100 transition-colors hover:border-accent hover:text-accent"
+                className="t-btn group mt-5 inline-flex items-center gap-2 rounded-md border border-line px-5 py-3 text-neutral-100 transition-colors hover:border-accent hover:text-accent"
               >
                 See the gallery
                 <ArrowUpRight

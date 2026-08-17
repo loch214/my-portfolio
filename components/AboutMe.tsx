@@ -25,11 +25,11 @@ export default function AboutMe({ data }: AboutMeProps) {
       className="snap-section relative flex min-h-screen items-center px-6 py-20 sm:px-8 lg:px-10"
     >
       <div className="mx-auto w-full max-w-5xl" ref={ref}>
-        <SectionHeading index="01" total="07" title="A bit about me" />
+        <SectionHeading title="A bit about me" />
 
         <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16">
           <motion.p
-            className="body-text max-w-2xl text-[18px] sm:text-[20px]"
+            className="t-lead"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1, duration: 0.6 }}
@@ -47,7 +47,7 @@ export default function AboutMe({ data }: AboutMeProps) {
               {technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-sm border border-line px-2.5 py-1 font-mono text-[12px] text-neutral-300"
+                  className="t-meta rounded-sm border border-line px-2.5 py-1 text-neutral-300"
                 >
                   {tech}
                 </span>

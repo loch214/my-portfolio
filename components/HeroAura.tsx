@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { SCROLL_START_EVENT, SCROLL_END_EVENT } from '@/components/SmoothSectionScroll';
 
 /* The hero's one authored signature moment: a raw-WebGL procedural aura —
    slow domain-warped noise, colorized from near-black to the brass accent,
@@ -140,14 +141,16 @@ export default function HeroAura({ className }: { className?: string }) {
     let mouse = { x: 0.5, y: 0.45 };
     let targetMouse = { x: 0.5, y: 0.45 };
 
+    /* Normalised against the viewport rather than the canvas rect: the canvas
+       fills the first viewport anyway, and getBoundingClientRect() here would
+       force a layout on every single pointer move. */
     const onPointerMove = (e: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
       targetMouse = {
-        x: (e.clientX - rect.left) / rect.width,
-        y: 1 - (e.clientY - rect.top) / rect.height,
+        x: e.clientX / window.innerWidth,
+        y: 1 - e.clientY / window.innerHeight,
       };
     };
-    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
 
     let raf = 0;
     const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
@@ -202,27 +205,40 @@ export default function HeroAura({ className }: { className?: string }) {
     // run while the canvas is actually on screen (plus a margin so it's warm
     // before the hero fully arrives), and pause on tab visibility too.
     let isIntersecting = false;
+    let isScrolling = false;
+
+    const sync = () => {
+      if (isIntersecting && !isScrolling && document.visibilityState === 'visible') start_();
+      else stop();
+    };
+
     const io = new IntersectionObserver(
       ([entry]) => {
         isIntersecting = entry.isIntersecting;
-        if (isIntersecting && document.visibilityState === 'visible') start_();
-        else stop();
+        sync();
       },
       { rootMargin: '200px 0px' }
     );
     io.observe(canvas);
 
-    const onVisibilityChange = () => {
-      if (document.visibilityState !== 'visible') stop();
-      else if (isIntersecting) start_();
-    };
+    const onVisibilityChange = () => sync();
     document.addEventListener('visibilitychange', onVisibilityChange);
+
+    /* The section-to-section scroll animation is itself a per-frame main-thread
+       job. Shading a full-viewport quad at the same time is what made leaving the
+       hero feel heavy, so the aura holds its last frame until the page settles. */
+    const onScrollStart = () => { isScrolling = true; sync(); };
+    const onScrollEnd = () => { isScrolling = false; sync(); };
+    window.addEventListener(SCROLL_START_EVENT, onScrollStart);
+    window.addEventListener(SCROLL_END_EVENT, onScrollEnd);
 
     return () => {
       stop();
       io.disconnect();
       ro.disconnect();
       document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener(SCROLL_START_EVENT, onScrollStart);
+      window.removeEventListener(SCROLL_END_EVENT, onScrollEnd);
       window.removeEventListener('pointermove', onPointerMove);
       gl.deleteProgram(program);
       gl.deleteShader(vertShader);

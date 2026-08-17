@@ -14,13 +14,13 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
     return (
       <main className="grid min-h-screen place-items-center bg-bg px-6">
         <div className="max-w-xl text-center">
-          <h1 className="mb-4 font-heading text-[2rem] text-ink">Project not found</h1>
-          <p className="body-text mb-8 text-base">
+          <h1 className="t-h2 mb-4 text-ink">Project not found</h1>
+          <p className="body-text mb-8">
             This one may have been renamed or hasn&rsquo;t been published yet.
           </p>
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 rounded-md bg-accent px-7 py-3.5 font-mono text-[12px] uppercase tracking-[0.06em] text-bg transition-colors hover:bg-accent-400"
+            className="t-btn inline-flex items-center gap-2 rounded-md bg-accent px-7 py-4 text-bg transition-colors hover:bg-accent-400"
           >
             ← Back to projects
           </Link>
@@ -35,19 +35,19 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
         <div className="flex flex-col gap-6">
           <Link
             href="/#projects"
-            className="inline-flex w-fit items-center gap-2 rounded-md border border-line px-6 py-3 font-mono text-[12px] uppercase tracking-[0.06em] text-ink transition-colors hover:border-accent hover:text-accent"
+            className="t-btn inline-flex w-fit items-center gap-2 rounded-md border border-line px-6 py-3.5 text-ink transition-colors hover:border-accent hover:text-accent"
           >
             ← Back to projects
           </Link>
           <div>
-            <h1 className="mb-3 font-heading text-[2.25rem] italic text-ink sm:text-4xl">{project.title}</h1>
-            <p className="body-text max-w-3xl whitespace-pre-line text-base">{project.description}</p>
+            <h1 className="t-h2 mb-3 italic text-ink">{project.title}</h1>
+            <p className="body-text whitespace-pre-line">{project.description}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-sm border border-line px-2.5 py-1 font-mono text-[12px] text-neutral-300"
+                className="t-meta rounded-sm border border-line px-2.5 py-1 text-neutral-300"
               >
                 {tag}
               </span>
@@ -57,7 +57,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-7 py-3.5 font-mono text-[12px] uppercase tracking-[0.06em] text-bg transition-colors hover:bg-accent-400"
+            className="t-btn inline-flex w-fit items-center gap-2 rounded-md bg-accent px-7 py-4 text-bg transition-colors hover:bg-accent-400"
           >
             View source on GitHub →
           </a>
@@ -87,7 +87,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
                   />
                 </div>
               )}
-              <figcaption className="px-6 py-4 text-[15px] text-ink-soft">{item.caption}</figcaption>
+              <figcaption className="t-meta max-w-none px-6 py-4">{item.caption}</figcaption>
             </figure>
           ))}
         </div>

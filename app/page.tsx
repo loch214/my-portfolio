@@ -52,21 +52,21 @@ const ProjectCard = ({ index, title, tags, icon: Icon, onClick }: ProjectCardPro
         className="text-neutral-500 transition-all duration-300 group-hover:scale-110 group-hover:text-accent"
         aria-hidden
       />
-      <span className="absolute left-3 top-3 rounded-sm border border-line bg-bg/70 px-2 py-1 font-mono text-[11px] text-accent backdrop-blur-sm">
+      <span className="t-data absolute left-3 top-3 rounded-sm border border-line bg-bg/70 px-2 py-1 text-accent backdrop-blur-sm">
         {String(index + 1).padStart(2, '0')}
       </span>
     </div>
 
     <div className="flex flex-1 flex-col p-5">
-      <h3 className="mb-3 font-heading text-xl leading-tight text-neutral-100">{title}</h3>
+      <h3 className="t-h4 mb-3 text-neutral-100">{title}</h3>
       <div className="mt-auto flex flex-wrap gap-1.5">
         {tags.slice(0, 4).map((tag) => (
-          <span key={tag} className="rounded-sm border border-line px-2 py-0.5 font-mono text-[11px] text-neutral-400">
+          <span key={tag} className="t-meta rounded-sm border border-line px-2 py-0.5 text-neutral-300">
             {tag}
           </span>
         ))}
         {tags.length > 4 && (
-          <span className="rounded-sm px-1.5 py-0.5 font-mono text-[11px] text-neutral-500">
+          <span className="t-meta rounded-sm px-1.5 py-0.5 text-neutral-500">
             +{tags.length - 4}
           </span>
         )}
@@ -90,8 +90,8 @@ export default function Home() {
       >
         <div className="mx-auto w-full max-w-6xl">
           <div className="mb-8">
-            <SectionHeading index="05" total="07" title="Things I've built" />
-            <p className="body-text max-w-xl text-[17px]">
+            <SectionHeading title="Things I've built" />
+            <p className="t-lead">
               Full-stack apps, a few AI experiments that did not always go to plan, and this site.
               Open a card for the story behind each one, plus source code or a demo.
             </p>

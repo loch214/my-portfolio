@@ -56,9 +56,9 @@ export default function SocialLinks({ links }: SocialLinksProps) {
       className="snap-section relative flex min-h-screen flex-col justify-center px-6 py-20 sm:px-8 lg:px-10"
     >
       <div className="mx-auto w-full max-w-5xl" ref={ref}>
-        <SectionHeading index="06" total="07" title="Say hello" />
+        <SectionHeading title="Say hello" />
 
-        <p className="body-text mb-7 max-w-lg text-[17px]">
+        <p className="t-lead mb-7">
           The fastest way to reach me is GitHub or LinkedIn &mdash; I check both more often than
           email.
         </p>
@@ -79,7 +79,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
                 rel="noopener noreferrer"
                 variants={itemVariants}
                 aria-label={`Open ${link.platform}`}
-                className="group card inline-flex items-center gap-2.5 px-6 py-3.5 font-mono text-[13px] uppercase tracking-[0.06em] text-neutral-100 transition-colors hover:border-accent hover:text-accent"
+                className="t-btn group card inline-flex items-center gap-2.5 px-6 py-4 text-neutral-100 transition-colors hover:border-accent hover:text-accent"
               >
                 <Icon size={18} strokeWidth={2} />
                 <span>{link.platform}</span>
@@ -89,7 +89,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
         </motion.div>
 
         <motion.p
-          className="mt-12 font-mono text-[13px] text-neutral-500"
+          className="t-data mt-12"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.4 }}

@@ -7,10 +7,10 @@ export default function GalleryPage() {
     <main className="min-h-screen bg-bg px-6 pb-20 pt-32 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 flex flex-wrap items-baseline justify-between gap-6">
-          <h1 className="font-heading text-[2.25rem] italic text-ink sm:text-4xl">Pencil &amp; pastel</h1>
+          <h1 className="t-h2 italic text-ink">Pencil &amp; pastel</h1>
           <Link
             href="/#hobbies"
-            className="inline-flex items-center gap-2 rounded-md border border-line px-6 py-3 font-mono text-[12px] uppercase tracking-[0.06em] text-ink transition-colors hover:border-accent hover:text-accent"
+            className="t-btn inline-flex items-center gap-2 rounded-md border border-line px-6 py-3.5 text-ink transition-colors hover:border-accent hover:text-accent"
           >
             ← Back
           </Link>
@@ -29,8 +29,8 @@ export default function GalleryPage() {
                 />
               </div>
               <figcaption className="flex items-baseline gap-3 p-6">
-                <span className="font-mono text-[13px] text-accent">{String(piece.id).padStart(2, '0')}</span>
-                <h2 className="font-heading text-xl text-ink">{piece.title}</h2>
+                <span className="t-data text-accent">{String(piece.id).padStart(2, '0')}</span>
+                <h2 className="t-h4 text-ink">{piece.title}</h2>
               </figcaption>
             </figure>
           ))}

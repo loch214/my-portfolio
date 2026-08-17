@@ -39,6 +39,57 @@ After a theme change, grep for a bare hex outside the `:root` block and outside 
 one `getComputedStyle` conversion in `HeroAura.tsx`. A literal colour anywhere else
 is a bug.
 
+## Typography — use the scale, never a raw size
+
+Type drifted to 19 different sizes once, and the owner reported the result as
+"hard to read / like a mess" **twice**. It now runs on **eight sizes** in the
+`:root` block, each exposed as one `.t-*` utility in `globals.css` that owns
+family + size + weight + leading + tracking + measure together:
+
+| Utility | Size | Face | Used for |
+|---|---|---|---|
+| `.t-display` | clamp 44→112px | serif | hero name only |
+| `.t-h2` | clamp 28→38px | serif | section + page titles |
+| `.t-wordmark` | 20px | serif italic | nav wordmark only |
+| `.t-h3` | 20px | grotesk 600 | card titles, modal title |
+| `.t-h4` | 17px | grotesk 600 | component titles |
+| `.t-lead` | 18px | grotesk 500 | section intro paragraphs |
+| `.body-text` | 16px | grotesk 500 | all body copy |
+| `.t-meta` | 14px | grotesk 500 | locations, durations, captions, chips |
+| `.t-btn` | 14px | grotesk 600 | every button/link label, sentence case |
+| `.t-data` / `.kicker` | 13px | **mono** | years, counters, index badges, short labels |
+
+Four rules, every one of them a bug that actually shipped:
+
+- **The serif never appears under 28px** except in `.t-wordmark` (a two-word known
+  name, recognised as a shape rather than read). Instrument Serif is high-contrast
+  and its thin strokes fall apart in light-on-dark at small sizes. Content
+  headings are grotesk — that is what `.t-h3` / `.t-h4` are for.
+- **Mono is for data and short labels only** — years, counters, index badges,
+  1–3-word uppercase kickers. Never prose, never button text. Shipping
+  "Commerce Stream · Colombo 7, Sri Lanka" in mono, and buttons in uppercase
+  tracked mono, was the single biggest readability regression here: mono prose
+  reads slower, and uppercase + letter-spacing destroys word shape.
+- **Measure is capped in the utility, not at the call site.** `.t-lead`,
+  `.body-text` and `.t-meta` all carry `max-width: var(--measure)` (68ch),
+  because relying on per-call-site `max-w-[65ch]` meant the cards that were
+  missed ran to 101–124 characters per line. Use `max-w-none` to opt out
+  deliberately (e.g. a figure caption).
+- **`--color-neutral-500` is the darkest neutral allowed on text** (≈5:1 on the
+  ground). 600–900 are structure only: borders, wells, fills. `text-neutral-600`
+  on the background is 2.4:1 and shipped once by accident.
+
+Also: `--color-bg` is deliberately `#121110`, not near-pure black. Light text at
+~13:1 on `#0a0a09` halates and shimmers, worse on Windows where
+`-webkit-font-smoothing` is a no-op and ClearType adds subpixel colour fringing.
+Don't "clean it up" back to `#0a0a09`.
+
+So: **no `text-[13px]`, no `text-xl`, no bare `font-heading`/`font-mono` at call
+sites.** Add a role if one is genuinely missing; don't reintroduce one-off sizes.
+`grep -rn "text-\[[0-9]" app components` should stay empty, and a quick check
+that nothing regressed is that the home page reports **9 size/face combos** and a
+widest prose line of **68ch**.
+
 ## Structure worth knowing before editing
 
 - **Section ids** are fixed in `hooks/useActiveSection.ts` (`SECTION_IDS`).
@@ -53,6 +104,21 @@ is a bug.
 - **Overlays** must call `useScrollLock` (`hooks/useScrollLock.ts`) and carry
   `overscroll-contain`, or the page scrolls behind them. `SmoothSectionScroll` also
   exempts anything inside `[role="dialog"]` or `[data-native-scroll]`.
+- **Nothing on the scroll hot path may touch layout.** This is what caused a real,
+  reported "scrolling feels laggy". The wheel listener has to be non-passive (it
+  calls `preventDefault` to take the scroll over), so it sits on the critical path
+  of every wheel event — and trackpads fire 60–120/s. Reading `offsetTop` /
+  `offsetHeight` / `scrollHeight` / `getBoundingClientRect()` there forces a
+  synchronous reflow each time. `SmoothSectionScroll` therefore measures section
+  geometry once into a cache and re-measures only on `resize`, a `ResizeObserver`
+  on `body`, and `document.fonts.ready`. Same rule for `pointermove` handlers.
+  Budget to stay under: ~0.01ms per wheel event, 60fps with zero long tasks during
+  a section animation.
+- **Expensive always-on visuals must idle.** `HeroAura` gates its rAF loop on an
+  `IntersectionObserver` (stops once the hero is off-screen), on tab visibility,
+  and on the `sectionscroll:start` / `sectionscroll:end` events
+  `SmoothSectionScroll` exports — so the shader is not shading a full-viewport
+  quad while the page is already spending a frame budget on the scroll animation.
 - **`css.d.ts`** declares `*.css` so TS 6+ doesn't flag the `globals.css`
   side-effect import (TS2882) — Next only ships types for `*.module.css`. Keep it.
 - **`components/HeroAura.tsx`** is the hero's signature motion: a dependency-free
@@ -79,7 +145,10 @@ Decisions already made and re-confirmed. Don't relitigate them.
   musician, and copy shouldn't lean on "my degree is software engineering" as a
   framing device.
 - Body text is deliberately larger and heavier than a default (`.body-text` =
-  weight 500) because the earlier setting was hard to read.
+  16px / weight 500) because the earlier setting was hard to read. Readability has
+  now been raised twice on this complaint — don't quietly shrink type back down.
+- **One shared type scale, applied everywhere.** Explicitly asked for after sizes
+  drifted apart across sections; see the Typography section above.
 
 ## Verifying a change
 

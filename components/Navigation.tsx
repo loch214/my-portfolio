@@ -24,12 +24,23 @@ export default function Navigation() {
 
   useScrollLock(isSideMenuOpen);
 
+  /* Coalesced to one read per frame and registered passive — an unthrottled
+     scroll handler runs on the same critical path as the section-scroll
+     animation and shows up as jitter. */
   useEffect(() => {
+    let frame = 0;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        setIsScrolled(window.scrollY > 50);
+      });
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -55,13 +66,13 @@ export default function Navigation() {
         <div className="flex items-center justify-between">
           <a
             href="#home"
-            className="font-heading text-xl italic text-ink transition-colors hover:text-accent"
+            className="t-wordmark text-ink transition-colors hover:text-accent"
           >
             Lochana<span className="text-accent">.</span>
           </a>
 
           <button
-            className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 font-mono text-[12px] uppercase tracking-[0.06em] text-ink transition-colors hover:border-accent hover:text-accent lg:-mr-10 xl:-mr-16"
+            className="t-btn inline-flex items-center gap-2 rounded-full border border-line px-5 py-3 text-ink transition-colors hover:border-accent hover:text-accent lg:-mr-10 xl:-mr-16"
             onClick={() => setIsSideMenuOpen(true)}
             aria-label="Open menu"
             aria-expanded={isSideMenuOpen}
@@ -120,11 +131,11 @@ export default function Navigation() {
                       aria-current={isActive ? 'true' : undefined}
                     >
                       <span
-                        className={`font-mono text-xs ${isActive ? 'text-bg/70' : 'text-muted'}`}
+                        className={`t-data ${isActive ? 'text-bg/70' : 'text-neutral-400'}`}
                       >
                         {String(index + 1).padStart(2, '0')}
                       </span>
-                      <span className="font-heading text-base">{item.name}</span>
+                      <span className="t-h4">{item.name}</span>
                     </a>
                   );
                 })}

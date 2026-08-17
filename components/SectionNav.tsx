@@ -31,7 +31,7 @@ export default function SectionNav() {
             className="group flex items-center gap-2.5 rounded-full"
           >
             <span
-              className={`rounded-sm border border-line bg-bg px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide text-neutral-300 transition-opacity ${
+              className={`t-data rounded-sm border border-line bg-bg px-2.5 py-1 text-neutral-300 transition-opacity ${
                 isActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
               }`}
             >
