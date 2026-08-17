@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import type { IconType } from 'react-icons';
 import Hero from '@/components/Hero';
 import AboutMe from '@/components/AboutMe';
@@ -36,38 +37,52 @@ interface ProjectCardProps {
 const ProjectCard = ({ index, title, tags, icon: Icon, onClick }: ProjectCardProps) => (
   <motion.button
     onClick={onClick}
-    className="card group flex flex-col overflow-hidden text-left transition-colors hover:border-accent/40"
+    className="card group flex flex-col overflow-hidden text-left transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[var(--shadow-md)]"
     variants={cardVariants}
+    whileHover={{ y: -5 }}
+    whileTap={{ y: -2, scale: 0.99 }}
+    transition={{ type: 'spring', stiffness: 340, damping: 24 }}
   >
     <div
-      className="relative flex aspect-video w-full items-center justify-center overflow-hidden border-b border-line"
+      className="relative flex h-28 w-full items-center justify-center overflow-hidden border-b border-line sm:h-32"
       style={{
         background:
           'radial-gradient(80% 100% at 50% 20%, color-mix(in srgb, var(--color-accent) 8%, transparent), var(--color-surface) 70%)',
       }}
     >
+      {/* Diagonal light sweep — pure CSS transform, no listeners, cheap on hover. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -translate-x-[120%] bg-gradient-to-r from-transparent via-accent/15 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[120%]"
+      />
+
       <Icon
-        size={40}
+        size={30}
         strokeWidth={1.5}
-        className="text-neutral-500 transition-all duration-300 group-hover:scale-110 group-hover:text-accent"
+        className="text-neutral-500 transition-all duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:text-accent"
         aria-hidden
       />
+
       <span className="t-data absolute left-3 top-3 rounded-sm border border-line bg-bg/70 px-2 py-1 text-accent backdrop-blur-sm">
         {String(index + 1).padStart(2, '0')}
       </span>
+
+      <span className="absolute bottom-2.5 right-2.5 flex h-6 w-6 translate-y-1 items-center justify-center rounded-full border border-line bg-bg/70 text-neutral-400 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:border-accent group-hover:text-accent group-hover:opacity-100">
+        <ArrowUpRight size={12} strokeWidth={2.5} aria-hidden />
+      </span>
     </div>
 
-    <div className="flex flex-1 flex-col p-5">
-      <h3 className="t-h4 mb-3 text-neutral-100">{title}</h3>
+    <div className="flex flex-1 flex-col p-4">
+      <h3 className="t-h4 mb-2.5 text-neutral-100">{title}</h3>
       <div className="mt-auto flex flex-wrap gap-1.5">
-        {tags.slice(0, 4).map((tag) => (
+        {tags.slice(0, 3).map((tag) => (
           <span key={tag} className="t-meta rounded-sm border border-line px-2 py-0.5 text-neutral-300">
             {tag}
           </span>
         ))}
-        {tags.length > 4 && (
+        {tags.length > 3 && (
           <span className="t-meta rounded-sm px-1.5 py-0.5 text-neutral-500">
-            +{tags.length - 4}
+            +{tags.length - 3}
           </span>
         )}
       </div>
@@ -98,7 +113,7 @@ export default function Home() {
           </div>
 
           <motion.div
-            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
             variants={gridVariants}
             initial="hidden"
             whileInView="visible"

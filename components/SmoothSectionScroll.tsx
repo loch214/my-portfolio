@@ -21,6 +21,19 @@ import { SECTION_IDS } from '@/hooks/useActiveSection';
 const DURATION = 950;
 const COOLDOWN = 130;
 
+/* Windows runs common display scales (125%, 150%) where offsetTop/offsetHeight
+   round to whole device pixels but window.scrollY/innerHeight stay fractional.
+   A 4px edge tolerance could lose that rounding error and never register "reached
+   the bottom of this section" — the page would sit at the edge of the oversized
+   Projects section and refuse to advance, reported as scrolling "getting stuck". */
+const EDGE_TOLERANCE = 24;
+
+/* Belt-and-suspenders against a dropped rAF (backgrounded tab, OS throttling)
+   leaving `animating` stuck true forever, which would silently swallow every
+   wheel event after it. If a scroll hasn't finished well past its own duration,
+   force it to its resting state. */
+const WATCHDOG_BUFFER = 600;
+
 /* Fired around the programmatic scroll so expensive always-on visuals (the hero's
    WebGL aura) can idle while the page is moving. */
 export const SCROLL_START_EVENT = 'sectionscroll:start';
@@ -46,6 +59,7 @@ export default function SmoothSectionScroll() {
 
     let animating = false;
     let rafId = 0;
+    let watchdogId = 0;
     let cooldownUntil = 0;
 
     /* ── Cached geometry ───────────────────────────────────────────────────
@@ -80,11 +94,28 @@ export default function SmoothSectionScroll() {
     ro.observe(document.body);
     if (document.fonts?.ready) document.fonts.ready.then(scheduleMeasure).catch(() => {});
 
+    function finishAnimation() {
+      cancelAnimationFrame(rafId);
+      clearTimeout(watchdogId);
+      animating = false;
+      cooldownUntil = performance.now() + COOLDOWN;
+      window.dispatchEvent(new Event(SCROLL_END_EVENT));
+    }
+
+    // Returns whether it actually moved the page — a caller that gets `false`
+    // knows nothing is in flight and it is free to fall back to native scroll.
     function animateTo(targetY: number, duration = DURATION) {
       cancelAnimationFrame(rafId);
+      clearTimeout(watchdogId);
       const startY = window.scrollY;
       const delta = Math.min(targetY, maxScrollY) - startY;
-      if (Math.abs(delta) < 2) return;
+      if (Math.abs(delta) < 2) {
+        // Already at (or basically at) the target — jump the remainder instantly
+        // rather than reporting "nothing to do", so a wheel tick this small still
+        // resolves to a settled position instead of leaving the page mid-drift.
+        window.scrollTo({ top: startY + delta, behavior: 'instant' as ScrollBehavior });
+        return true;
+      }
 
       const startedAt = performance.now();
       animating = true;
@@ -98,12 +129,21 @@ export default function SmoothSectionScroll() {
         if (t < 1) {
           rafId = requestAnimationFrame(step);
         } else {
-          animating = false;
-          cooldownUntil = performance.now() + COOLDOWN;
-          window.dispatchEvent(new Event(SCROLL_END_EVENT));
+          finishAnimation();
         }
       };
       rafId = requestAnimationFrame(step);
+
+      // A tab that gets backgrounded mid-scroll has its rAF throttled or paused
+      // entirely, so `step` may never reach t >= 1. Force a resolution instead of
+      // leaving `animating` — and every wheel event after it — stuck forever.
+      watchdogId = window.setTimeout(() => {
+        if (!animating) return;
+        window.scrollTo({ top: startY + delta, behavior: 'instant' as ScrollBehavior });
+        finishAnimation();
+      }, duration + WATCHDOG_BUFFER);
+
+      return true;
     }
 
     function currentIndex(y: number) {
@@ -132,15 +172,17 @@ export default function SmoothSectionScroll() {
       const current = boxes[index];
 
       // A section taller than the viewport (Projects) scrolls normally until its
-      // far edge is reached — only then do we move on.
-      if (direction > 0 && y + viewportH < current.bottom - 4) return false;
-      if (direction < 0 && y > current.top + 4) return false;
+      // far edge is reached — only then do we move on. The tolerance absorbs
+      // subpixel/DPI rounding drift (offsetTop/offsetHeight round to device
+      // pixels; scrollY/innerHeight can be fractional under non-100% display
+      // scaling), so the edge is never a few pixels out of reach.
+      if (direction > 0 && y + viewportH < current.bottom - EDGE_TOLERANCE) return false;
+      if (direction < 0 && y > current.top + EDGE_TOLERANCE) return false;
 
       const next = boxes[index + direction];
       if (!next) return false;
 
-      animateTo(next.top);
-      return true;
+      return animateTo(next.top);
     }
 
     function onWheel(event: WheelEvent) {
@@ -179,6 +221,7 @@ export default function SmoothSectionScroll() {
     return () => {
       cancelAnimationFrame(rafId);
       cancelAnimationFrame(measureRaf);
+      clearTimeout(watchdogId);
       root.style.scrollSnapType = previousSnap;
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('resize', scheduleMeasure);

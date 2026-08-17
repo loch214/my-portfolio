@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Github, Linkedin, Twitter, Instagram, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Twitter, Instagram, Mail, ExternalLink } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 
 interface SocialLink {
@@ -20,6 +20,7 @@ const iconMap: Record<string, any> = {
   linkedin: Linkedin,
   twitter: Twitter,
   instagram: Instagram,
+  mail: Mail,
 };
 
 export default function SocialLinks({ links }: SocialLinksProps) {
@@ -59,8 +60,8 @@ export default function SocialLinks({ links }: SocialLinksProps) {
         <SectionHeading title="Say hello" />
 
         <p className="t-lead mb-7">
-          The fastest way to reach me is GitHub or LinkedIn &mdash; I check both more often than
-          email.
+          Have a project in mind, a question, or just want to connect? Reach out through any of
+          these.
         </p>
 
         <motion.div
@@ -71,18 +72,19 @@ export default function SocialLinks({ links }: SocialLinksProps) {
         >
           {links.map((link, index) => {
             const Icon = iconMap[link.icon.toLowerCase()] || ExternalLink;
+            const isMailto = link.url.startsWith('mailto:');
             return (
               <motion.a
                 key={index}
                 href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={isMailto ? undefined : '_blank'}
+                rel={isMailto ? undefined : 'noopener noreferrer'}
                 variants={itemVariants}
-                aria-label={`Open ${link.platform}`}
+                aria-label={isMailto ? 'Email me' : `Open ${link.platform}`}
                 className="t-btn group card inline-flex items-center gap-2.5 px-6 py-4 text-neutral-100 transition-colors hover:border-accent hover:text-accent"
               >
                 <Icon size={18} strokeWidth={2} />
-                <span>{link.platform}</span>
+                <span>{isMailto ? link.url.replace('mailto:', '') : link.platform}</span>
               </motion.a>
             );
           })}

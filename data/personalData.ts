@@ -70,7 +70,7 @@ export const personalData: PersonalData = {
     {
       school: "D.S. Senanayake College",
       degree: "Advanced Level (A/L)",
-      period: "2023",
+      period: "2022",
       location: "Colombo 7, Sri Lanka",
       stream: "Commerce Stream",
       description: "Completed Advanced Level examinations in Commerce stream. This curriculum provided a strong foundation for my higher education and offered valuable insights into business and economic environments."
@@ -80,14 +80,14 @@ export const personalData: PersonalData = {
       degree: "BSc (Hons) in Information Technology, Specialising in Software Engineering",
       period: "2024 - Present",
       location: "Sri Lanka",
-      description: "Currently pursuing a BSc (Hons) in Information Technology, Specialising in Software Engineering. My hands-on project work involves Java and Spring Boot, where I am applying academic knowledge to solve real-world problems for now.",
+      description: "Currently pursuing a BSc (Hons) in Information Technology, Specialising in Software Engineering, applying academic knowledge to solve real-world problems through hands-on project work.",
       resultsPdf: "/results.pdf"
     }
   ],
   sports: [
     {
       name: "Swimming",
-      achievements: "Competed at the national level by representing my school in All Sri Lanka Inter-School Tournaments, demanded consistent training and preparation throughout the two-year period.",
+      achievements: "Competed at school sports meets and at the national level, representing my school in All Sri Lanka Inter-School Tournaments — two years of consistent training and preparation.",
       duration: "2 years",
       years: "2014 - 2015"
     },
@@ -95,7 +95,7 @@ export const personalData: PersonalData = {
       name: "Cricket",
       achievements: "Played for the Under-13 A team and Under-15 C Team over a five-year period. Participating in numerous school cricket tournaments was a great experience in learning about teamwork, sportsmanship and sports skills.",
       duration: "5 years",
-      years: "2014 - 2019"
+      years: "2015 - 2019"
     }
   ],
   art: {
@@ -104,6 +104,11 @@ export const personalData: PersonalData = {
   },
   clubs: [],
   socialLinks: [
+    {
+      platform: "Email",
+      url: "mailto:loch214@gmail.com",
+      icon: "mail"
+    },
     {
       platform: "GitHub",
       url: "https://github.com/loch214",
