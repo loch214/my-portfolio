@@ -98,7 +98,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[60] grid place-items-center bg-neutral-900/50 px-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] grid place-items-center bg-black/70 px-4 backdrop-blur-sm"
       initial="hidden"
       animate="visible"
       exit="hidden"
@@ -121,7 +121,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             setRepoMenuOpen(false);
             onClose();
           }}
-          className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 text-ink-soft transition-colors hover:bg-accent hover:text-bg"
+          className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-neutral-300 transition-colors hover:border-accent hover:text-accent"
           aria-label="Close project details"
         >
           <X size={18} strokeWidth={2.75} />
@@ -137,7 +137,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-neutral-200 px-3 py-1 text-[13px] font-semibold text-neutral-800"
+                className="rounded-sm border border-line px-2.5 py-1 font-mono text-[12px] text-neutral-300"
               >
                 {tag}
               </span>
@@ -153,7 +153,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     event.preventDefault();
                     setRepoMenuOpen((prev) => !prev);
                   }}
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-[15px] font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
+                  className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 font-mono text-[12px] uppercase tracking-[0.06em] text-bg transition-colors hover:bg-accent-400"
                   aria-haspopup="menu"
                   aria-expanded={isRepoMenuOpen}
                 >
@@ -167,7 +167,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
                 {isRepoMenuOpen && (
                   <div
-                    className="elev-md absolute left-0 z-10 mt-2 w-64 rounded-lg bg-bg p-2"
+                    className="elev-md card absolute left-0 z-10 mt-2 w-64 p-2"
                     role="menu"
                   >
                     {repoLinks.map((link) => (
@@ -176,7 +176,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         href={link.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="block rounded-full px-4 py-2.5 text-[15px] font-semibold text-ink transition-colors hover:bg-accent hover:text-bg"
+                        className="block rounded-sm px-4 py-2.5 text-[15px] font-semibold text-neutral-100 transition-colors hover:bg-accent hover:text-bg"
                         role="menuitem"
                         onClick={() => setRepoMenuOpen(false)}
                       >
@@ -191,7 +191,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center rounded-full bg-accent px-6 py-3 text-[15px] font-semibold text-bg transition-colors hover:bg-accent-600 active:bg-accent-700"
+                className="inline-flex items-center rounded-md bg-accent px-6 py-3 font-mono text-[12px] uppercase tracking-[0.06em] text-bg transition-colors hover:bg-accent-400"
               >
                 View source
               </a>
@@ -199,7 +199,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {project.id !== 6 && project.id !== 5 && (
               <Link
                 href={`/projects/${project.id}`}
-                className="inline-flex items-center rounded-full border border-line px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:bg-neutral-300/60"
+                className="inline-flex items-center rounded-md border border-line px-6 py-3 font-mono text-[12px] uppercase tracking-[0.06em] text-neutral-100 transition-colors hover:border-accent hover:text-accent"
                 onClick={() => {
                   setRepoMenuOpen(false);
                   onClose();

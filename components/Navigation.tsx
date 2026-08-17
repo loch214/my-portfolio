@@ -55,13 +55,13 @@ export default function Navigation() {
         <div className="flex items-center justify-between">
           <a
             href="#home"
-            className="rounded-full font-heading text-lg text-ink transition-colors hover:text-accent-700"
+            className="font-heading text-xl italic text-ink transition-colors hover:text-accent"
           >
             Lochana<span className="text-accent">.</span>
           </a>
 
           <button
-            className="inline-flex items-center gap-2 rounded-full bg-surface px-5 py-2.5 text-[15px] font-semibold text-ink transition-colors hover:bg-accent hover:text-bg lg:-mr-10 xl:-mr-16"
+            className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 font-mono text-[12px] uppercase tracking-[0.06em] text-ink transition-colors hover:border-accent hover:text-accent lg:-mr-10 xl:-mr-16"
             onClick={() => setIsSideMenuOpen(true)}
             aria-label="Open menu"
             aria-expanded={isSideMenuOpen}
@@ -110,17 +110,17 @@ export default function Navigation() {
                     <a
                       key={item.name}
                       href={item.href}
-                      className={`mb-1 flex items-center gap-3 rounded-full px-4 py-3 transition-colors ${
+                      className={`mb-1 flex items-center gap-3 rounded-md px-4 py-3 transition-colors ${
                         isActive
                           ? 'bg-accent text-bg'
-                          : 'text-ink hover:bg-neutral-300/60'
+                          : 'text-ink hover:bg-neutral-800'
                       }`}
                       onClick={() => setIsSideMenuOpen(false)}
                       aria-label={`Go to ${item.name}`}
                       aria-current={isActive ? 'true' : undefined}
                     >
                       <span
-                        className={`text-xs font-bold ${isActive ? 'text-bg/70' : 'text-muted'}`}
+                        className={`font-mono text-xs ${isActive ? 'text-bg/70' : 'text-muted'}`}
                       >
                         {String(index + 1).padStart(2, '0')}
                       </span>

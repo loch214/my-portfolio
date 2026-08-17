@@ -9,7 +9,6 @@ import ScrollRevealSection from '@/components/ScrollRevealSection';
 import SocialLinks from '@/components/SocialLinks';
 import ProjectModal from '@/components/ProjectModal';
 import SectionHeading from '@/components/SectionHeading';
-import { ProjectsScene } from '@/components/illustrations';
 import { personalData, projectsData, type Project } from '@/data/personalData';
 
 const gridVariants = {
@@ -27,38 +26,51 @@ const cardVariants = {
 };
 
 interface ProjectCardProps {
+  index: number;
   title: string;
   tags: string[];
   icon: IconType;
   onClick: () => void;
 }
 
-const ProjectCard = ({ title, tags, icon: Icon, onClick }: ProjectCardProps) => (
+const ProjectCard = ({ index, title, tags, icon: Icon, onClick }: ProjectCardProps) => (
   <motion.button
     onClick={onClick}
-    className="card elev-sm group flex min-h-[200px] flex-col items-start p-6 text-left transition-shadow hover:shadow-md"
+    className="card group flex flex-col overflow-hidden text-left transition-colors hover:border-accent/40"
     variants={cardVariants}
-    whileHover={{ y: -5 }}
-    whileTap={{ scale: 0.985 }}
   >
-    <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-accent-200 text-accent-700 transition-colors group-hover:bg-accent group-hover:text-bg">
-      <Icon size={20} aria-hidden />
-    </span>
-    <h3 className="mb-3 font-heading text-xl leading-tight text-ink">{title}</h3>
-    <div className="mt-auto flex flex-wrap gap-1.5">
-      {tags.slice(0, 4).map((tag) => (
-        <span
-          key={tag}
-          className="rounded-full bg-neutral-200 px-2.5 py-1 text-[13px] font-semibold text-neutral-800"
-        >
-          {tag}
-        </span>
-      ))}
-      {tags.length > 4 && (
-        <span className="rounded-full px-1.5 py-1 text-[13px] font-semibold text-ink-soft">
-          +{tags.length - 4}
-        </span>
-      )}
+    <div
+      className="relative flex aspect-video w-full items-center justify-center overflow-hidden border-b border-line"
+      style={{
+        background:
+          'radial-gradient(80% 100% at 50% 20%, color-mix(in srgb, var(--color-accent) 8%, transparent), var(--color-surface) 70%)',
+      }}
+    >
+      <Icon
+        size={40}
+        strokeWidth={1.5}
+        className="text-neutral-500 transition-all duration-300 group-hover:scale-110 group-hover:text-accent"
+        aria-hidden
+      />
+      <span className="absolute left-3 top-3 rounded-sm border border-line bg-bg/70 px-2 py-1 font-mono text-[11px] text-accent backdrop-blur-sm">
+        {String(index + 1).padStart(2, '0')}
+      </span>
+    </div>
+
+    <div className="flex flex-1 flex-col p-5">
+      <h3 className="mb-3 font-heading text-xl leading-tight text-neutral-100">{title}</h3>
+      <div className="mt-auto flex flex-wrap gap-1.5">
+        {tags.slice(0, 4).map((tag) => (
+          <span key={tag} className="rounded-sm border border-line px-2 py-0.5 font-mono text-[11px] text-neutral-400">
+            {tag}
+          </span>
+        ))}
+        {tags.length > 4 && (
+          <span className="rounded-sm px-1.5 py-0.5 font-mono text-[11px] text-neutral-500">
+            +{tags.length - 4}
+          </span>
+        )}
+      </div>
     </div>
   </motion.button>
 );
@@ -77,24 +89,12 @@ export default function Home() {
         className="snap-section relative flex min-h-screen items-center px-6 py-20 sm:px-8 lg:px-10"
       >
         <div className="mx-auto w-full max-w-6xl">
-          <div className="mb-8 grid items-center gap-8 lg:grid-cols-[1.3fr_0.7fr]">
-            <div>
-              <SectionHeading index="05" kicker="Projects" title="Things I've built" tone="sage" />
-              <p className="body-text max-w-xl text-[17px]">
-                Full-stack apps, a few AI experiments that did not always go to plan, and this site.
-                Open a card for the story behind each one, plus source code or a demo.
-              </p>
-            </div>
-
-            <motion.div
-              className="mx-auto hidden w-full max-w-[200px] lg:block lg:justify-self-end"
-              initial={{ opacity: 0, scale: 0.94 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <ProjectsScene className="anim-float w-full" />
-            </motion.div>
+          <div className="mb-8">
+            <SectionHeading index="05" total="07" title="Things I've built" />
+            <p className="body-text max-w-xl text-[17px]">
+              Full-stack apps, a few AI experiments that did not always go to plan, and this site.
+              Open a card for the story behind each one, plus source code or a demo.
+            </p>
           </div>
 
           <motion.div
@@ -104,9 +104,10 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
           >
-            {projectsData.map((project) => (
+            {projectsData.map((project, index) => (
               <ProjectCard
                 key={project.id}
+                index={index}
                 title={project.title}
                 tags={project.tags}
                 icon={project.icon}

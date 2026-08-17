@@ -3,46 +3,51 @@
 @tailwind utilities;
 
 /* ══════════════════════════════════════════════════════════════════════════
-   Organic design tokens — from design_handoff_organic/styles.css.
-   --font-heading / --font-body are supplied by next/font on <html>.
+   Design tokens — dark cinematic editorial: near-black ground, warm brass
+   accent, oversized display serif, small tracked mono labels doing the work
+   a decorative eyebrow used to do. Replaces the earlier warm-cream "Organic"
+   system; nothing here is inherited from it.
+   --font-heading / --font-body / --font-mono are supplied by next/font on <html>.
    ══════════════════════════════════════════════════════════════════════════ */
 :root {
-  --color-bg: #f5ead8;
-  --color-surface: #ebddc5;
-  --color-text: #201e1d;
-  --color-accent: #c67139;
-  --color-accent-2: #7a8a5e;
-  --color-divider: color-mix(in srgb, #201e1d 16%, transparent);
+  --color-bg: #0a0a09;
+  --color-surface: #131211;
+  --color-text: #f3f0e6;
+  --color-accent: #c9a24b;
+  --color-accent-2: #8f8a7c;
+  --color-divider: color-mix(in srgb, #f3f0e6 13%, transparent);
 
-  --color-neutral-100: #f9f4ed;
-  --color-neutral-200: #eee7db;
-  --color-neutral-300: #dcd3c4;
-  --color-neutral-400: #c0b6a5;
-  --color-neutral-500: #a19786;
-  --color-neutral-600: #82796a;
-  --color-neutral-700: #645c50;
-  --color-neutral-800: #474238;
-  --color-neutral-900: #2e2b25;
+  --color-neutral-100: #f3f0e6;
+  --color-neutral-200: #d8d4c6;
+  --color-neutral-300: #b7b2a1;
+  --color-neutral-400: #928c7b;
+  --color-neutral-500: #716b5c;
+  --color-neutral-600: #524d42;
+  --color-neutral-700: #38352d;
+  --color-neutral-800: #1e1c18;
+  --color-neutral-900: #0a0a09;
 
-  --color-accent-100: #fff2eb;
-  --color-accent-200: #ffe1d0;
-  --color-accent-300: #ffc6a5;
-  --color-accent-400: #f6a06b;
-  --color-accent-500: #d67f48;
-  --color-accent-600: #b2622d;
-  --color-accent-700: #8c491a;
-  --color-accent-800: #643312;
-  --color-accent-900: #402310;
+  --color-accent-100: #f8eed2;
+  --color-accent-200: #eeda9f;
+  --color-accent-300: #e2c179;
+  --color-accent-400: #d5ac5e;
+  --color-accent-500: #c9a24b;
+  --color-accent-600: #a9843c;
+  --color-accent-700: #86672f;
+  --color-accent-800: #5f4a22;
+  --color-accent-900: #3a2d16;
 
-  --color-accent-2-100: #f0fae1;
-  --color-accent-2-200: #e1eecc;
-  --color-accent-2-300: #ccdbb2;
-  --color-accent-2-400: #aebf92;
-  --color-accent-2-500: #8fa073;
-  --color-accent-2-600: #728157;
-  --color-accent-2-700: #56633f;
-  --color-accent-2-800: #3d472b;
-  --color-accent-2-900: #272e1b;
+  /* Kept as a quiet secondary — stone, never a competing hue. Used for
+     structural chrome (dividers-on-dark, muted iconography), not content. */
+  --color-accent-2-100: #e7e4da;
+  --color-accent-2-200: #cdc9bc;
+  --color-accent-2-300: #aca79a;
+  --color-accent-2-400: #8f8a7c;
+  --color-accent-2-500: #726e60;
+  --color-accent-2-600: #58554a;
+  --color-accent-2-700: #403d35;
+  --color-accent-2-800: #2a2822;
+  --color-accent-2-900: #18170f;
 
   --font-heading-weight: 400;
 
@@ -53,13 +58,13 @@
   --space-6: 26.4px;
   --space-8: 35.2px;
 
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 28px;
+  --radius-sm: 3px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
 
-  --shadow-sm: 0 1px 2px color-mix(in srgb, #2e2b25 14%, transparent);
-  --shadow-md: 0 3px 10px color-mix(in srgb, #2e2b25 16%, transparent);
-  --shadow-lg: 0 12px 32px color-mix(in srgb, #2e2b25 22%, transparent);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.6);
 }
 
 * {
@@ -91,53 +96,63 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), system-ui, sans-serif;
   font-weight: var(--font-heading-weight);
-  line-height: 1.12;
-  letter-spacing: -0.015em;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
 img { display: block; max-width: 100%; }
 
 :focus { outline: none; }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+::selection { background: color-mix(in srgb, var(--color-accent) 35%, transparent); color: var(--color-neutral-100); }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Every content photograph goes through this wrapper. */
+  /* Editorial photo treatment: desaturated by default, full color on hover/focus.
+     Applied by the parent that also carries the hover/focus state. */
   .washed {
-    filter: saturate(0.6) contrast(0.85) brightness(1.1) opacity(0.94);
+    filter: grayscale(0.85) contrast(1.08) brightness(0.95);
+    transition: filter 0.5s ease;
   }
 
-  /* Surface-filled content card, over-rounded per the system. */
+  .washed-reveal:hover .washed,
+  .washed-reveal:focus-within .washed {
+    filter: grayscale(0) contrast(1) brightness(1);
+  }
+
+  /* Surface-filled content panel — hairline border, small radius. No pill cards. */
   .card {
     background: var(--color-surface);
-    border-radius: calc(var(--radius-lg) * 1.15);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-lg);
   }
 
   .elev-sm { box-shadow: var(--shadow-sm); }
   .elev-md { box-shadow: var(--shadow-md); }
   .elev-lg { box-shadow: var(--shadow-lg); }
 
-  /* Small uppercase label — accent-700 keeps paragraph-size accent text legible. */
+  /* Small tracked mono label — used for chrome (nav, chips, running counters),
+     never as a decorative eyebrow stacked above a heading. */
   .kicker {
-    font-size: 12px;
-    letter-spacing: 0.09em;
+    font-family: var(--font-mono), monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-accent-700);
-    font-weight: 700;
+    color: var(--color-accent);
+    font-weight: 500;
   }
 
-  .kicker-sage {
-    color: var(--color-accent-2-700);
+  .kicker-muted {
+    color: var(--color-neutral-400);
   }
 
-  /* Reading text: a touch heavier and darker than the 400-weight default so
-     paragraphs hold up against the warm ground without competing with headings. */
+  /* Reading text: heavier and warmer than the default so paragraphs hold up
+     against the near-black ground without losing warmth. */
   .body-text {
-    color: var(--color-neutral-800);
+    color: var(--color-neutral-200);
     font-weight: 500;
     line-height: 1.7;
   }
@@ -153,17 +168,17 @@ img { display: block; max-width: 100%; }
   }
 
   .anim-float {
-    animation: organic-float 7s ease-in-out infinite;
+    animation: drift 7s ease-in-out infinite;
   }
 
   .anim-float-slow {
-    animation: organic-float 11s ease-in-out infinite;
+    animation: drift 11s ease-in-out infinite;
   }
 }
 
-@keyframes organic-float {
+@keyframes drift {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-10px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -172,17 +187,17 @@ img { display: block; max-width: 100%; }
   .anim-float-slow { animation: none; }
 }
 
-/* Custom scrollbar — warm, rounded, in-system. */
+/* Custom scrollbar — near-black track, brass thumb. */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-neutral-200);
+  background: var(--color-neutral-900);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-neutral-400);
+  background: var(--color-neutral-700);
   border-radius: 999px;
 }
 

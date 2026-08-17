@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-/* Every value below resolves to an Organic token in app/globals.css.
+/* Every value below resolves to a token in app/globals.css.
    Nothing here hard-codes a color, radius or shadow the tokens already carry. */
 const config: Config = {
   content: [
@@ -30,7 +30,7 @@ const config: Config = {
           800: "var(--color-accent-800)",
           900: "var(--color-accent-900)",
         },
-        sage: {
+        stone: {
           DEFAULT: "var(--color-accent-2)",
           100: "var(--color-accent-2-100)",
           200: "var(--color-accent-2-200)",
@@ -57,12 +57,13 @@ const config: Config = {
       fontFamily: {
         heading: ["var(--font-heading)", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       borderRadius: {
         sm: "var(--radius-sm)",
         md: "var(--radius-md)",
         lg: "var(--radius-lg)",
-        card: "calc(var(--radius-lg) * 1.15)",
+        card: "var(--radius-lg)",
       },
       boxShadow: {
         sm: "var(--shadow-sm)",

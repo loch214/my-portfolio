@@ -6,14 +6,11 @@ export default function GalleryPage() {
   return (
     <main className="min-h-screen bg-bg px-6 pb-20 pt-32 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="kicker">Gallery</span>
-            <h1 className="mt-2 font-heading text-[2rem] text-ink sm:text-4xl">Pencil &amp; pastel</h1>
-          </div>
+        <div className="mb-12 flex flex-wrap items-baseline justify-between gap-6">
+          <h1 className="font-heading text-[2.25rem] italic text-ink sm:text-4xl">Pencil &amp; pastel</h1>
           <Link
             href="/#hobbies"
-            className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:bg-neutral-300/60"
+            className="inline-flex items-center gap-2 rounded-md border border-line px-6 py-3 font-mono text-[12px] uppercase tracking-[0.06em] text-ink transition-colors hover:border-accent hover:text-accent"
           >
             ← Back
           </Link>
@@ -21,19 +18,19 @@ export default function GalleryPage() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {artData.map((piece) => (
-            <figure key={piece.id} className="card elev-sm overflow-hidden">
-              <div className="washed relative h-72 w-full">
+            <figure key={piece.id} className="card washed-reveal overflow-hidden">
+              <div className="relative h-72 w-full">
                 <Image
                   src={piece.imageUrl}
                   alt={piece.title}
                   fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="washed object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 />
               </div>
-              <figcaption className="p-6">
-                <span className="kicker">{String(piece.id).padStart(2, '0')}</span>
-                <h2 className="mt-1.5 font-heading text-xl text-ink">{piece.title}</h2>
+              <figcaption className="flex items-baseline gap-3 p-6">
+                <span className="font-mono text-[13px] text-accent">{String(piece.id).padStart(2, '0')}</span>
+                <h2 className="font-heading text-xl text-ink">{piece.title}</h2>
               </figcaption>
             </figure>
           ))}
