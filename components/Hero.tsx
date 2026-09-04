@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { PersonalData } from '@/data/personalData';
-import HeroAura from '@/components/HeroAura';
 import CharacterReveal from '@/components/CharacterReveal';
 
 interface HeroProps {
@@ -29,22 +28,22 @@ export default function Hero({ data }: HeroProps) {
       id="home"
       className="snap-section relative flex min-h-screen items-center overflow-hidden pb-16 pt-28"
     >
-      {/* Signature moment: procedural WebGL aura behind the name. A static
-          radial gradient underneath covers both the load flash before the
-          canvas paints and the no-WebGL / reduced-motion fallback. */}
+      {/* Static warm ground under the shared WebGL field. Covers the flash
+          before the canvas paints, the no-WebGL case, and mobile — where the
+          canvas is hidden below the md breakpoint and this is the only thing
+          keeping the hero from being flat black. */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(60% 50% at 50% 42%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 70%)',
+            'radial-gradient(60% 50% at 50% 42%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 70%)',
         }}
+        aria-hidden
       />
-      <HeroAura className="pointer-events-none absolute inset-0 h-full w-full" />
 
-      {/* Frame register marks — corner chrome, not a caption for the name below. */}
-      <div className="absolute inset-x-6 top-24 z-10 flex items-center justify-between sm:inset-x-8 lg:inset-x-10">
+      {/* Frame register mark — corner chrome, not a caption for the name below. */}
+      <div className="absolute inset-x-6 top-24 z-10 sm:inset-x-8 lg:inset-x-10">
         <span className="kicker">Colombo, Sri Lanka</span>
-        <span className="kicker kicker-muted hidden sm:inline">Portfolio — 2026</span>
       </div>
 
       <div className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-10">
@@ -65,24 +64,24 @@ export default function Hero({ data }: HeroProps) {
         </motion.div>
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <motion.p {...fadeIn(0.82)} className="t-lead max-w-xl">
+          <motion.p {...fadeIn(0.82)} className="t-lead-hero max-w-2xl">
             {data.bio}
           </motion.p>
 
           <motion.div {...fadeIn(0.94)} className="flex flex-wrap items-center gap-3 lg:justify-end">
             <a
               href="#projects"
-              className="t-btn group inline-flex items-center gap-2.5 rounded-md bg-accent px-6 py-4 text-bg transition-colors hover:bg-accent-400"
+              className="btn btn-primary group"
             >
               See the work
-              <ArrowDown size={15} strokeWidth={2.5} className="transition-transform group-hover:translate-y-0.5" />
+              <ArrowDown size={16} strokeWidth={2.5} className="transition-transform group-hover:translate-y-0.5" />
             </a>
             <a
               href="#connect"
-              className="t-btn group inline-flex items-center gap-2.5 rounded-md border border-line px-6 py-4 text-neutral-100 transition-colors hover:border-accent hover:text-accent"
+              className="btn btn-outline group"
             >
               Get in touch
-              <ArrowUpRight size={15} strokeWidth={2.5} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight size={16} strokeWidth={2.5} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </motion.div>
         </div>

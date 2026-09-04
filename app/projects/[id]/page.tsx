@@ -20,7 +20,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
           </p>
           <Link
             href="/#projects"
-            className="t-btn inline-flex items-center gap-2 rounded-md bg-accent px-7 py-4 text-bg transition-colors hover:bg-accent-400"
+            className="btn btn-primary"
           >
             ← Back to projects
           </Link>
@@ -35,7 +35,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
         <div className="flex flex-col gap-6">
           <Link
             href="/#projects"
-            className="t-btn inline-flex w-fit items-center gap-2 rounded-md border border-line px-6 py-3.5 text-ink transition-colors hover:border-accent hover:text-accent"
+            className="btn btn-outline w-fit"
           >
             ← Back to projects
           </Link>
@@ -47,7 +47,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="t-meta rounded-sm border border-line px-2.5 py-1 text-neutral-300"
+                className="chip"
               >
                 {tag}
               </span>
@@ -57,7 +57,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="t-btn inline-flex w-fit items-center gap-2 rounded-md bg-accent px-7 py-4 text-bg transition-colors hover:bg-accent-400"
+            className="btn btn-primary w-fit"
           >
             View source on GitHub →
           </a>

@@ -72,7 +72,7 @@ export default function Navigation() {
           </a>
 
           <button
-            className="t-btn inline-flex items-center gap-2 rounded-full border border-line px-5 py-3 text-ink transition-colors hover:border-accent hover:text-accent lg:-mr-10 xl:-mr-16"
+            className="btn btn-sm btn-outline rounded-full lg:-mr-10 xl:-mr-16"
             onClick={() => setIsSideMenuOpen(true)}
             aria-label="Open menu"
             aria-expanded={isSideMenuOpen}
@@ -107,7 +107,7 @@ export default function Navigation() {
                 <span className="kicker">Navigate</span>
                 <button
                   onClick={() => setIsSideMenuOpen(false)}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-accent hover:text-bg"
+                  className="btn-icon hover:bg-accent hover:text-bg"
                   aria-label="Close menu"
                 >
                   <X size={18} strokeWidth={2.75} />

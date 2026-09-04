@@ -81,7 +81,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
                 rel={isMailto ? undefined : 'noopener noreferrer'}
                 variants={itemVariants}
                 aria-label={isMailto ? 'Email me' : `Open ${link.platform}`}
-                className="t-btn group card inline-flex items-center gap-2.5 px-6 py-4 text-neutral-100 transition-colors hover:border-accent hover:text-accent"
+                className="btn btn-outline group bg-surface"
               >
                 <Icon size={18} strokeWidth={2} />
                 <span>{isMailto ? link.url.replace('mailto:', '') : link.platform}</span>

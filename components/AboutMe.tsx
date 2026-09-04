@@ -47,7 +47,7 @@ export default function AboutMe({ data }: AboutMeProps) {
               {technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="t-meta rounded-sm border border-line px-2.5 py-1 text-neutral-300"
+                  className="chip"
                 >
                   {tech}
                 </span>

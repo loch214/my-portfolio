@@ -10,7 +10,7 @@ export default function GalleryPage() {
           <h1 className="t-h2 italic text-ink">Pencil &amp; pastel</h1>
           <Link
             href="/#hobbies"
-            className="t-btn inline-flex items-center gap-2 rounded-md border border-line px-6 py-3.5 text-ink transition-colors hover:border-accent hover:text-accent"
+            className="btn btn-outline"
           >
             ← Back
           </Link>

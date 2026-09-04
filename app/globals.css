@@ -18,6 +18,16 @@
   --color-accent: #c9a24b;
   --color-accent-2: #8f8a7c;
   --color-divider: color-mix(in srgb, #f3f0e6 13%, transparent);
+  /* Ink for the ASCII background field (components/AsciiField.tsx reads this
+     through getComputedStyle). Sits between neutral-700 and neutral-600: at
+     ~2:1 on the ground the glyphs register as texture without ever competing
+     with body copy. Raise it and the background starts pulling the eye. */
+  --color-field: #4c4738;
+  /* Outline for interactive controls. --color-divider (13%) is right for
+     hairlines between blocks but sits at 1.35:1 on the ground, which is well
+     under the 3:1 WCAG asks of a control boundary — buttons outlined in it
+     were hard to find. Only buttons and inputs use this. */
+  --color-border-strong: color-mix(in srgb, #f3f0e6 38%, transparent);
 
   --color-neutral-100: #f3f0e6;
   --color-neutral-200: #d8d4c6;
@@ -56,7 +66,14 @@
   --font-heading-weight: 400;
 
   /* ── Type scale ─────────────────────────────────────────────────────────
-     Eight sizes. Every piece of text resolves to one of the .t-* roles below.
+     Seven steps: 84 / 38 / 20 / 18 / 16 / 15 / 14. Every piece of text
+     resolves to one of the .t-* roles below.
+
+     The display used to top out at 112px and the mono data at 13px, which is
+     what "some are too big, some are too small" was about: the name ran the
+     full width of a desktop viewport while the labels under it needed
+     leaning in to read. Closing both ends means adjacent roles now differ by
+     a step you can see rather than by a step you have to measure.
 
      Two hard rules, both of which this design broke once and had to be fixed:
 
@@ -66,14 +83,15 @@
      2. Mono is for data and short labels only — years, counters, index badges,
         uppercase kickers. Never prose, never button text. Mono prose reads
         slower, and uppercase + letter-spacing destroys word shape. */
-  --text-display: clamp(2.75rem, 12.5vw, 7rem);   /* hero name only */
+  --text-display: clamp(2.25rem, 6.4vw, 4.5rem);  /* 36→72px — hero name only */
   --text-h2: clamp(1.75rem, 3.2vw, 2.375rem);     /* section titles — serif */
   --text-h3: 1.25rem;                             /* 20px — card titles, grotesk 600 */
-  --text-h4: 1.0625rem;                           /* 17px — component titles, grotesk 600 */
+  --text-h4: 1.125rem;                            /* 18px — component titles, grotesk 600 */
   --text-lead: 1.125rem;                          /* 18px — section intro paragraphs */
   --text-body: 1rem;                              /* 16px — all body copy */
-  --text-meta: 0.875rem;                          /* 14px — meta, chips, buttons */
-  --text-data: 0.8125rem;                         /* 13px — mono data + kickers */
+  --text-btn: 0.9375rem;                          /* 15px — every button/link label */
+  --text-meta: 0.875rem;                          /* 14px — meta lines, chips */
+  --text-data: 0.875rem;                          /* 14px — mono data + kickers */
 
   --leading-display: 0.95;
   --leading-heading: 1.15;
@@ -202,6 +220,18 @@ img { display: block; max-width: 100%; }
     max-width: var(--measure);
   }
 
+  /* The page's opening sentence, one step above a section intro. No new size —
+     it borrows --text-h3 (20px). It exists because the hero jumped straight
+     from the display to 18px with nothing in between, which is what made the
+     supporting copy read as undersized next to the name. */
+  .t-lead-hero {
+    font-size: var(--text-h3);
+    line-height: 1.55;
+    font-weight: 500;
+    color: var(--color-neutral-200);
+    max-width: var(--measure);
+  }
+
   /* Reading text: heavier and warmer than the default so paragraphs hold up
      against the dark ground without losing warmth. */
   .body-text {
@@ -225,12 +255,15 @@ img { display: block; max-width: 100%; }
   /* ── Label roles ──────────────────────────────────────────────────────── */
 
   /* Interactive label — sentence case, proportional, no tracking. Uppercase
-     tracked mono here was the single least readable thing on the page. */
+     tracked mono here was the single least readable thing on the page. Use
+     .btn below for anything that is actually a button; this role is for the
+     handful of labels that need the type without the box (menu items). */
   .t-btn {
-    font-size: var(--text-meta);
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: var(--text-btn);
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 1;
+    line-height: 1.2;
   }
 
   /* Mono, and only for genuine data: years, counters, index badges. */
@@ -277,6 +310,85 @@ img { display: block; max-width: 100%; }
     background: var(--color-surface);
     border: 1px solid var(--color-divider);
     border-radius: var(--radius-lg);
+  }
+
+  /* ── Controls ─────────────────────────────────────────────────────────
+     One button shape for the whole site. Before this, nine call sites carried
+     five different padding pairs, three different radii and a 14px label, and
+     two icon-only controls had 36-40px hit areas. Size, radius and label live
+     here; the call site picks a variant and nothing else.
+
+     44px is the WCAG 2.5.5 (AAA) target-size minimum and what both Apple and
+     Material recommend — worth having by default on a page that is mostly
+     read on a laptop trackpad or a phone. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 1.25rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: var(--text-btn);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+    white-space: nowrap;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+
+  /* Chrome that sits inside the nav bar, where 44px would crowd the bar. */
+  .btn-sm {
+    min-height: 2.5rem;
+    padding: 0 1rem;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-400);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-neutral-100);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* Icon-only control — dialog and drawer close. Same target as a text
+     button; its name lives in aria-label. */
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.75rem;
+    width: 2.75rem;
+    border-radius: 999px;
+    color: var(--color-neutral-300);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+
+  /* Tag / attribute pill — stack chips, tech chips, art mediums, project
+     tags. Was three different paddings across four files. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-sm);
+    padding: 0.3125rem 0.625rem;
+    font-size: var(--text-meta);
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--color-neutral-300);
+    white-space: nowrap;
   }
 
   .elev-sm { box-shadow: var(--shadow-sm); }

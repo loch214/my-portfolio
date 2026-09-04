@@ -55,12 +55,12 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                     href={edu.resultsPdf}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="t-btn group mt-5 inline-flex items-center gap-2 rounded-md border border-line px-5 py-3 text-neutral-100 transition-colors hover:border-accent hover:text-accent"
+                    className="btn btn-outline group mt-5"
                   >
-                    <FileText size={15} strokeWidth={2.5} />
+                    <FileText size={16} strokeWidth={2.5} />
                     Academic results
                     <ExternalLink
-                      size={13}
+                      size={14}
                       strokeWidth={2.5}
                       className="transition-transform group-hover:translate-x-0.5"
                     />
@@ -161,7 +161,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
                 {data.art.mediums.map((medium) => (
                   <span
                     key={medium}
-                    className="t-meta rounded-sm border border-line px-2.5 py-1 text-neutral-300"
+                    className="chip"
                   >
                     {medium}
                   </span>
@@ -170,11 +170,11 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
               <p className="body-text">{data.art.achievements}</p>
               <Link
                 href="/gallery"
-                className="t-btn group mt-5 inline-flex items-center gap-2 rounded-md border border-line px-5 py-3 text-neutral-100 transition-colors hover:border-accent hover:text-accent"
+                className="btn btn-outline group mt-5"
               >
                 See the gallery
                 <ArrowUpRight
-                  size={14}
+                  size={16}
                   strokeWidth={2.5}
                   className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />

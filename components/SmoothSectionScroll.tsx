@@ -18,7 +18,7 @@ import { SECTION_IDS } from '@/hooks/useActiveSection';
    scrolling feel laggy. Geometry is measured once up front and re-measured only
    when the document actually changes size. */
 
-const DURATION = 950;
+export const DURATION = 950;
 const COOLDOWN = 130;
 
 /* Windows runs common display scales (125%, 150%) where offsetTop/offsetHeight

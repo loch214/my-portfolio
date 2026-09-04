@@ -121,7 +121,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             setRepoMenuOpen(false);
             onClose();
           }}
-          className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-neutral-300 transition-colors hover:border-accent hover:text-accent"
+          className="btn-icon absolute right-4 top-4 border border-line hover:border-accent hover:text-accent"
           aria-label="Close project details"
         >
           <X size={18} strokeWidth={2.75} />
@@ -137,7 +137,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="t-meta rounded-sm border border-line px-2.5 py-1 text-neutral-300"
+                className="chip"
               >
                 {tag}
               </span>
@@ -153,7 +153,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     event.preventDefault();
                     setRepoMenuOpen((prev) => !prev);
                   }}
-                  className="t-btn inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3.5 text-bg transition-colors hover:bg-accent-400"
+                  className="btn btn-primary"
                   aria-haspopup="menu"
                   aria-expanded={isRepoMenuOpen}
                 >
@@ -176,7 +176,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         href={link.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="t-btn block rounded-sm px-4 py-2.5 text-neutral-100 transition-colors hover:bg-accent hover:text-bg"
+                        className="t-btn block rounded-sm px-4 py-3 text-neutral-100 transition-colors hover:bg-accent hover:text-bg"
                         role="menuitem"
                         onClick={() => setRepoMenuOpen(false)}
                       >
@@ -191,7 +191,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="t-btn inline-flex items-center rounded-md bg-accent px-6 py-3.5 text-bg transition-colors hover:bg-accent-400"
+                className="btn btn-primary"
               >
                 View source
               </a>
@@ -199,7 +199,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {project.id !== 6 && project.id !== 5 && (
               <Link
                 href={`/projects/${project.id}`}
-                className="t-btn inline-flex items-center rounded-md border border-line px-6 py-3.5 text-neutral-100 transition-colors hover:border-accent hover:text-accent"
+                className="btn btn-outline"
                 onClick={() => {
                   setRepoMenuOpen(false);
                   onClose();

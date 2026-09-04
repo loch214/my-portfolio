@@ -57,7 +57,7 @@ const ProjectCard = ({ index, title, tags, icon: Icon, onClick }: ProjectCardPro
       />
 
       <Icon
-        size={30}
+        size={34}
         strokeWidth={1.5}
         className="text-neutral-500 transition-all duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:text-accent"
         aria-hidden
@@ -72,18 +72,19 @@ const ProjectCard = ({ index, title, tags, icon: Icon, onClick }: ProjectCardPro
       </span>
     </div>
 
-    <div className="flex flex-1 flex-col p-4">
-      <h3 className="t-h4 mb-2.5 text-neutral-100">{title}</h3>
-      <div className="mt-auto flex flex-wrap gap-1.5">
-        {tags.slice(0, 3).map((tag) => (
-          <span key={tag} className="t-meta rounded-sm border border-line px-2 py-0.5 text-neutral-300">
+    <div className="flex flex-1 flex-col p-5">
+      <h3 className="t-h4 mb-3 text-neutral-100">{title}</h3>
+      {/* Two tags and a count, not three: at xl the grid runs four across, and
+          a third chip pushed the overflow count onto a line of its own on most
+          cards, which read as a layout bug rather than as a stack summary. */}
+      <div className="mt-auto flex flex-wrap items-center gap-1.5">
+        {tags.slice(0, 2).map((tag) => (
+          <span key={tag} className="chip">
             {tag}
           </span>
         ))}
-        {tags.length > 3 && (
-          <span className="t-meta rounded-sm px-1.5 py-0.5 text-neutral-500">
-            +{tags.length - 3}
-          </span>
+        {tags.length > 2 && (
+          <span className="t-meta text-neutral-500">+{tags.length - 2}</span>
         )}
       </div>
     </div>
