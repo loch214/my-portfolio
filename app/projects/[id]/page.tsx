@@ -1,9 +1,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { projectsData } from '@/data/personalData';
+import VideoEmbed from '@/components/VideoEmbed';
 
 interface ProjectCaseStudyProps {
   params: { id: string };
+}
+
+/* Every case study is a static array entry, so there is nothing to render per
+   request. Without this the route builds as "server-rendered on demand" and
+   each visit costs a function invocation and a possible cold start; with it
+   all nine become prerendered HTML on the CDN.
+
+   dynamicParams stays at its default (true) on purpose: an id that isn't in
+   the data still renders the friendly "Project not found" page below rather
+   than a bare 404. */
+export function generateStaticParams() {
+  return projectsData.map((project) => ({ id: String(project.id) }));
 }
 
 export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) {
@@ -73,19 +86,12 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
                     alt={item.caption}
                     width={1600}
                     height={900}
+                    sizes="(min-width: 896px) 896px, 100vw"
                     className="h-auto w-full object-cover"
                   />
                 </div>
               ) : (
-                <div className="relative aspect-video w-full overflow-hidden bg-neutral-900">
-                  <iframe
-                    src={item.url}
-                    title={item.caption}
-                    className="h-full w-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
+                <VideoEmbed url={item.url} caption={item.caption} />
               )}
               <figcaption className="t-meta max-w-none px-6 py-4">{item.caption}</figcaption>
             </figure>

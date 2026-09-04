@@ -187,6 +187,29 @@ against `SECTION_IDS`.
   aura, offset by keeping the shader itself cheap (single triangle, ~12px glyph
   cells, DPR capped at 1.75). Don't "fix" this back to a scroll-freeze without
   re-solving how the morph stays visible.
+- **Case studies must stay prerendered, and their videos must stay
+  click-to-play.** `app/projects/[id]/page.tsx` reads a static array, so it
+  carries `generateStaticParams` and all nine ids build as `● (SSG)`. Without
+  it the route builds as `ƒ` — server-rendered on demand — and every visit
+  costs a function invocation plus a possible cold start for output that never
+  changes. `dynamicParams` is left at its default so an unknown id still gets
+  the friendly "Project not found" page instead of a bare 404.
+
+  Every case study's media is one or two YouTube embeds, and mounting those
+  iframes on page load was almost the entire reason a case study felt slow to
+  open: a YouTube player is ~1MB of script plus a waterfall to youtube.com,
+  googlevideo and doubleclick. `components/VideoEmbed.tsx` renders a ~20KB
+  poster from `i.ytimg.com` instead and only mounts the iframe (with
+  `autoplay=1`, so one click plays) when asked. Measured: `/projects/3` used to
+  ship two eager players and now ships zero iframes. Don't put a bare
+  `<iframe src="…youtube…">` back on a page. The `i.ytimg.com` entry in
+  `next.config.js` `images.remotePatterns` exists only for that poster.
+- **Whether a project offers a case study is derived from its media**, in
+  `ProjectModal.tsx` — `project.media.length > 0`. It used to be a hardcoded
+  `id !== 5 && id !== 6`, which didn't know about Lens Lock (id 7, `media: []`)
+  and so linked to a page with a heading, a repo button and nothing under them.
+  The two ids are a separate, older opt-out and are still there; they belong in
+  `personalData.ts` as a field. Adding a project with no media is now safe.
 - **`css.d.ts`** declares `*.css` so TS 6+ doesn't flag the `globals.css`
   side-effect import (TS2882) — Next only ships types for `*.module.css`. Keep it.
 - **`components/AsciiField.tsx`** is the page's shared background: a

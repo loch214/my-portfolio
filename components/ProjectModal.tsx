@@ -63,6 +63,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   const hasMultipleRepos = repoLinks.length > 1;
 
+  /* A case study is only worth opening if it has media to show. Lens Lock
+     (id 7) has media: [] and was linking to a page with a heading, a repo
+     button and nothing under them, because this gate was a hardcoded id list
+     that predated it. The two ids are a separate, older opt-out and are kept
+     as-is; they belong in personalData as a field rather than here. */
+  const hasCaseStudy =
+    project.media.length > 0 && project.id !== 5 && project.id !== 6;
+
   useEffect(() => {
     setRepoMenuOpen(false);
   }, [project]);
@@ -196,7 +204,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 View source
               </a>
             )}
-            {project.id !== 6 && project.id !== 5 && (
+            {hasCaseStudy && (
               <Link
                 href={`/projects/${project.id}`}
                 className="btn btn-outline"
