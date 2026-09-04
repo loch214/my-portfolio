@@ -30,7 +30,7 @@ The look is fully tokenised, so a theme rework is three edits:
 
 `components/AsciiField.tsx` (the shared raw-WebGL background) is the one place color
 isn't CSS: it reads `--color-field` (the ASCII glyph ink) and `--color-accent` (the
-hero smoke) via `getComputedStyle` at mount and converts them to RGB floats for the
+hero's cursor halo) via `getComputedStyle` at mount and converts them to RGB floats for the
 shader uniforms, so both still retint from tokens without a hardcoded hex. There is
 no illustration file to retint — the redesign dropped the old flat-SVG character
 scenes entirely rather than reskin them; sections now carry themselves on type,
@@ -213,31 +213,42 @@ against `SECTION_IDS`.
 - **`css.d.ts`** declares `*.css` so TS 6+ doesn't flag the `globals.css`
   side-effect import (TS2882) — Next only ships types for `*.module.css`. Keep it.
 - **`components/AsciiField.tsx`** is the page's shared background: a
-  dependency-free raw-WebGL (not three.js) fullscreen-triangle shader. It runs in
-  **two modes**, and which one is showing is `uGlyphMix`, interpolated across a
-  section change (`SECTION_GLYPH_MIX` in `components/ascii-field/theme.ts`):
-  - **Hero — smooth brass smoke**, evaluated per pixel. This is the old
-    standalone `HeroAura` shader, same fbm/domain-warp and the same
-    `0.85 / 0.9` intensity constants, absorbed into this file. The owner has
-    signed off on the smoke specifically; leave its look alone.
-  - **Every other section — a live ASCII field**, the same noise/pattern maths
-    quantized to a glyph ramp. One full-viewport procedural pattern per section
-    (`components/ascii-field/fields.ts`): contours for about, ruled paper for
-    education, rippling lanes for sports, pencil crosshatch for hobbies, a
-    wireframe that assembles with scroll depth for projects, expanding signal
-    rings for connect.
+  dependency-free raw-WebGL (not three.js) fullscreen-triangle shader. Every
+  section, hero included, is a live ASCII field — one full-viewport procedural
+  pattern per section, quantized to a glyph ramp
+  (`components/ascii-field/fields.ts`): contours for about, ruled paper for
+  education, rippling lanes for sports, pencil crosshatch for hobbies, a
+  wireframe that assembles with scroll depth for projects, expanding signal
+  rings for connect.
 
-  The hero dissolving from smoke into type on the first scroll is that mode
-  change, which is the whole reason the loop can't freeze during a section
-  animation (see the idling note above).
+  **The hero is the one that answers the pointer.** Its glyphs densify (field0)
+  and warm toward the brass accent (the halo in `shaders.ts` MAIN) around the
+  cursor, so the first viewport is the liveliest background on the site without
+  leaving the glyph system. `SECTION_CURSOR_WARMTH` in
+  `components/ascii-field/theme.ts` gates it, interpolated across a section
+  change so the warmth fades out rather than switching off. Until a real mouse
+  moves — and on touch for good — the focus sweeps on a slow automatic path,
+  because otherwise the hero sat with a dead spot in the middle for anyone who
+  had not moved a cursor yet. Touch `pointermove` is ignored on purpose: a
+  touch drag is a scroll gesture, and letting it drive the halo yanked the
+  focus around while the visitor was only trying to scroll.
+
+  **There is no smoke any more.** The hero used to be a smooth brass aura — the
+  one section not drawn in characters, so the page's whole idea only appeared on
+  the second screen, and the only field with no keep-out over its own headline,
+  which left the copy's contrast depending on where the noise happened to peak
+  (measured: 16.5:1 down to 2.8:1 as the glow rose). The `uGlyphMix` uniform and
+  the `smoke()` GLSL helper are both gone. The CSS radial gradient in
+  `Hero.tsx` stays: it is the mobile ground (the canvas is hidden below `md`),
+  the no-WebGL fallback, and the cover for the flash before first paint.
 
   **The morph is driven by scroll position, not by a section-change event.**
   Every frame, `computeFieldState()` locates the viewport centre against cached
   section tops/bottoms and cross-fades the two adjacent fields over
   `BLEND_FRACTION` (0.4) of a viewport height either side of the boundary — so
   the blend covers ~80% of a section-to-section scroll and each section still
-  settles on a pure field in the middle. `uTransition`, `uGlyphMix` and the
-  keep-out width all interpolate off the same eased factor.
+  settles on a pure field in the middle. `uTransition`, `uWarmth` and all four
+  keep-out values interpolate off the same eased factor.
 
   The first version instead started a timed morph when `useActiveSection`
   changed (roughly halfway through the scroll) and then had the scroll-end event
@@ -248,13 +259,93 @@ against `SECTION_IDS`.
   on a section change. Section geometry is measured only in `resize()`, so the
   per-frame path reads nothing but `window.scrollY`.
 
-  Three things keep it from competing with the copy, and all three were tuned
-  against a complaint that the background "looks bad" and must not distract:
-  glyphs are drawn in `--color-field` at ~2:1 on the ground; the ramp is cut two
-  characters short of its top (`%` and `@` have near-total ink coverage and read
-  as solid slabs, not as characters); and an elliptical keep-out sized per
-  section from `SECTION_MASK_HALF_WIDTH_PX` takes density to zero over the text
-  column, so the field only ever lives in the margins.
+  **Every section has its own character family, not just its own pattern.**
+  `SECTION_RAMPS` in `ascii-field/atlas.ts` is one 8-step ramp per section,
+  baked as one atlas row each, and the shader cross-fades two rows on the same
+  eased factor as the field — so a section change morphs the material as well
+  as the form. The first version shared a single ramp of ` .:-=+*#` across all
+  seven, which is punctuation and maths operators end to end, and got reported
+  as "just lines, operation symbols".
+
+  Three rules came out of fixing that, and they are the useful part:
+
+  - **Only the low end of a ramp is ever used.** Field density targets a mean
+    alpha of 9, which is ~8-10% of cells carrying a glyph, so in practice
+    steps 1-3 are what you see and the dense top is nearly decorative. The
+    families are therefore chosen to differ in their *smallest* mark: a centred
+    dot (home), a dot cluster growing by count (about), a horizontal rule
+    (education), a bottom bar (sports), a braille cluster (hobbies), a corner
+    quadrant (projects), a hollow ring (connect).
+  - **Cell-filling blocks don't belong on the low end.** `░▒▓█` and the
+    part-blocks tile into continuous tone at high density, but scattered at 8%
+    they read as isolated squares — a lattice. Small marks read as grain.
+  - **Tune by measurement, not by eye, and measure the right thing.** See
+    `FIELD_LEVELS` in `theme.ts`.
+
+  Two things in the shader keep it from looking mechanical, and both are load
+  bearing — remove either and it goes back to looking like a screen door:
+  `lum` gets a per-cell dither one ramp step wide, which dissolves the hard
+  contour where two of the eight density levels meet; and each glyph is offset
+  from the centre of its cell by a static per-cell jitter, because with every
+  mark dead centre a low-density field of round characters reads as a regular
+  polka-dot lattice rather than as a field. Both are keyed to the cell, so
+  neither shimmers.
+
+  Beyond the characters, the *forms* were rebuilt too. The first set was six
+  line patterns and a cloud — contours, rules, lanes, crosshatch, wireframe
+  frames, rings — which is why it read as one material seven times. Now:
+  a particle cloud (home), slow marbling (about), a page wash with rules as a
+  faint rhythm inside it (education), a broad swell (sports), tonal stipple
+  (hobbies), a fill that floods with scroll depth (projects), wide soft pulses
+  (connect). Prefer wide smoothsteps and summed noise over thin strokes: a
+  coarse glyph grid turns every hard edge into a staircase.
+
+  Two more things keep it off the copy, both tuned against a complaint that the
+  background "looks bad" and must not distract: glyphs are drawn in
+  `--color-field` at ~2:1 on the ground, and an elliptical keep-out takes density
+  to zero over the text, so the field only ever lives in the margins. Even the
+  cursor halo respects it — point at the name and the field goes quiet rather
+  than lighting up under the words.
+
+  **The keep-out is four interpolated values, not one.** Centre plus both radii
+  (`uMaskCenter`, `uMaskHalfWidth`, `uMaskHalfHeight`), because the hero's copy
+  is a left-aligned block while every other section is a centred column;
+  reusing the sections' viewport-centred ellipse on the hero cleared the whole
+  screen at mid-height and starved the halo. Sections take their half-width from
+  `SECTION_MASK_HALF_WIDTH_PX` and share `MASK_HALF_HEIGHT_FRACTION`; the hero
+  measures its own, and two traps are worth knowing before touching
+  `measureHeroMask`:
+
+  - **Element boxes are the wrong thing to measure.** The `<h1>` is
+    `flex flex-col`, so each `CharacterReveal` line is a stretched flex item at
+    the container's full width (1072px at a 1518px viewport) even though the
+    name only draws ~534px. A `Range` over the heading's contents reports the
+    same 1072. The per-character leaf spans are the real extent.
+  - **Use `offsetLeft`/`offsetTop`, never `getBoundingClientRect`.**
+    `CharacterReveal` animates each character from `y: 110%` to `0%` as a
+    *transform*, which rects include and layout offsets don't. A rect taken in
+    `resize()` at mount reads the copy ~75px low for the whole ~1.9s entrance —
+    putting the keep-out in the wrong place exactly while the hero is being
+    looked at.
+
+  The clearance ramp is `smoothstep(1.0, 1.4, …)`. It was `1.05 → 1.85`, which
+  cleared out to nearly twice the ellipse's radii — fine for a centred column
+  with wide margins, fatal for the hero.
+
+  **`FIELD_LEVELS` is how a field's weight is set** (`lum * gain + bias`,
+  interpolated across a section change like everything else). fbm clusters
+  around 0.48 with a narrow spread and each field composes it differently, so
+  raw returns land all over the place: on the first pass two of the seven
+  rendered *nothing* and another flooded half the viewport, because the noise
+  domains were only a couple of noise cells wide and I was hand-fitting
+  smoothstep windows by guesswork.
+
+  Bisect the gain against a measured **mean alpha** (target 9), not against ink
+  coverage. Coverage is the trap: an inky ramp reaches a coverage target with
+  far fewer cells, so its gain collapses — `about` bottomed out at 0.15 and
+  never climbed past the first step of its own ramp — while mean alpha is the
+  honest measure of how heavy a field looks and lets every section use its
+  whole ramp at matched weight.
 
   **There is no scene/illustration atlas.** A previous version sampled hand-drawn
   Canvas2D icon tiles (a bust, a book, a swimmer) into a small box in the right
@@ -274,10 +365,16 @@ against `SECTION_IDS`.
   its setup effect runs once per tab.** Two consequences, both of which shipped
   as bugs: anything route-dependent has to arrive through a ref (there's a small
   `usePathname()` effect for that), and every cached measurement has to be
-  invalidated on navigation. The section tops/bottoms are cached, and going
+  invalidated on navigation. Related trap, since this effect can also re-run
+  against the *same* canvas (React StrictMode double-invokes it in dev, and so
+  does Fast Refresh): `resize()` may skip assigning `canvas.width` when the size
+  already matches, but it must still re-send `uResolution`, `uAspect` and
+  `uGridSize` every time, because uniforms are per-program state. Guarding those
+  behind the size check left the second program with all three at 0 and the
+  entire field rendering nothing. The section tops/bottoms are cached, and going
   `/` → a case study → back replaces the entire document without resizing the
   fixed canvas, so nothing else re-measured: `hasSections` latched false on the
-  subpage and stayed false on the way home, leaving the hero's smoke behind
+  subpage and stayed false on the way home, leaving the hero's field behind
   every section. `useActiveSection` had the same shape of bug — its observer
   stayed attached to the previous render's section nodes — and now re-observes
   on `pathname` as well. If you add another cache in here, invalidate it from
@@ -285,8 +382,8 @@ against `SECTION_IDS`.
 
   Routes with none of the scrolling sections in them get their own field from
   `ROUTE_FIELDS`: a case study borrows the Projects field, `/gallery` borrows
-  Hobbies' crosshatch. Falling back to field 0 there was wrong — the smoke is
-  hero-only.
+  Hobbies' crosshatch. Never the hero's: that one is built around a cursor halo
+  sized to the hero's own headline, which no other page has.
 
   Cursor-follow drift is home-only; the Projects field's phase is keyed to scroll
   depth through the section rather than a free clock. Renders one static frame
