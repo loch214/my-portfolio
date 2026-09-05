@@ -205,7 +205,17 @@ export default function SmoothSectionScroll() {
       const id = anchor.getAttribute('href')?.slice(1);
       if (!id) return;
       const target = document.getElementById(id);
-      if (!target) return;
+      if (!target) {
+        // The section doesn't exist on this page (a case study, /gallery) — a bare
+        // "#id" href would otherwise just tack the hash onto the current URL,
+        // stranding the visitor here and leaving a bogus history entry that makes
+        // the back button useless. Send them to the actual section on the home page.
+        if (window.location.pathname !== '/') {
+          event.preventDefault();
+          window.location.assign(`/#${id}`);
+        }
+        return;
+      }
 
       event.preventDefault();
       // A click is not on the wheel hot path, so measuring here is free.
