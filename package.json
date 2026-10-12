@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@videojs/react": "^10.0.1",
+    "@videojs/youtube-video": "^10.0.1",
     "framer-motion": "^11.3.19",
     "geist": "^1.7.2",
     "lucide-react": "^0.427.0",

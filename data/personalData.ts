@@ -118,11 +118,6 @@ export const personalData: PersonalData = {
       platform: "LinkedIn",
       url: "https://www.linkedin.com/in/lochana-dahanayake-211034372",
       icon: "linkedin"
-    },
-    {
-      platform: "Instagram",
-      url: "https://www.instagram.com/loch._.d?igsh=MTN4dzFyem9iMDNleA==",
-      icon: "instagram"
     }
   ]
 };

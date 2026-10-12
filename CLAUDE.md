@@ -215,15 +215,45 @@ against `SECTION_IDS`.
   changes. `dynamicParams` is left at its default so an unknown id still gets
   the friendly "Project not found" page instead of a bare 404.
 
-  Every case study's media is one or two YouTube embeds, and mounting those
-  iframes on page load was almost the entire reason a case study felt slow to
-  open: a YouTube player is ~1MB of script plus a waterfall to youtube.com,
-  googlevideo and doubleclick. `components/VideoEmbed.tsx` renders a ~20KB
-  poster from `i.ytimg.com` instead and only mounts the iframe (with
-  `autoplay=1`, so one click plays) when asked. Measured: `/projects/3` used to
-  ship two eager players and now ships zero iframes. Don't put a bare
-  `<iframe src="…youtube…">` back on a page. The `i.ytimg.com` entry in
-  `next.config.js` `images.remotePatterns` exists only for that poster.
+  Every case study's media is one or two YouTube videos, played through
+  **Video.js 10** (`@videojs/react` + `@videojs/youtube-video`) in
+  `components/VideoEmbed.tsx`, not a bare YouTube iframe — YouTube's own UI
+  showed recommended videos (on hover, on pause, on the end screen), which the
+  owner didn't want. Self-hosting on Mux (the Vercel Marketplace video option)
+  was offered and declined; the videos stay on YouTube. Four things keep it
+  clean, all load-bearing:
+
+  - **Click-to-play.** A YouTube player is ~1MB of script plus a waterfall to
+    youtube.com/googlevideo; mounting them on page load was almost the entire
+    reason a case study felt slow. A ~20KB `i.ytimg.com` poster renders until
+    the visitor clicks (that host is the only reason it's in
+    `next.config.js` `images.remotePatterns`). Don't put a bare
+    `<iframe src="…youtube…">` back on a page.
+  - **The iframe is inert** (`.case-study-player iframe { pointer-events: none }`
+    in `globals.css`). With the pointer reaching it, YouTube raised its title
+    bar and "More videos" panel and swallowed the hover the skin needs to show
+    its controls.
+  - **`onEnded` drops back to the poster**, before YouTube's end-screen grid of
+    suggestions can appear.
+  - **The skin CSS is served by `app/vendor/videojs-skin.css/route.ts`**, built
+    once at `next build` from the installed package with its `@layer` wrappers
+    removed. It can't be imported: it's written for Tailwind v4's native layers,
+    and Tailwind v3 crashes on its bare `@layer utilities;` and would purge its
+    `components` layer if inlined. Linked as-is, unlayered Tailwind preflight
+    would beat every layered skin rule. Linked from `VideoEmbed`, so only
+    pages with a video load it.
+
+  Controls: play, scrub, ±10s buttons (`.case-study-seek` — the default skin
+  has no control-bar slot, so they flank the centre and fade with the bar via
+  `data-controls-visible`), speed in the settings menu, volume, fullscreen.
+  There is **no quality selector**: YouTube's iframe API no longer lets a page
+  pick quality (that would need self-hosting, Mux/HLS). Instead the iframe is
+  laid out at **200% and scaled to 50%** in `globals.css`: YouTube picks the
+  stream from the player's layout size, and at its natural ~900px it settled on
+  480p/720p, which the owner reported. Measured after the change: the embed
+  steps up to hd1080, the top level that video offers. Don't remove it as an
+  odd-looking transform. Vidstack was the
+  first choice and is deprecated in favour of Video.js 10 — don't reintroduce it.
 - **Whether a project offers a case study is derived from its media**, in
   `ProjectModal.tsx` — `project.media.length > 0`. It used to be a hardcoded
   `id !== 5 && id !== 6`, which didn't know about Lens Lock (id 7, `media: []`)

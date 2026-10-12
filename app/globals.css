@@ -486,6 +486,90 @@ img { display: block; max-width: 100%; }
     --btn-disc-ink: var(--color-neutral-100);
   }
 
+  /* Case-study video (components/VideoEmbed.tsx). The YouTube iframe must
+     never receive the pointer: hovering it raised YouTube's own title bar and
+     "More videos" panel (the unwanted recommendations), and it swallowed the
+     hover the Video.js skin needs to show its controls. With the iframe inert,
+     every click and hover lands on the skin. */
+  .case-study-player iframe {
+    pointer-events: none;
+  }
+
+  /* Quality. YouTube's iframe API ignores quality requests (setPlaybackQuality
+     and `vq` are dead), so there is no quality menu — YouTube picks the stream
+     from the player's *layout* size and the connection. At its natural ~900px
+     the embed settled on 480p/720p and the owner couldn't change it. So the
+     iframe is laid out at twice the player's size and scaled back down with a
+     transform: YouTube sizes the stream for the doubled box (1080p where the
+     upload and connection allow), the visitor sees the same-size player,
+     sharper. Transforms don't change layout size, which is why this works;
+     costs extra bandwidth, which is the point. */
+  .case-study-player {
+    overflow: hidden;
+  }
+
+  .case-study-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200% !important;
+    height: 200% !important;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+  }
+
+  /* ±10s seek buttons, either side of the video's centre. Hidden whenever the
+     skin hides its own controls (it drops data-controls-visible), so they
+     come and go together with the control bar. */
+  .case-study-seek {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(4rem, 22%, 12rem);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .case-study-player:not([data-controls-visible]) .case-study-seek {
+    opacity: 0;
+  }
+
+  .case-study-seek button {
+    pointer-events: auto;
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 999px;
+    color: var(--color-neutral-100);
+    background: color-mix(in srgb, var(--color-bg) 55%, transparent);
+    backdrop-filter: blur(6px);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+
+  .case-study-seek button:hover,
+  .case-study-seek button:focus-visible {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .case-study-seek button:active {
+    transform: scale(0.94);
+  }
+
+  /* The "10" sits inside the circular arrow. */
+  .case-study-seek button span {
+    position: absolute;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .btn::before,
     .btn-disc {
