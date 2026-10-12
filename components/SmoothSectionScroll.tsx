@@ -34,6 +34,24 @@ const EDGE_TOLERANCE = 24;
    force it to its resting state. */
 const WATCHDOG_BUFFER = 600;
 
+/* Sections taller than the viewport (Projects, and any section that grows past
+   it on a short screen) used to scroll NATIVELY until their far edge, then hand
+   over to the section animation. On a quick scroll the browser's own smooth
+   wheel-scroll was still running when the next wheel event started our
+   animation, and the two fought over scrollTop for a few frames — reported as
+   the page "shaking like a small vibration". So the wheel is never handed to
+   the browser any more: inside a tall section it drives a short eased glide
+   that is clamped to the section's edges, and only one thing ever moves the
+   page.
+
+   INNER_GLIDE_SECONDS is the glide's time constant (exponential approach, so a
+   burst of wheel events retargets smoothly instead of queueing). Sections that
+   overflow by less than MIN_INNER_OVERFLOW px are treated as fitting: on a
+   732px-tall laptop screen Education and Hobbies run ~30px over, and making the
+   visitor scroll through 30px before the section change read as a hiccup. */
+const INNER_GLIDE_SECONDS = 0.14;
+const MIN_INNER_OVERFLOW = 80;
+
 /* Fired around the programmatic scroll so expensive always-on visuals (the hero's
    WebGL aura) can idle while the page is moving. */
 export const SCROLL_START_EVENT = 'sectionscroll:start';
@@ -59,6 +77,13 @@ export default function SmoothSectionScroll() {
 
     let animating = false;
     let rafId = 0;
+
+    /* Inner glide state — see INNER_GLIDE_SECONDS. */
+    let gliding = false;
+    let glideRaf = 0;
+    let glideY = 0;
+    let glideTarget = 0;
+    let glideLast = 0;
     let watchdogId = 0;
     let cooldownUntil = 0;
 
@@ -104,7 +129,42 @@ export default function SmoothSectionScroll() {
 
     // Returns whether it actually moved the page — a caller that gets `false`
     // knows nothing is in flight and it is free to fall back to native scroll.
+    function stopGlide() {
+      cancelAnimationFrame(glideRaf);
+      gliding = false;
+    }
+
+    function glideStep(now: number) {
+      const dt = Math.min(0.05, (now - glideLast) / 1000);
+      glideLast = now;
+      glideY += (glideTarget - glideY) * (1 - Math.exp(-dt / INNER_GLIDE_SECONDS));
+      if (Math.abs(glideTarget - glideY) < 0.5) glideY = glideTarget;
+      window.scrollTo({ top: glideY, behavior: 'instant' as ScrollBehavior });
+      if (glideY === glideTarget) {
+        gliding = false;
+      } else {
+        glideRaf = requestAnimationFrame(glideStep);
+      }
+    }
+
+    /* Move within a tall section, never past its edges. */
+    function glideWithin(box: SectionBox, delta: number) {
+      const min = box.top;
+      const max = Math.min(box.bottom - viewportH, maxScrollY);
+      if (!gliding) {
+        glideY = window.scrollY;
+        glideTarget = glideY;
+      }
+      glideTarget = Math.min(max, Math.max(min, glideTarget + delta));
+      if (!gliding && glideTarget !== glideY) {
+        gliding = true;
+        glideLast = performance.now();
+        glideRaf = requestAnimationFrame(glideStep);
+      }
+    }
+
     function animateTo(targetY: number, duration = DURATION) {
+      stopGlide();
       cancelAnimationFrame(rafId);
       clearTimeout(watchdogId);
       const startY = window.scrollY;
@@ -164,23 +224,59 @@ export default function SmoothSectionScroll() {
     const isExempt = (target: EventTarget | null) =>
       !!(target as HTMLElement | null)?.closest?.('[role="dialog"], [data-native-scroll]');
 
-    function goToAdjacent(direction: 1 | -1) {
+    /* Wheel deltas arrive in pixels, lines or pages depending on device and
+       OS settings; the glide wants pixels. */
+    const wheelPixels = (event: WheelEvent) =>
+      event.deltaMode === 1 ? event.deltaY * 16 : event.deltaMode === 2 ? event.deltaY * viewportH : event.deltaY;
+
+    /* Always claims the wheel event (returns true) when there is anywhere to
+       go; the browser never scrolls the page itself. */
+    function handleWheel(direction: 1 | -1, delta: number, allowSectionChange = true) {
       if (!boxes.length) return false;
 
-      const y = window.scrollY;
+      // Same guard as WATCHDOG_BUFFER, for the glide: if rAF has stalled
+      // (backgrounded tab, OS throttling), land it now rather than leaving
+      // `gliding` true and every section change held behind it.
+      if (gliding && performance.now() - glideLast > 250) {
+        window.scrollTo({ top: glideTarget, behavior: 'instant' as ScrollBehavior });
+        stopGlide();
+      }
+
+      const y = gliding ? glideTarget : window.scrollY;
       const index = currentIndex(y);
       const current = boxes[index];
+      const innerMax = Math.min(current.bottom - viewportH, maxScrollY);
+      const isTall = innerMax - current.top > MIN_INNER_OVERFLOW;
 
-      // A section taller than the viewport (Projects) scrolls normally until its
-      // far edge is reached — only then do we move on. The tolerance absorbs
-      // subpixel/DPI rounding drift (offsetTop/offsetHeight round to device
-      // pixels; scrollY/innerHeight can be fractional under non-100% display
-      // scaling), so the edge is never a few pixels out of reach.
-      if (direction > 0 && y + viewportH < current.bottom - EDGE_TOLERANCE) return false;
-      if (direction < 0 && y > current.top + EDGE_TOLERANCE) return false;
+      if (isTall) {
+        // Not at the edge we're heading for yet: glide within the section. The
+        // tolerance absorbs subpixel/DPI rounding drift (offsetTop/offsetHeight
+        // round to device pixels; scrollY can be fractional under non-100%
+        // display scaling), so the edge is never a few pixels out of reach.
+        const atEdge = direction > 0 ? y >= innerMax - EDGE_TOLERANCE : y <= current.top + EDGE_TOLERANCE;
+        if (!atEdge) {
+          glideWithin(current, delta);
+          return true;
+        }
+        // At the edge but the glide is still settling onto it: hold rather than
+        // starting the section animation on top of a moving page.
+        if (gliding) return true;
+      }
+
+      // A tiny delta never changes section — it can only nudge a glide.
+      if (!allowSectionChange) return true;
+
+      if (!isTall && direction < 0 && y > current.top + EDGE_TOLERANCE) {
+        // Left mid-section (scrollbar drag, keyboard): settle back to its top.
+        return animateTo(current.top);
+      }
 
       const next = boxes[index + direction];
-      if (!next) return false;
+      if (!next) {
+        // Past the last section boundary: let the tail of the page glide too.
+        glideWithin({ top: current.top, bottom: Math.max(current.bottom, maxScrollY + viewportH) }, delta);
+        return true;
+      }
 
       return animateTo(next.top);
     }
@@ -191,8 +287,13 @@ export default function SmoothSectionScroll() {
         event.preventDefault();
         return;
       }
-      if (Math.abs(event.deltaY) < 4) return;
-      if (goToAdjacent(event.deltaY > 0 ? 1 : -1)) event.preventDefault();
+      if (event.deltaY === 0) return;
+      // Tiny deltas (slow trackpad movement, the tail of an inertia curve) are
+      // still claimed, so the browser can't start a native scroll under us, but
+      // they only ever move the page as a glide inside a tall section — never a
+      // section change.
+      const small = Math.abs(event.deltaY) < 4;
+      if (handleWheel(event.deltaY > 0 ? 1 : -1, wheelPixels(event), !small)) event.preventDefault();
     }
 
     function onAnchorClick(event: MouseEvent) {
@@ -229,6 +330,7 @@ export default function SmoothSectionScroll() {
     document.addEventListener('click', onAnchorClick);
 
     return () => {
+      stopGlide();
       cancelAnimationFrame(rafId);
       cancelAnimationFrame(measureRaf);
       clearTimeout(watchdogId);

@@ -165,6 +165,17 @@ against `SECTION_IDS`.
   pointers and `prefers-reduced-motion`, which fall back to the CSS
   `scroll-snap-type` in `globals.css`. The duration and easing were tuned by hand —
   treat them as settled unless asked.
+- **The wheel is never handed back to the browser.** Sections taller than the
+  viewport used to scroll natively until their far edge, then switch to the
+  section animation. On a quick scroll the browser's own smooth wheel-scroll was
+  still running when the next tick started the animation, and the two fought
+  over `scrollTop` — reported as the page "shaking like a small vibration". Now
+  a tall section is scrolled by a short clamped glide (`INNER_GLIDE_SECONDS`) and
+  only one thing ever moves the page. Sections overflowing by under
+  `MIN_INNER_OVERFLOW` (80px) count as fitting: on the owner's 732px-tall
+  laptop screen Education and Hobbies run ~30px over, which is what first
+  triggered the native hand-off. Tiny deltas (`< 4`) are still claimed but can
+  only nudge a glide, never change section.
 - **The section-edge boundary check uses a 24px tolerance (`EDGE_TOLERANCE`), not
   a few px.** A real, reported "scrolling gets stuck" bug traced to this: the
   oversized Projects section only advances once its far edge is reached, and a
