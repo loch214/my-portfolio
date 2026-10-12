@@ -1,31 +1,45 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Hanken_Grotesk, Fragment_Mono } from "next/font/google";
+import { Newsreader } from "next/font/google";
+import localFont from "next/font/local";
 import Navigation from "@/components/Navigation";
 import MotionProvider from "@/components/MotionProvider";
 import SectionNav from "@/components/SectionNav";
 import SmoothSectionScroll from "@/components/SmoothSectionScroll";
-import AsciiField from "@/components/AsciiField";
+import ContourField from "@/components/ContourField";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
+/* Newsreader replaced Instrument Serif for the display and section titles.
+   Instrument Serif is a tall, condensed, very high-contrast face whose hairlines
+   thin out on a dark ground; Newsreader is an optical-size serif (opsz 6-72)
+   that stays sturdier and wider at the same size. Variable, so the opsz axis
+   tracks font-size on its own. */
+const newsreader = Newsreader({
   subsets: ["latin"],
   variable: "--font-heading",
-  weight: ["400"],
   style: ["normal", "italic"],
+  axes: ["opsz"],
   display: "swap",
+  // Next 14.2 ships no fallback metrics for Newsreader and logs an error
+  // trying to compute them; name the fallback outright instead.
+  adjustFontFallback: false,
+  fallback: ["Georgia", "serif"],
 });
 
-const hankenGrotesk = Hanken_Grotesk({
-  subsets: ["latin"],
+/* Geist (Vercel's screen face) for body, buttons and data. Loaded from the
+   `geist` package's own variable woff2 rather than next/font/google, because
+   Next 14.2's Google font list predates Geist. Bound to the same token names
+   the rest of the CSS already uses. */
+const geistSans = localFont({
+  src: "../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2",
   variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
+  weight: "100 900",
   display: "swap",
 });
 
-const fragmentMono = Fragment_Mono({
-  subsets: ["latin"],
+const geistMono = localFont({
+  src: "../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2",
   variable: "--font-mono",
-  weight: ["400"],
+  weight: "100 900",
   display: "swap",
 });
 
@@ -42,25 +56,24 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${hankenGrotesk.variable} ${fragmentMono.variable}`}
+      className={`${newsreader.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
       <body>
         {/*
           THESIS: A developer's proof-of-work staged like a screening room, not a SaaS template —
           restraint and one authored motion moment carry the credibility a badge grid would only claim.
-          OWN-WORLD: near-black ground (#0a0a09), single warm-brass accent (#c9a24b), oversized
-          Instrument Serif display over small tracked Fragment Mono labels, hairline dividers, no cards-of-icons.
+          OWN-WORLD: warm near-black ground, single warm-brass accent, Newsreader display over
+          Geist text and Geist Mono data, hairline dividers, no cards-of-icons.
           STORY: a recruiter/collaborator lands, reads who he is and what he's shipped in one scroll,
           leaves knowing whether to open a repo, the resume, or a contact link.
-          FIRST VIEWPORT: full-bleed hero, WebGL brass smoke tracking the pointer behind an
-          oversized per-character name reveal, one mono line of role, two rectangular CTAs bottom-left.
-          That smoke resolves into a live ASCII glyph field on the first scroll, one procedural
-          pattern per section below — see components/AsciiField.tsx.
+          FIRST VIEWPORT: full-bleed hero, per-character name reveal over one continuous contour
+          map whose lines warm to brass under the pointer; scrolling travels across the same map,
+          so there is never a cut between sections — see components/ContourField.tsx.
           FORM: dark cinematic editorial — brief-pinned by the user (not rolled); seed key: brief-pinned.
           FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review,
           the verdict, DESIGN.md, and every shipping raster carrying its provenance.
         */}
-        <AsciiField />
+        <ContourField />
         <MotionProvider>
           <SmoothSectionScroll />
           <SectionNav />

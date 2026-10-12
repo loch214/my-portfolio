@@ -37,7 +37,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ index, title, tags, icon: Icon, onClick }: ProjectCardProps) => (
   <motion.button
     onClick={onClick}
-    className="card group flex flex-col overflow-hidden text-left transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[var(--shadow-md)]"
+    className="card card-glass group flex flex-col overflow-hidden text-left transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[var(--shadow-md)]"
     variants={cardVariants}
     whileHover={{ y: -5 }}
     whileTap={{ y: -2, scale: 0.99 }}
@@ -95,7 +95,7 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <main className="min-h-screen bg-bg">
+    <main className="min-h-screen">
       <Hero data={personalData} />
       <AboutMe data={personalData} />
       <ScrollRevealSection data={personalData} />

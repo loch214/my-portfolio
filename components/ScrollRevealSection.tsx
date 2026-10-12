@@ -32,7 +32,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
             {data.education.map((edu, index) => (
               <motion.article
                 key={index}
-                className="card p-6 sm:p-7"
+                className="card card-glass p-6 sm:p-7"
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewport}
@@ -84,7 +84,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
             {data.sports.map((sport, index) => (
               <motion.article
                 key={index}
-                className="card p-6 sm:p-7"
+                className="card card-glass p-6 sm:p-7"
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewport}
@@ -136,7 +136,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
             ].map((item, index) => (
               <motion.div
                 key={item.label}
-                className="card p-5 sm:p-6"
+                className="card card-glass p-5 sm:p-6"
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewport}
@@ -149,7 +149,7 @@ export default function ScrollRevealSection({ data }: ScrollRevealSectionProps) 
             ))}
 
             <motion.div
-              className="card p-5 sm:col-span-2 sm:p-6"
+              className="card card-glass p-5 sm:col-span-2 sm:p-6"
               initial="hidden"
               whileInView="visible"
               viewport={viewport}

@@ -4,7 +4,7 @@ import { artData } from '@/data/personalData';
 
 export default function GalleryPage() {
   return (
-    <main className="min-h-screen bg-bg px-6 pb-20 pt-32 sm:px-8 lg:px-10">
+    <main className="min-h-screen px-6 pb-20 pt-32 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 flex flex-wrap items-baseline justify-between gap-6">
           <h1 className="t-h2 italic text-ink">Pencil &amp; pastel</h1>

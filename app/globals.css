@@ -18,11 +18,12 @@
   --color-accent: #c9a24b;
   --color-accent-2: #8f8a7c;
   --color-divider: color-mix(in srgb, #f3f0e6 13%, transparent);
-  /* Ink for the ASCII background field (components/AsciiField.tsx reads this
-     through getComputedStyle). Sits between neutral-700 and neutral-600: at
-     ~2:1 on the ground the glyphs register as texture without ever competing
-     with body copy. Raise it and the background starts pulling the eye. */
-  --color-field: #4c4738;
+  /* Ink for the contour lines of the background map (components/ContourField.tsx
+     reads this, --color-bg and --color-accent through getComputedStyle). The
+     lines are hairlines drawn at partial alpha, so the colour itself sits a
+     step brighter than the old glyph ink did; what reaches the screen is still
+     well under body-copy contrast. Raise it and the map starts pulling the eye. */
+  --color-field: #665e4d;
   /* Outline for interactive controls. --color-divider (13%) is right for
      hairlines between blocks but sits at 1.35:1 on the ground, which is well
      under the 3:1 WCAG asks of a control boundary — buttons outlined in it
@@ -171,7 +172,7 @@ img { display: block; max-width: 100%; }
     font-family: var(--font-heading), system-ui, serif;
     font-size: var(--text-display);
     line-height: var(--leading-display);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.025em;
     font-weight: 400;
   }
 
@@ -312,6 +313,16 @@ img { display: block; max-width: 100%; }
     border-radius: var(--radius-lg);
   }
 
+  /* Content panels on the scrolling page (education, sports, hobbies, project
+     cards) let the contour map show through faintly — owner's ask. Kept at
+     74% so the text still sits on near-solid ground; the map is also only
+     drawn at SECTION_MASK_FLOOR strength behind these sections (contour-field/
+     theme.ts), so both knobs set how much shows. Overlays (modal, menus) stay
+     on plain .card — they must be opaque. */
+  .card-glass {
+    background: color-mix(in srgb, var(--color-surface) 74%, transparent);
+  }
+
   /* ── Controls ─────────────────────────────────────────────────────────
      One button shape for the whole site. Before this, nine call sites carried
      five different padding pairs, three different radii and a 14px label, and
@@ -321,36 +332,90 @@ img { display: block; max-width: 100%; }
      44px is the WCAG 2.5.5 (AAA) target-size minimum and what both Apple and
      Material recommend — worth having by default on a page that is mostly
      read on a laptop trackpad or a phone. */
+  /* Pill, with a flood-fill hover: a circle of --btn-fill grows out from
+     --btn-origin until it covers the whole control and the label inverts to
+     --btn-on-fill. Adapted from 21st.dev's "Motion Button". All CSS on one
+     pseudo-element, so it costs nothing on the scroll hot path.
+
+     The circle is a clip-path, not a scaled disc. A disc has to be scaled far
+     past the button to cover a wide one, so on a normal-width button it was
+     covered in the first fifth of the transition and the fill read as a sudden
+     snap (owner: "not just suddenly fill colors and unfill"). A clip circle
+     sized to the button's own box reaches the far edge as the ease finishes,
+     so the whole duration is visible. The ease is a symmetric in-out curve
+     for the same reason, and the label changes colour mid-sweep, when the
+     fill actually reaches it, rather than at the start. */
   .btn {
+    --btn-fill: var(--color-neutral-100);
+    --btn-on-fill: var(--color-bg);
+    --btn-origin: 0px;
+    --btn-ease: cubic-bezier(0.65, 0, 0.35, 1);
+    --btn-sweep: 0.7s;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
     min-height: 2.75rem;
     padding: 0 1.25rem;
-    border-radius: var(--radius-md);
+    border-radius: 999px;
     font-family: var(--font-body), system-ui, sans-serif;
     font-size: var(--text-btn);
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: 0;
     white-space: nowrap;
-    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    transition:
+      background-color 0.4s ease,
+      border-color 0.5s ease,
+      color 0.35s ease calc(var(--btn-sweep) * 0.3);
   }
 
-  /* Chrome that sits inside the nav bar, where 44px would crowd the bar. */
+  .btn::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: var(--btn-fill);
+    clip-path: circle(0px at var(--btn-origin) 50%);
+    transition: clip-path var(--btn-sweep) var(--btn-ease), background-color 0.5s ease;
+  }
+
+  /* 150% of the box's reference radius reaches the far corner of any pill. */
+  .btn:hover::before,
+  .btn:focus-visible::before {
+    clip-path: circle(150% at var(--btn-origin) 50%);
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    color: var(--btn-on-fill);
+  }
+
+  /* Chrome that sits inside the nav bar, where 44px would crowd the bar. The
+     nav is pinned by the owner, so it keeps its original quiet hover and
+     skips the flood. */
   .btn-sm {
     min-height: 2.5rem;
     padding: 0 1rem;
   }
 
-  .btn-primary {
-    background: var(--color-accent);
-    color: var(--color-bg);
+  .btn-sm::before {
+    display: none;
   }
 
-  .btn-primary:hover {
-    background: var(--color-accent-400);
+  .btn-sm.btn-outline:hover,
+  .btn-sm.btn-outline:focus-visible {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .btn-primary {
+    --btn-fill: var(--color-accent-200);
+    background: var(--color-accent);
+    color: var(--color-bg);
   }
 
   .btn-outline {
@@ -358,9 +423,74 @@ img { display: block; max-width: 100%; }
     color: var(--color-neutral-100);
   }
 
-  .btn-outline:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+  .btn-outline:hover,
+  .btn-outline:focus-visible {
+    border-color: var(--color-neutral-100);
+  }
+
+  /* Arrow variant: a small disc carrying the icon sits at the left of the
+     pill, and the hover flood grows out of that disc. Markup:
+       <a class="btn btn-primary btn-arrow"><span class="btn-disc"><Icon/></span>Label</a>
+     The primary version trades its solid fill for a brass hairline so the
+     disc reads as the accent; the outline version's disc is neutral and
+     floods to off-white, which keeps the two apart side by side. */
+  .btn-arrow {
+    --btn-origin: calc(0.3125rem + 1.0625rem);
+    gap: 0.75rem;
+    padding-left: 0.3125rem;
+  }
+
+  /* At rest the clip circle is exactly the disc. */
+  .btn-arrow::before {
+    background: var(--btn-disc, var(--btn-fill));
+    clip-path: circle(1.0625rem at var(--btn-origin) 50%);
+  }
+
+  .btn-arrow:hover::before,
+  .btn-arrow:focus-visible::before {
+    background: var(--btn-fill);
+    clip-path: circle(150% at var(--btn-origin) 50%);
+  }
+
+  .btn-disc {
+    display: grid;
+    place-items: center;
+    width: 2.125rem;
+    height: 2.125rem;
+    flex: none;
+    color: var(--btn-disc-ink, var(--btn-on-fill));
+    transition: color 0.35s ease calc(var(--btn-sweep) * 0.1), transform 0.6s var(--btn-ease);
+  }
+
+  .btn-arrow:hover .btn-disc,
+  .btn-arrow:focus-visible .btn-disc {
+    color: var(--btn-on-fill);
+  }
+
+  .btn-arrow.btn-primary {
+    --btn-fill: var(--color-accent);
+    background: transparent;
+    color: var(--color-neutral-100);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 70%, transparent);
+  }
+
+  /* Restated because `.btn-arrow.btn-primary` above ties `.btn:hover` on
+     specificity and comes later, which left a light label on the brass flood. */
+  .btn-arrow.btn-primary:hover,
+  .btn-arrow.btn-primary:focus-visible {
+    color: var(--btn-on-fill);
+  }
+
+  .btn-arrow.btn-outline {
+    --btn-disc: var(--color-neutral-700);
+    --btn-disc-ink: var(--color-neutral-100);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn::before,
+    .btn-disc {
+      transition: none;
+    }
   }
 
   /* Icon-only control — dialog and drawer close. Same target as a text

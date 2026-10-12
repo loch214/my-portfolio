@@ -71,17 +71,21 @@ export default function Hero({ data }: HeroProps) {
           <motion.div {...fadeIn(0.94)} className="flex flex-wrap items-center gap-3 lg:justify-end">
             <a
               href="#projects"
-              className="btn btn-primary group"
+              className="btn btn-primary btn-arrow group"
             >
+              <span className="btn-disc" aria-hidden>
+                <ArrowDown size={16} strokeWidth={2.5} className="transition-transform group-hover:translate-y-0.5" />
+              </span>
               See the work
-              <ArrowDown size={16} strokeWidth={2.5} className="transition-transform group-hover:translate-y-0.5" />
             </a>
             <a
               href="#connect"
-              className="btn btn-outline group"
+              className="btn btn-outline btn-arrow group"
             >
+              <span className="btn-disc" aria-hidden>
+                <ArrowUpRight size={16} strokeWidth={2.5} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
               Get in touch
-              <ArrowUpRight size={16} strokeWidth={2.5} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </motion.div>
         </div>

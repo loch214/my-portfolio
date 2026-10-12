@@ -25,7 +25,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
 
   if (!project) {
     return (
-      <main className="grid min-h-screen place-items-center bg-bg px-6">
+      <main className="grid min-h-screen place-items-center px-6">
         <div className="max-w-xl text-center">
           <h1 className="t-h2 mb-4 text-ink">Project not found</h1>
           <p className="body-text mb-8">
@@ -43,7 +43,7 @@ export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) 
   }
 
   return (
-    <main className="min-h-screen bg-bg px-6 py-28 sm:px-8 lg:px-12">
+    <main className="min-h-screen px-6 py-28 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-4xl space-y-12">
         <div className="flex flex-col gap-6">
           <Link
