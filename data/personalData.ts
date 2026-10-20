@@ -1,5 +1,5 @@
 import type { IconType } from 'react-icons';
-import { FaBook, FaCar, FaHeartbeat, FaUser, FaMusic, FaChalkboardTeacher, FaSearch, FaShieldAlt, FaEnvelopeOpenText } from 'react-icons/fa';
+import { FaBook, FaCar, FaHeartbeat, FaUser, FaMusic, FaChalkboardTeacher, FaSearch, FaShieldAlt, FaEnvelopeOpenText, FaHospital } from 'react-icons/fa';
 export interface PersonalData {
   name: string;
   title: string;
@@ -141,6 +141,17 @@ export const artData: ArtPiece[] = [
 ];
 
 export const projectsData: Project[] = [
+  {
+    id: 10,
+    title: "CareLanka Hospital Management System",
+    description: "CareLanka is our group project for the Year 3 Semester 1 SE3090 module. It brings four parts of a hospital (emergency, staff, equipment and patients) into one system, so a bed can be prepared while the ambulance is still on the way. Staff use a React website, patients and ambulance crews use a Flutter phone app, and both talk to one shared .NET backend. I built the patient part. Each part also has an AI helper that drafts suggestions, like a reply to a patient's message, but a person always reviews and approves them before anything changes.",
+    tags: ["C#", ".NET", "React", "Flutter", "PostgreSQL", "Docker", "AI"],
+    icon: FaHospital,
+    githubUrl: "https://github.com/loch214/carelanka",
+    media: [
+      { type: 'video', url: 'https://www.youtube.com/embed/O3VtEQj4WMc', caption: 'Walkthrough of CareLanka across the staff website and the phone app.' },
+    ]
+  },
   {
     id: 1,
     title: "Chapterly E-commerce Bookstore",
