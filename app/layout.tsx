@@ -46,6 +46,8 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Lochana Dahanayake",
   description: "Software engineering student exploring practical solutions, one project at a time.",
+  // Google Search Console ownership check — remove only if the property is deleted there.
+  verification: { google: "MJ1FiIK9nbV-G-3TgFJBjUGOb_Z1CIwLE-jdQlkpQrM" },
 };
 
 export default function RootLayout({
