@@ -1,5 +1,5 @@
 import type { IconType } from 'react-icons';
-import { FaBook, FaCar, FaHeartbeat, FaUser, FaMusic, FaChalkboardTeacher, FaSearch, FaShieldAlt, FaEnvelopeOpenText, FaHospital } from 'react-icons/fa';
+import { FaBook, FaCar, FaHeartbeat, FaUser, FaMusic, FaChalkboardTeacher, FaSearch, FaShieldAlt, FaEnvelopeOpenText, FaHospital, FaSitemap } from 'react-icons/fa';
 export interface PersonalData {
   name: string;
   title: string;
@@ -141,6 +141,15 @@ export const artData: ArtPiece[] = [
 ];
 
 export const projectsData: Project[] = [
+  {
+    id: 11,
+    title: "Architecture Advisor",
+    description: "Architecture Advisor is a free web app that helps you pick a software architectural style for a system you're planning. You describe what matters to you, like scalability, cost or how fast the team needs to ship, and it ranks 13 styles with scores you can see. The ranking comes from a fixed set of rules built on published architecture books, so the same answers always give the same result. An AI model then writes a plain explanation and can only nudge each score a little, and the app still works fully if the AI is turned off.",
+    tags: ["TypeScript", "Next.js", "React", "Tailwind CSS", "Vitest", "AI"],
+    icon: FaSitemap,
+    githubUrl: "https://github.com/loch214/architecture-advisor",
+    media: []
+  },
   {
     id: 10,
     title: "CareLanka Hospital Management System",

@@ -209,7 +209,7 @@ against `SECTION_IDS`.
   noise, DPR capped at 1.75). Don't "fix" this back to a scroll-freeze.
 - **Case studies must stay prerendered, and their videos must stay
   click-to-play.** `app/projects/[id]/page.tsx` reads a static array, so it
-  carries `generateStaticParams` and all nine ids build as `● (SSG)`. Without
+  carries `generateStaticParams` and every id builds as `● (SSG)`. Without
   it the route builds as `ƒ` — server-rendered on demand — and every visit
   costs a function invocation plus a possible cold start for output that never
   changes. `dynamicParams` is left at its default so an unknown id still gets
