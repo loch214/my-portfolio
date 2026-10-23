@@ -48,8 +48,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://lochana-dahanayake.me"),
   title: "Lochana Dahanayake",
   description: "Software engineering student exploring practical solutions, one project at a time.",
-  // Google Search Console ownership check — remove only if the property is deleted there.
-  verification: { google: "MJ1FiIK9nbV-G-3TgFJBjUGOb_Z1CIwLE-jdQlkpQrM" },
+  // Google Search Console ownership checks — remove one only if its property is deleted there.
+  // The first is the old lochd-my-portfolio.vercel.app property, which must stay verified
+  // for Search Console's Change of Address to the .me property (the second) to keep working.
+  verification: {
+    google: ["MJ1FiIK9nbV-G-3TgFJBjUGOb_Z1CIwLE-jdQlkpQrM", "cyBt3pB-dDq7bVZOng7AIuj7SFa2lFX1bo9nZm0cJRc"],
+  },
 };
 
 export default function RootLayout({
