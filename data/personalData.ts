@@ -153,8 +153,8 @@ export const projectsData: Project[] = [
   {
     id: 10,
     title: "CareLanka Hospital Management System",
-    description: "CareLanka is our group project for the Year 3 Semester 1 SE3090 module. It brings four parts of a hospital (emergency, staff, equipment and patients) into one system, so a bed can be prepared while the ambulance is still on the way. Staff use a React website, patients and ambulance crews use a Flutter phone app, and both talk to one shared .NET backend. I built the patient part. Each part also has an AI helper that drafts suggestions, like a reply to a patient's message, but a person always reviews and approves them before anything changes.",
-    tags: ["C#", ".NET", "React", "Flutter", "PostgreSQL", "Docker", "AI"],
+    description: "CareLanka is our group project for the Year 3 Semester 1 SE3090 module. It brings four parts of a hospital (emergency, staff, equipment and patients) into one system, and each part has its own AI agent. The agents run a step-by-step loop we wrote ourselves in C# on top of Google Gemini: they look up live hospital data through a short list of read-only tools, weigh the options and draft a suggestion, like which ambulance to send or how to reply to a patient. They can never change records themselves. Fixed rules check every suggestion twice, a person approves it before anything happens, and if Gemini is down the agents fall back to plain rules. I built the patient part, including its agent that drafts replies to patient messages for a doctor or nurse to review. Staff use a React website, patients and ambulance crews use a Flutter phone app, and both talk to one shared .NET backend.",
+    tags: ["AI Agents", "Gemini", "C#", ".NET", "React", "Flutter", "PostgreSQL"],
     icon: FaHospital,
     githubUrl: "https://github.com/loch214/carelanka",
     media: [
