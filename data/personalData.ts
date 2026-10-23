@@ -65,7 +65,7 @@ export const personalData: PersonalData = {
   name: "Lochana Kavindu Dahanayake",
   title: "Student | Developer | Tinkerer",
   bio: "Exploring software engineering, building practical solutions, and continuously improving through every project.",
-  introduction: "Technology, music, and sport all pull from the same part of my brain. Music taught me to focus on one thing for a long time; sport taught me to keep showing up even when it's not going well. Both turned out to be useful for writing software, which is mostly patience and repetition dressed up as engineering.",
+  introduction: "Technology, music, and sports are a few things that always find their way into my world. Most of the time, it's about exploring creative ideas, building fun little projects, or making useful tools that make everyday life a bit easier. A bit of a perfectionist who likes things organized, well thought out, and done properly. Always curious to learn something new, especially through hands-on projects and learning from others. And through all of this, one thing stays constant: music in the background, no matter what's going on.",
   education: [
     {
       school: "D.S. Senanayake College",
