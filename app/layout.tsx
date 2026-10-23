@@ -44,6 +44,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  // The custom domain; lochd-my-portfolio.vercel.app 308-redirects here.
+  metadataBase: new URL("https://lochana-dahanayake.me"),
   title: "Lochana Dahanayake",
   description: "Software engineering student exploring practical solutions, one project at a time.",
   // Google Search Console ownership check — remove only if the property is deleted there.

@@ -1,6 +1,6 @@
 My Personal Portfolio
 
-This repository contains the source code for my personal portfolio website, which you can view live at: lochd-my-portfolio.vercel.app
+This repository contains the source code for my personal portfolio website, which you can view live at: lochana-dahanayake.me
 This project is a stunning, modern, and interactive personal website built with Next.js, React, TypeScript, Tailwind CSS, and Framer Motion. It was created to showcase my skills and passions, and has been deployed for free using a modern Git-based workflow.
 
 Tech Stack
@@ -40,4 +40,4 @@ Customization
 All personal information is stored in a central data file, making it easy to customize.
 Main Content: Edit data/personalData.ts to update your name, bio, education, sports, skills, and social media links.
 Art Gallery: To update the gallery, add your image files to the public/art/ directory. Then, edit the artData array in data/personalData.ts to include the correct filenames and titles for your pieces.
-https://lochd-my-portfolio.vercel.app/
+https://lochana-dahanayake.me/
