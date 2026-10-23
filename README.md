@@ -26,7 +26,7 @@ Node.js 18+ installed
 npm, yarn, or pnpm package manager
 *Installation
 1.Clone the repository and install dependencies:
-git clone https://github.com/loch214/my-portfolio.git
+git clone https://github.com/lochana-dahanayake/my-portfolio.git
 cd my-portfolio
 npm install
 

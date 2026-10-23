@@ -111,7 +111,7 @@ export const personalData: PersonalData = {
     },
     {
       platform: "GitHub",
-      url: "https://github.com/loch214",
+      url: "https://github.com/lochana-dahanayake",
       icon: "github"
     },
     {
@@ -147,7 +147,7 @@ export const projectsData: Project[] = [
     description: "Architecture Advisor is a free web app that helps you pick a software architectural style for a system you're planning. You describe what matters to you, like scalability, cost or how fast the team needs to ship, and it ranks 13 styles with scores you can see. The ranking comes from a fixed set of rules built on published architecture books, so the same answers always give the same result. An AI model then writes a plain explanation and can only nudge each score a little, and the app still works fully if the AI is turned off.",
     tags: ["TypeScript", "Next.js", "React", "Tailwind CSS", "Vitest", "AI"],
     icon: FaSitemap,
-    githubUrl: "https://github.com/loch214/architecture-advisor",
+    githubUrl: "https://github.com/lochana-dahanayake/architecture-advisor",
     media: []
   },
   {
@@ -156,7 +156,7 @@ export const projectsData: Project[] = [
     description: "CareLanka is our group project for the Year 3 Semester 1 SE3090 module. It brings four parts of a hospital (emergency, staff, equipment and patients) into one system, and each part has its own AI agent. The agents run a step-by-step loop we wrote ourselves in C# on top of Google Gemini: they look up live hospital data through a short list of read-only tools, weigh the options and draft a suggestion, like which ambulance to send or how to reply to a patient. They can never change records themselves. Fixed rules check every suggestion twice, a person approves it before anything happens, and if Gemini is down the agents fall back to plain rules. I built the patient part, including its agent that drafts replies to patient messages for a doctor or nurse to review. Staff use a React website, patients and ambulance crews use a Flutter phone app, and both talk to one shared .NET backend.",
     tags: ["AI Agents", "Gemini", "C#", ".NET", "React", "Flutter", "PostgreSQL"],
     icon: FaHospital,
-    githubUrl: "https://github.com/loch214/carelanka",
+    githubUrl: "https://github.com/lochana-dahanayake/carelanka",
     media: [
       { type: 'video', url: 'https://www.youtube.com/embed/O3VtEQj4WMc', caption: 'Walkthrough of CareLanka across the staff website and the phone app.' },
     ]
@@ -167,7 +167,7 @@ export const projectsData: Project[] = [
     description: "Chapterly Bookstore was my first real shot at building a full-stack app on my own. It’s basically an online bookstore where you can browse, add items to a cart, and check out. Since I was still learning and didn't know much about databases, I didn't use a real one—I just saved data in memory or files. That made it pretty limited, but it helped me understand how to connect the frontend to the backend and manage user actions.",
     tags: ["Java", "Spring Boot", "Thymeleaf", "MySQL", "Maven"],
     icon: FaBook,
-    githubUrl: "https://github.com/loch214/Chapterly-Bookstore",
+    githubUrl: "https://github.com/lochana-dahanayake/Chapterly-Bookstore",
     media: [
       { type: 'video', url: 'https://www.youtube.com/embed/7IeUJAgBgwY', caption: 'A full video walkthrough of the Chapterly Bookstore.' },
     ]
@@ -178,7 +178,7 @@ export const projectsData: Project[] = [
     description: "This is the project I built for the Year 2 Semester 1 SE2030 module. It's a simple management platform with separate dashboards for students, teachers, and admins. The main focus was on role-based access and actions, so each type of user only sees and does what they are allowed to inside the system.",
     tags: ["Java", "Spring Boot", "Thymeleaf", "MySQL"],
     icon: FaChalkboardTeacher,
-    githubUrl: "https://github.com/loch214/learn-mate-system",
+    githubUrl: "https://github.com/lochana-dahanayake/learn-mate-system",
     media: [
       { type: 'video', url: 'https://www.youtube.com/embed/B6u5wYHMLtw', caption: 'Full walkthrough showing role-based flows inside Learn Mate.' },
     ]
@@ -189,7 +189,7 @@ export const projectsData: Project[] = [
     description: "This was an experiment to see if I could build and deploy a real-time AI service entirely on my own. The biggest challenge by far was training a YOLOv5 model on my personal laptop. With a limited dataset and hardware, the model's accuracy is not high enough for a production environment. However, i did engineering the complete pipeline: training the model, diagnosing its weaknesses, and deploying it as a stable REST API using FastAPI.",
     tags: ["Python", "FastAPI", "YOLOv5", "PyTorch", "Computer Vision"],
     icon: FaCar,
-    githubUrl: "https://github.com/loch214/car-brand-detection-API",
+    githubUrl: "https://github.com/lochana-dahanayake/car-brand-detection-API",
     media: [
       { type: 'video', url: 'https://www.youtube.com/embed/XdOVrvLiZUE', caption: 'Live demo showing the API identifying car brands in real-time.' },
       { type: 'video', url: 'https://www.youtube.com/embed/-Wu_t6wKU9w', caption: 'Short video covering the 150-epoch model training workflow.' },
@@ -201,7 +201,7 @@ export const projectsData: Project[] = [
     description: "I built this during our second-year AIML module as a first try at a full machine learning pipeline. I used a Random Forest model and got around 90% accuracy, but that only came after a lot of data cleaning, preprocessing, and tuning with GridSearchCV. Most of the work was actually on getting the dataset into a usable state before training.",
     tags: ["Python", "Machine Learning", "Scikit-learn", "Random Forest"],
     icon: FaHeartbeat,
-    githubUrl: "https://github.com/loch214/AI-Diabetes-Prediction",
+    githubUrl: "https://github.com/lochana-dahanayake/AI-Diabetes-Prediction",
     media: [
       { type: 'video', url: 'https://www.youtube.com/embed/UjL3vI7j3Bk', caption: 'Google Colab run-through from dataset upload to live predictions.' },
     ]
@@ -212,7 +212,7 @@ export const projectsData: Project[] = [
     description: "This project turned out to be a fantastic lesson in the difficulty of machine learning. The goal was to classify songs into 10 genres, but the final model's accuracy topped out around 65%—far from reliable. It frequently confused similar genres like rock and metal. The low performance wasn't a failure, but a discovery: classifying something as subjective as music requires more than standard features. This project taught me more from its shortcomings than any success could have, highlighting the critical importance of feature engineering and the need for deep learning on complex, nuanced data.",
     tags: ["Python", "Machine Learning", "Streamlit", "Librosa", "Scikit-learn"],
     icon: FaMusic,
-    githubUrl: "https://github.com/loch214/Song-GenreClassifier",
+    githubUrl: "https://github.com/lochana-dahanayake/Song-GenreClassifier",
     media: [
       { type: 'video', url: 'https://youtube.com/embed/your-video-id', caption: 'A video showing the Streamlit app classifying different songs.' },
       { type: 'image', url: '/projects/genre-1.png', caption: 'The user interface of the genre classification app.' },
@@ -224,7 +224,7 @@ export const projectsData: Project[] = [
     description: "This portfolio started as a side project to learn Next.js, TypeScript, Tailwind CSS, and Framer Motion properly. I designed the layout myself and kept iterating on the animations and sections until it felt smooth and easy to read. I also set it up on Vercel so I can push changes from GitHub and see them live without any extra steps.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     icon: FaUser,
-    githubUrl: "https://github.com/loch214/my-portfolio",
+    githubUrl: "https://github.com/lochana-dahanayake/my-portfolio",
     media: [
       { type: 'image', url: '/projects/portfolio-1.png', caption: 'The main landing page of the portfolio.' },
     ]
@@ -235,7 +235,7 @@ export const projectsData: Project[] = [
     description: "This tool analyzes suspicious emails to spot phishing attempts. A user can upload an email file (.eml, .pdf) or paste its raw text. The application then scans for common red flags. It checks for technical issues like faked sender addresses and misleading links that point to different domains than the sender's. It also uses Apache PDFBox to read and analyze the text inside PDF attachments. The backend is built with Java and Spring Boot, serving a REST API. The frontend is a simple static page using HTML, CSS, and vanilla JavaScript to interact with the API. The main limitation is its reliance on a fixed keyword list, which can incorrectly flag legitimate emails (false positives). The next step is to replace this keyword-based logic with a trained AI model that can understand the context of the email for more accurate threat detection.",
     tags: ["Java", "Spring Boot", "HTML", "CSS", "JavaScript", "Apache PDFBox", "Security"],
     icon: FaEnvelopeOpenText,
-    githubUrl: "https://github.com/loch214/Phish-Hawk",
+    githubUrl: "https://github.com/lochana-dahanayake/Phish-Hawk",
     media: [
       { type: 'video', url: 'https://www.youtube.com/embed/7S0rk_1c0Nc', caption: 'Demo showing how Phish-Hawk flags phishing emails.' }
     ]
@@ -246,8 +246,8 @@ export const projectsData: Project[] = [
     description: "This project is the next version of Phish-Hawk, upgrading its core logic from a simple keyword-checker to a smart AI model. While users still upload files or paste text just like in V1, the analysis is now far more intelligent.\nThe biggest change was replacing the old, rigid keyword system that caused false positives. I built a custom deep learning model in Python using PyTorch, training it on over 190,000 real emails. This new \"brain\" can now understand the context of an email, making it much better at spotting real phishing patterns while ignoring legitimate messages.\nTo make this work, I re-architected the project into two parts: the main Java/Spring Boot application and a separate Python microservice (using FastAPI) that serves the AI model. The Java app calls the Python service to get an analysis, showing how different technologies can work together in a modern application. The result is a more accurate and powerful Phish-Hawk that fixes the main limitation of the original version.",
     tags: ["Java", "Spring Boot", "Python", "FastAPI", "PyTorch", "Microservices", "AI", "Security"],
     icon: FaEnvelopeOpenText,
-    githubUrl: "https://github.com/loch214/phish-hawk-v2.git",
-    additionalGithubUrls: ["https://github.com/loch214/phish-hawk-AI"],
+    githubUrl: "https://github.com/lochana-dahanayake/phish-hawk-v2.git",
+    additionalGithubUrls: ["https://github.com/lochana-dahanayake/phish-hawk-AI"],
     media: [
       { type: 'video', url: 'https://www.youtube.com/embed/ATui4X2aVi4', caption: 'YouTube demo for Phish-Hawk V2' }
     ]
@@ -258,7 +258,7 @@ export const projectsData: Project[] = [
     description: "Lens-Lock is a digital privacy tool that scans images for hidden metadata like GPS coordinates and device details. Users can visualize the location on a map and download a sanitized \"safe\" version with the data removed. Built with Java Spring Boot, React, and Tailwind CSS.",
     tags: ["Java", "Spring Boot", "React", "Tailwind CSS", "Privacy"],
     icon: FaShieldAlt,
-    githubUrl: "https://github.com/loch214/lens-lock-metadata-tool",
+    githubUrl: "https://github.com/lochana-dahanayake/lens-lock-metadata-tool",
     media: []
   }
 ];
