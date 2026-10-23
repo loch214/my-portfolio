@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { projectsData } from '@/data/personalData';
@@ -17,6 +18,10 @@ interface ProjectCaseStudyProps {
    than a bare 404. */
 export function generateStaticParams() {
   return projectsData.map((project) => ({ id: String(project.id) }));
+}
+
+export function generateMetadata({ params }: ProjectCaseStudyProps): Metadata {
+  return { alternates: { canonical: `/projects/${params.id}` } };
 }
 
 export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) {

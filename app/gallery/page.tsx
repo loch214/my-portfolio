@@ -1,6 +1,11 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { artData } from '@/data/personalData';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/gallery' },
+};
 
 export default function GalleryPage() {
   return (

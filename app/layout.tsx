@@ -48,6 +48,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://lochana-dahanayake.me"),
   title: "Lochana Dahanayake",
   description: "Software engineering student exploring practical solutions, one project at a time.",
+  // Tells Google the .me address is the real one. The home page is a client component and
+  // can't export metadata, so the default lives here; /gallery and /projects/[id] override it.
+  alternates: { canonical: "/" },
   // Google Search Console ownership checks — remove one only if its property is deleted there.
   // The first is the old lochd-my-portfolio.vercel.app property, which must stay verified
   // for Search Console's Change of Address to the .me property (the second) to keep working.
