@@ -47,7 +47,8 @@ export const metadata: Metadata = {
   // The custom domain; lochd-my-portfolio.vercel.app 308-redirects here.
   metadataBase: new URL("https://lochana-dahanayake.me"),
   title: "Lochana Dahanayake",
-  description: "Software engineering student exploring practical solutions, one project at a time.",
+  // Only shown in search results and link previews, not on the page itself.
+  description: "Projects, case studies and a bit about me. Software engineering student at SLIIT, curious about learning new skills.",
   // Tells Google the .me address is the real one. The home page is a client component and
   // can't export metadata, so the default lives here; /gallery and /projects/[id] override it.
   alternates: { canonical: "/" },

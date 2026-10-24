@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { artData } from '@/data/personalData';
 
 export const metadata: Metadata = {
+  title: 'Art gallery — Lochana Dahanayake',
+  description: 'Pencil, pastel and digital pieces by Lochana Dahanayake.',
   alternates: { canonical: '/gallery' },
 };
 

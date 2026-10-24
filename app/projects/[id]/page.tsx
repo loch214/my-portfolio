@@ -20,8 +20,19 @@ export function generateStaticParams() {
   return projectsData.map((project) => ({ id: String(project.id) }));
 }
 
+/* Each case study needs its own title and description. Inheriting the home
+   page's let Google treat them as copies of it, and a search for the name
+   landed on a case study instead of the home page. */
 export function generateMetadata({ params }: ProjectCaseStudyProps): Metadata {
-  return { alternates: { canonical: `/projects/${params.id}` } };
+  const project = projectsData.find((item) => item.id === Number(params.id));
+  if (!project) return { title: 'Project not found — Lochana Dahanayake' };
+
+  const firstSentence = project.description.split(/(?<=\.)\s/)[0];
+  return {
+    title: `${project.title} — Lochana Dahanayake`,
+    description: firstSentence.length > 160 ? `${firstSentence.slice(0, 157).trimEnd()}…` : firstSentence,
+    alternates: { canonical: `/projects/${params.id}` },
+  };
 }
 
 export default function ProjectCaseStudyPage({ params }: ProjectCaseStudyProps) {
