@@ -6,7 +6,23 @@ import MotionProvider from "@/components/MotionProvider";
 import SectionNav from "@/components/SectionNav";
 import SmoothSectionScroll from "@/components/SmoothSectionScroll";
 import ContourField from "@/components/ContourField";
+import { personalData } from "@/data/personalData";
 import "./globals.css";
+
+/* Structured data for search engines: says the site, the LinkedIn, the YouTube
+   channel and the GitHub profile all belong to one person, so a name search can
+   group them and prefer the GitHub profile over individual repos. */
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Lochana Dahanayake",
+  alternateName: personalData.name,
+  url: "https://lochana-dahanayake.me",
+  sameAs: [
+    ...personalData.socialLinks.map((link) => link.url).filter((url) => url.startsWith("https://")),
+    "https://www.youtube.com/@LochanaDahanayake-m5z5y",
+  ],
+};
 
 /* Newsreader replaced Instrument Serif for the display and section titles.
    Instrument Serif is a tall, condensed, very high-contrast face whose hairlines
@@ -85,6 +101,10 @@ export default function RootLayout({
           FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review,
           the verdict, DESIGN.md, and every shipping raster carrying its provenance.
         */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <ContourField />
         <MotionProvider>
           <SmoothSectionScroll />

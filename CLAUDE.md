@@ -260,6 +260,15 @@ against `SECTION_IDS`.
   and so linked to a page with a heading, a repo button and nothing under them.
   The two ids are a separate, older opt-out and are still there; they belong in
   `personalData.ts` as a field. Adding a project with no media is now safe.
+- **Only the home page is meant to appear in search results** (owner's call,
+  2026-10). Case studies and `/gallery` carry `robots: noindex, follow` and are
+  left out of `app/sitemap.ts`; a name search was landing on `/projects/3`
+  instead of the home page. They still get their own titles and descriptions.
+  `CharacterReveal` renders an `.sr-only` plain copy of its text because its
+  glyph spans start at `opacity: 0` with no real spaces, which is how the hero
+  name looked to crawlers and screen readers; `measureHeroMask` skips that copy.
+  The root layout's `personJsonLd` ties the site to the LinkedIn, YouTube and
+  GitHub profiles.
 - **`css.d.ts`** declares `*.css` so TS 6+ doesn't flag the `globals.css`
   side-effect import (TS2882) — Next only ships types for `*.module.css`. Keep it.
 - **`components/ContourField.tsx`** is the page's shared background (2026-10,

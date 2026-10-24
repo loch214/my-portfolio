@@ -236,7 +236,8 @@ export default function ContourField() {
       const heading = hero.querySelector('h1');
       if (heading) {
         const leaves = Array.from(heading.querySelectorAll<HTMLElement>('span')).filter(
-          (el) => el.children.length === 0 && el.textContent?.trim()
+          // .sr-only is CharacterReveal's invisible plain-text copy, not a glyph.
+          (el) => el.children.length === 0 && el.textContent?.trim() && !el.classList.contains('sr-only')
         );
         // No per-character spans under prefers-reduced-motion, where
         // CharacterReveal renders plain text: fall back to the heading itself.

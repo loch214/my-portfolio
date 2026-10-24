@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: 'Art gallery — Lochana Dahanayake',
   description: 'Pencil, pastel and digital pieces by Lochana Dahanayake.',
   alternates: { canonical: '/gallery' },
+  // Kept out of search results, like the case studies: only the home page should show.
+  robots: { index: false, follow: true },
 };
 
 export default function GalleryPage() {

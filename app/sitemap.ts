@@ -1,13 +1,9 @@
 import type { MetadataRoute } from "next";
-import { projectsData } from "@/data/personalData";
 
 const SITE = "https://lochana-dahanayake.me";
 
-// Lists every page for search engines; served at /sitemap.xml.
+// Served at /sitemap.xml. Home page only: the case studies and gallery are
+// marked noindex, because a name search should land on the home page.
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    { url: SITE, priority: 1 },
-    { url: `${SITE}/gallery`, priority: 0.5 },
-    ...projectsData.map((project) => ({ url: `${SITE}/projects/${project.id}`, priority: 0.7 })),
-  ];
+  return [{ url: SITE, priority: 1 }];
 }

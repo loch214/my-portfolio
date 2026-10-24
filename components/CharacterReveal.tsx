@@ -33,8 +33,12 @@ export default function CharacterReveal({
 
   return (
     <MotionTag className={`inline-flex flex-wrap ${className}`}>
+      {/* The glyph spans start invisible and carry no real spaces, so search
+          engines and screen readers read this plain copy instead. The trailing
+          space keeps two stacked reveals in one heading from running together. */}
+      <span className="sr-only">{`${text} `}</span>
       {words.map((word, wi) => (
-        <span key={wi} className="inline-flex whitespace-nowrap" style={{ marginRight: '0.28em' }}>
+        <span key={wi} aria-hidden="true" className="inline-flex whitespace-nowrap" style={{ marginRight: '0.28em' }}>
           {word.split('').map((char, ci) => {
             const i = charIndex++;
             return (
